@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'djoser',
-    'rest_framework_simple_jwt',
+    'rest_framework_simplejwt',
     'users',
 ]
 
