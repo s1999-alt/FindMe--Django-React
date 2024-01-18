@@ -5,6 +5,7 @@ import '../Styles/auth.scss'
 import { Route, Routes } from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
+import ResetPasswordPage from "./ResetPasswordPage";
 
 
 const Authenticator = () => {
@@ -38,6 +39,7 @@ const Authenticator = () => {
       <Routes>
         <Route path="/register" element={<Register/>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/reset-password" element={<ResetPasswordPage/>} />
       </Routes>
       </p>
     </div>

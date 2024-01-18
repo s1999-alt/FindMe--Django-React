@@ -9,10 +9,10 @@ const registerIcon = (
     xmlnsXlink="http://www.w3.org/1999/xlink"
     version="1.1"
     width="24"
-    height="24"
+    height="24" 
     viewBox="0 0 24 24"
   >
-    <path d="M12 0L11.34 .03L15.15 3.84L16.5 2.5C19.75 4.07 22.09 7.24 22.45 11H23.95C23.44 4.84 18.29 0 12 0M12 4C10.07 4 8.5 5.57 8.5 7.5C8.5 9.43 10.07 11 12 11C13.93 11 15.5 9.43 15.5 7.5C15.5 5.57 13.93 4 12 4M12 6C12.83 6 13.5 6.67 13.5 7.5C13.5 8.33 12.83 9 12 9C11.17 9 10.5 8.33 10.5 7.5C10.5 6.67 11.17 6 12 6M... (rest of the path)" />
+    <path d="M19 13H21V16H24V18H21V21H19V18H16V16H19V13M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2M12 4A6 6 0 0 1 18 10H16A4 4 0 0 0 12 6A4 4 0 0 0 8 10H6A6 6 0 0 1 12 4M12 8A2 2 0 1 1 10 10A2 2 0 0 1 12 8Z" />
   </svg>
 );
 
@@ -55,7 +55,7 @@ const Navbar = () => {
           <h3 className="text-2xl font-medium text-blue-500">
             <img
               className="h-7 object-cover"
-              src="/public/logo.jpg"
+              src="/logo.jpg"
               alt="Store Logo"
             />
           </h3>

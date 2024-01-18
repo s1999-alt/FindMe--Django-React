@@ -1,6 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    "email" : "",
+    "password" : "",
+  });
+
+  const {email, password} = formData
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value
+  })
+    )
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
+
+  
   return (
   <div>
     <form className="form">
@@ -35,7 +56,7 @@ const Login = () => {
           <input type="checkbox" />
           <label>Remember me </label>
         </div>
-        <span className="span">Forgot password?</span>
+        <Link to="/auth/reset-password" className="span">Forgot password?</Link>
       </div>
       <button className="button-submit">Sign In</button>
       <p className="p">Don't have an account? <span className="span">Sign Up</span></p>

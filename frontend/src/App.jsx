@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import Navbar from './components/navigation/Navbar'
 import Login from './pages/Login'
 import Authenticator from './pages/Authenticator'
+import ActivatePage from './pages/ActivatePage';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/auth/*" element={<Authenticator/>} />
+        <Route path="/account-activate" element={<ActivatePage/>} />
       </Routes>
     </Router>
     <ToastContainer />
