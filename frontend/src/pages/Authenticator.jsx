@@ -8,6 +8,7 @@ import Login from "./Login";
 import ResetPasswordPage from "./ResetPasswordPage";
 
 
+
 const Authenticator = () => {
   const [vantaEffect, setVantaEffect] = useState(0);
   const vantaRef = useRef(null);

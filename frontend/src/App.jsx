@@ -14,9 +14,9 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
+    <div>
+    <Navbar />
     <Router>
-      <Navbar />
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/auth/*" element={<Authenticator/>} />
@@ -24,7 +24,7 @@ function App() {
       </Routes>
     </Router>
     <ToastContainer />
-    </>
+    </div>
   )
 }
 
