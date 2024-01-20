@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
+
 
 const ResetPasswordPage = () => {
   const [formData, setFormData] = useState({
@@ -19,9 +21,7 @@ const ResetPasswordPage = () => {
     e.preventDefault()
   }
 
-  
   return (
-  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
   <div>
     <form className="form">
     <h2 style={{ fontWeight: 500, fontSize: '1.5rem', margin: '20px 0', textAlign: 'center' }}>
@@ -39,10 +39,9 @@ const ResetPasswordPage = () => {
         <input type="text" className="input" name='email' placeholder="Enter your Email" onChange={handleChange} value={email} required />
       </div>
       <button className="button-submit" onClick={handleSubmit}>Reset</button>
-      <p className="p">Don't have an account? <span className="span">Sign Up</span></p>
+      <p className="p">Don't have an account? <Link className="span" to="/auth/register">Sign Up</Link></p>
     </form>
   </div>
-</div>
   )
 }
 

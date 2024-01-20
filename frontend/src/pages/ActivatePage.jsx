@@ -1,11 +1,22 @@
-import React from 'react'
+import React from 'react';
+import { FaUserCheck } from 'react-icons/fa';
+import '../Styles/ActivatePage.scss'
 
 const ActivatePage = () => {
-  return (
-    <div>
-      helloooooo
-    </div>
-  )
-}
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
-export default ActivatePage
+  return (
+    <div className="activate-container">
+      <div className="activate-content">
+        <h1 className="activate-heading">Activate Account <FaUserCheck /></h1>
+        <button className="button-submit" onClick={handleSubmit}>
+          Activate
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default ActivatePage;

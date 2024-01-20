@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 
@@ -121,7 +122,7 @@ const Register = () => {
         </button>
 
         <p className="signin">
-          Already have an account? <a href="#">Sign in</a>
+          Already have an account? <Link to="/auth/login">Sign in</Link>
         </p>
       </form>
     </div>

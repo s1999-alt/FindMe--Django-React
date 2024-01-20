@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Register from './pages/Register'
 import Home from './pages/Home'
+import './Styles/auth.scss'
 import Navbar from './components/navigation/Navbar'
 import Login from './pages/Login'
 import Authenticator from './pages/Authenticator'

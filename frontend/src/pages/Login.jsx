@@ -59,8 +59,7 @@ const Login = () => {
         <Link to="/auth/reset-password" className="span">Forgot password?</Link>
       </div>
       <button className="button-submit">Sign In</button>
-      <p className="p">Don't have an account? <span className="span">Sign Up</span></p>
-      <p className="p line">Or With</p>
+      <p className="p">Don't have an account? <Link className="span" to="/auth/register">Sign Up</Link></p>
 
       <div className="flex-row">
         <button className="btn google">
