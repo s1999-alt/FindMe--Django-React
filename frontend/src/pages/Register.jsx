@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../features/auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 const Register = () => {
@@ -14,6 +17,11 @@ const Register = () => {
   });
 
   const {first_name, last_name, email, phone, password, re_password} = formData
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const {user, isError, isSuccess, isLoading, message } = useSelector( (state) => state.auth)
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -29,7 +37,34 @@ const Register = () => {
     if (password != re_password){
       toast.error("password do not match")
     }
+    else
+    {
+      const userData = {
+        first_name,
+        last_name,
+        email,
+        phone,
+        password,
+        re_password
+      }
+      dispatch(register(userData))
+    }
   }
+
+  useEffect( () => {
+    if (isError)
+    {
+      toast.error(message)
+    }
+
+    if(isSuccess || user)
+    {
+      navigate("/")
+      toast.success("An activation email has been sent to your email.please check your email")
+    }
+  })
+
+
 
   return (
     <div className='regis'>
