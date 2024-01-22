@@ -2,13 +2,13 @@ import { useState } from 'react'
 import {Route, BrowserRouter as Router, Routes} from "react-router-dom"
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import Register from './pages/Register'
 import Home from './pages/Home'
 import './Styles/auth.scss'
 import Navbar from './components/navigation/Navbar'
-import Login from './pages/Login'
 import Authenticator from './pages/Authenticator'
 import ActivatePage from './pages/ActivatePage';
+import PageNotFound from './pages/PageNotFound';
+import UserWrapper from './wrapper/userWrapper';
 
 
 function App() {
@@ -16,12 +16,14 @@ function App() {
 
   return (
     <div>
-    <Navbar />
+    {/* <Navbar /> */}
     <Router>
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/auth/*" element={<Authenticator/>} />
+        {/* <Route path="/" element={<Home/>} />
+        <Route path="/auth/*" element={<Authenticator/>} /> */}
+        
         <Route path="/account-activate" element={<ActivatePage/>} />
+        <Route path="*" element={<UserWrapper/>} />
       </Routes>
     </Router>
     <ToastContainer />

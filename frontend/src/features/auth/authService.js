@@ -1,4 +1,5 @@
 import axios from "axios"
+import Login from "../../pages/Login"
 
 const BACKEND_DOMAIN = "http://localhost:8000"
 
@@ -22,9 +23,47 @@ const register = async (userData) => {
   const responce = await axios.post(REGISTER_URL, userData, config)
 
   return responce.data
-
 }
 
-const authService = {register}
+
+// Login user
+
+const login = async (userData) => {
+  const config = {
+    headers: {
+      "Content-type" : "application/json"
+    }
+  }
+  const responce = await axios.post(LOGIN_URL, userData, config)
+
+  if(responce.data){
+    localStorage.setItem("user", JSON.stringify(responce.data))
+  }
+  return responce.data
+}
+
+
+//Logout
+
+const logout = () => {
+  return localStorage.removeItem("user")
+}
+
+
+//Activate User
+
+const activate = async (userData) => {
+  const config = {
+    headers: {
+      "Content-type":"application/json"
+    }
+  }
+  const responce = await axios.post(ACTIVATE_URL, userData, config)
+
+  return responce.data
+}
+
+
+const authService = {register, login, logout, activate}
 
 export default authService
