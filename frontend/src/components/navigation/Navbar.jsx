@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { logout, reset } from '../../features/auth/authSlice';
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-
+import {toast} from 'react-toastify'
 
 
 
@@ -71,6 +68,7 @@ const accountIcon = (
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const { user } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
@@ -100,7 +98,7 @@ const Navbar = () => {
 
       {/* Links Section - Hidden on Small Screens */}
       <div className={`items-center hidden space-x-8 lg:flex ${isMobileMenuOpen ? 'hidden' : ''}`}>
-        <NavLink to="" className="flex text-gray-600 hover:text-blue-500 cursor-pointer transition-colors duration-300">
+        <NavLink to="/" className="flex text-gray-600 hover:text-blue-500 cursor-pointer transition-colors duration-300">
           Home
         </NavLink>
 
@@ -122,13 +120,13 @@ const Navbar = () => {
         {!user ? (
           <>
             {/* Register */}
-            <NavLink className="flex text-gray-600 hover:text-blue-500 cursor-pointer transition-colors duration-300">
+            <NavLink to="/auth/register/" className="flex text-gray-600 hover:text-blue-500 cursor-pointer transition-colors duration-300">
               {registerIcon}
               Register
             </NavLink>
 
             {/* Login */}
-            <NavLink className="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600">
+            <NavLink to="/auth/login/" className="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600">
               {loginIcon}
               Login
             </NavLink>

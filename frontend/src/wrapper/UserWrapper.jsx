@@ -3,6 +3,8 @@ import { Outlet, useRoutes } from 'react-router-dom'
 import Authenticator from '../pages/Authenticator'
 import Home from '../pages/Home'
 import Navbar from '../components/navigation/Navbar'
+import PageNotFound from '../pages/PageNotFound'
+import ActivatePage from '../pages/ActivatePage'
 
 function UserWrapper() {
   const routes = useRoutes([{
@@ -14,11 +16,12 @@ function UserWrapper() {
     ),
     children:[
       {path: "/auth/*", element:<Authenticator/>},
-      {path: "/", element: <Home/>}
+      {path: "/", element: <Home/>},
+      {path: "/activate/:uid/:token", element: <ActivatePage/>}
     ],
   },
   {
-    element: <div> not found 404</div>, path:'*'
+    element: <PageNotFound/>, path:'*'
   }
 ])
   return routes

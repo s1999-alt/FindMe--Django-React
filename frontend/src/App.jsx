@@ -16,13 +16,8 @@ function App() {
 
   return (
     <div>
-    {/* <Navbar /> */}
     <Router>
       <Routes>
-        {/* <Route path="/" element={<Home/>} />
-        <Route path="/auth/*" element={<Authenticator/>} /> */}
-        
-        <Route path="/account-activate" element={<ActivatePage/>} />
         <Route path="*" element={<UserWrapper/>} />
       </Routes>
     </Router>

@@ -59,7 +59,7 @@ const Register = () => {
 
     if(isSuccess || user)
     {
-      navigate("/")
+      navigate("/auth/login/")
       toast.success("An activation email has been sent to your email.please check your email")
     }
   })
