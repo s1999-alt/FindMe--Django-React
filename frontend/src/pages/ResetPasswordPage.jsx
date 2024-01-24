@@ -1,5 +1,10 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import {toast} from 'react-toastify'
+import Spinner from '../components/navigation/Spinner';
+import { resetPassword } from '../features/auth/authSlice';
+
 
 
 const ResetPasswordPage = () => {
@@ -8,6 +13,11 @@ const ResetPasswordPage = () => {
   });
 
   const {email} = formData
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const { isLoading, isError, isSuccess, message } = useSelector((state) => state.auth)
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -19,7 +29,25 @@ const ResetPasswordPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    
+    const userData = {
+      email
+    }
+
+    dispatch(resetPassword(userData))
   }
+
+  useEffect( () => {
+    if (isError){
+      toast.error(message)
+    }
+    if (isSuccess){
+      navigate("/auth/login")
+      toast.success("A Reset Password Email has been sent to you")
+    }
+
+  },[isError, isSuccess, message, navigate, dispatch])
+
 
   return (
   <div>
@@ -27,6 +55,8 @@ const ResetPasswordPage = () => {
     <h2 style={{ fontWeight: 500, fontSize: '1.5rem', margin: '20px 0', textAlign: 'center' }}>
           Reset Password
   </h2>
+      {isLoading && <Spinner />}
+
       <div className="flex-column">
         <label>Email </label>
       </div>

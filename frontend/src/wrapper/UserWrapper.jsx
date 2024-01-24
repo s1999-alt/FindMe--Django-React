@@ -5,6 +5,7 @@ import Home from '../pages/Home'
 import Navbar from '../components/navigation/Navbar'
 import PageNotFound from '../pages/PageNotFound'
 import ActivatePage from '../pages/ActivatePage'
+import ResetPasswordConfirmPage from '../pages/ResetPasswordConfirmPage'
 
 function UserWrapper() {
   const routes = useRoutes([{
@@ -17,7 +18,8 @@ function UserWrapper() {
     children:[
       {path: "/auth/*", element:<Authenticator/>},
       {path: "/", element: <Home/>},
-      {path: "/activate/:uid/:token", element: <ActivatePage/>}
+      {path: "/activate/:uid/:token", element: <ActivatePage/>},
+      {path: "/password/reset/:uid/:token", element: <ResetPasswordConfirmPage/>}
     ],
   },
   {

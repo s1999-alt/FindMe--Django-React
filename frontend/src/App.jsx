@@ -2,12 +2,7 @@ import { useState } from 'react'
 import {Route, BrowserRouter as Router, Routes} from "react-router-dom"
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import Home from './pages/Home'
 import './Styles/auth.scss'
-import Navbar from './components/navigation/Navbar'
-import Authenticator from './pages/Authenticator'
-import ActivatePage from './pages/ActivatePage';
-import PageNotFound from './pages/PageNotFound';
 import UserWrapper from './wrapper/userWrapper';
 
 
