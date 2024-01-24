@@ -6,11 +6,13 @@ const user = JSON.parse(localStorage.getItem('user'))
 
 const initialState = {
   user: user ? user : null,
+  userInfo: {},
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: "",
 }
+console.log(user);
 
 export const register = createAsyncThunk(
   "auth/register",

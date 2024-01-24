@@ -48,7 +48,7 @@ const ActivatePage = () => {
       <div className="activate-content">
         <h1 className="activate-heading">Activate Account <FaUserCheck /></h1>
         {isLoading && <Spinner/>}
-        <button className="button-submit" onClick={handleSubmit}>
+        <button className="button-activate" onClick={handleSubmit}>
           Activate
         </button>
       </div>

@@ -92,8 +92,22 @@ const resetPasswordConfirm = async (userData) => {
 }
 
 
+//Get User Info
 
-const authService = {register, login, logout, activate, resetPassword, resetPasswordConfirm}
+const getUserInfo = async (accessToken) => {
+  const config = {
+    headers: {
+      "Authorization": `Bearer ${accessToken}`
+    }
+  }
+  const responce = await axios.get(GET_USER_INFO, config)
+
+  return responce.data
+}
+
+
+
+const authService = {register, login, logout, activate, resetPassword, resetPasswordConfirm, getUserInfo}
 
 export default authService
 

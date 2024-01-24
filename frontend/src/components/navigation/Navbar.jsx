@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { logout, reset } from '../../features/auth/authSlice';
+import { getUserInfo, logout, reset } from '../../features/auth/authSlice';
 import {toast} from 'react-toastify'
-
 
 
 const registerIcon = (
@@ -69,7 +68,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state.auth);
+  const {user, userInfo} = useSelector((state) => state.auth);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -78,6 +77,14 @@ const Navbar = () => {
   };
 
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    // Dispatch the getUserInfo action when the component mounts
+    if (user) {
+      dispatch(getUserInfo());
+    }
+  }, [dispatch, user]);
+  
 
   return (
     <>
@@ -133,6 +140,9 @@ const Navbar = () => {
           </>
         ) : (
           <>
+            <span className="text-gray-600 mr-3">
+                Hi, {userInfo.first_name || user.first_name}!
+            </span>
             {/* Logout */}
             <NavLink
               onClick={handleLogout}
