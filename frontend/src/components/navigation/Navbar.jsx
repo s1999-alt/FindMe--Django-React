@@ -140,23 +140,23 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <span className="text-gray-600 mr-3">
-                Hi, {userInfo.first_name || user.first_name}!
-            </span>
-            {/* Logout */}
-            <NavLink
-              onClick={handleLogout}
-              className="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-red-500"
-            >
-              {logoutIcon}
-              Logout
-            </NavLink>
+              <span className="text-gray-600 mr-3">
+                  Hi, {userInfo.first_name || user.first_name}!
+              </span>
+              {/* Logout */}
+              <NavLink
+                onClick={handleLogout}
+                className="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-red-500"
+              >
+                {logoutIcon}
+                Logout
+              </NavLink>
 
-            {/* Account */}
-            <NavLink className="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600">
-              {accountIcon}
-              Account
-            </NavLink>
+              {/* Account */}
+              <NavLink className="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600">
+                {accountIcon}
+                Account
+              </NavLink>
           </>
         )}
       </div>

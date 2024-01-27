@@ -1,5 +1,5 @@
 import axios from "axios"
-import Login from "../../pages/Login"
+import Login from "../../pages/User/Login"
 
 const BACKEND_DOMAIN = "http://localhost:8000"
 

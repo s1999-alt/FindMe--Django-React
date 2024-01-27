@@ -1,0 +1,39 @@
+.activate-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.activate-content {
+  text-align: center;
+}
+
+.activate-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #333;
+  font-size: 3rem;
+}
+
+.activate-heading-text {
+  font-weight: bold;
+  color: #333;
+  font-size: 24px; /* Adjust the size as needed */
+}
+
+.button-activate {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 60px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* Hover state */
+.button-activate:hover {
+  background-color: #0c8551;
+}/*# sourceMappingURL=ActivatePage.css.map */

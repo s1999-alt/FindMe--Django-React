@@ -1,0 +1,242 @@
+.auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.auth .form {
+  margin-top: 1rem;
+  color: #151717;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #ffffff;
+  padding: 30px;
+  max-width: 400px;
+  width: 100%;
+  border-radius: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.auth ::-moz-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.auth ::placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.auth .form button {
+  align-self: flex-end;
+}
+.auth .flex-column > label {
+  color: #151717;
+  font-weight: 600;
+}
+.auth .inputForm {
+  border: 1.5px solid #ecedec;
+  border-radius: 10px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  transition: 0.2s ease-in-out;
+}
+.auth .input {
+  margin-left: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 85%;
+  height: 100%;
+}
+.auth .input:focus {
+  outline: none;
+}
+.auth .inputForm:focus-within {
+  border: 1.5px solid #2d79f3;
+}
+.auth .flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+.auth .flex-row > div > label {
+  font-size: 14px;
+  color: black;
+  font-weight: 400;
+}
+.auth .span {
+  font-size: 14px;
+  margin-left: 5px;
+  color: #2d79f3;
+  font-weight: 500;
+  cursor: pointer;
+}
+.auth .button-submit {
+  margin: 20px 0 10px 0;
+  background-color: #151717;
+  border: none;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 10px;
+  height: 50px;
+  width: 100%;
+  cursor: pointer;
+}
+.auth .button-submit:hover {
+  background-color: #252727;
+}
+.auth .p {
+  text-align: center;
+  color: black;
+  font-size: 14px;
+  margin: 5px 0;
+}
+.auth .btn {
+  margin-top: 10px;
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  gap: 10px;
+  border: 1px solid #ededef;
+  background-color: white;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+.auth .btn:hover {
+  border: 1px solid #2d79f3;
+}
+
+.regis {
+  color: #151717;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.regis .form {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 350px;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+}
+.regis .title {
+  font-size: 28px;
+  color: royalblue;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+}
+.regis .title::before, .regis .title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: royalblue;
+}
+.regis .title::before {
+  width: 18px;
+  height: 18px;
+  background-color: royalblue;
+}
+.regis .title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
+.regis .message, .regis .signin {
+  color: rgba(88, 87, 87, 0.822);
+  font-size: 14px;
+}
+.regis .signin {
+  text-align: center;
+}
+.regis .signin a {
+  color: royalblue;
+}
+.regis .signin a:hover {
+  -webkit-text-decoration: underline royalblue;
+          text-decoration: underline royalblue;
+}
+.regis .flex {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+}
+.regis .form label {
+  position: relative;
+}
+.regis .form label .input {
+  width: 100%;
+  padding: 10px 10px 20px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+.regis .form label .input + span {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+.regis .form label .input:-moz-placeholder-shown + span {
+  top: 15px;
+  font-size: 0.9em;
+  margin-left: 10px;
+}
+.regis .form label .input:placeholder-shown + span {
+  top: 15px;
+  font-size: 0.9em;
+  margin-left: 10px;
+}
+.regis .form label .input:focus + span, .regis .form label .input:valid + span {
+  top: 30px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+.regis .form label .input:valid + span {
+  color: green;
+}
+.regis .submit {
+  border: none;
+  outline: none;
+  background-color: royalblue;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: 0.3s ease;
+}
+.regis .submit:hover {
+  background-color: rgb(56, 90, 194);
+}
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}/*# sourceMappingURL=auth.css.map */

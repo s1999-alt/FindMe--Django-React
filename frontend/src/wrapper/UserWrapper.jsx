@@ -1,11 +1,11 @@
 import React from 'react'
 import { Outlet, useRoutes } from 'react-router-dom'
-import Authenticator from '../pages/Authenticator'
-import Home from '../pages/Home'
+import Authenticator from '../pages/User/Authenticator'
+import Home from '../pages/User/Home'
 import Navbar from '../components/navigation/Navbar'
-import PageNotFound from '../pages/PageNotFound'
-import ActivatePage from '../pages/ActivatePage'
-import ResetPasswordConfirmPage from '../pages/ResetPasswordConfirmPage'
+import PageNotFound from '../pages/User/PageNotFound'
+import ActivatePage from '../pages/User/ActivatePage'
+import ResetPasswordConfirmPage from '../pages/User/ResetPasswordConfirmPage'
 
 function UserWrapper() {
   const routes = useRoutes([{
