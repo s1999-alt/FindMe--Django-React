@@ -7,6 +7,7 @@ import DashboardLayout from '../pages/Admin/AdminIndex';
 export const IndexPage = lazy(() => import('../pages/Admin/App'));
 export const UserPage = lazy(() => import('../pages/Admin/user'));
 export const ProductsPage = lazy(() => import('../pages/Admin/products'));
+export const LoginPage = lazy(() => import('../pages/Admin/login'));
 
 
 function AdminWrapper() {
@@ -28,10 +29,10 @@ function AdminWrapper() {
         // { path: 'blog', element: <BlogPage /> },
       ],
     },
-    // {
-    //   path: 'login',
-    //   element: <LoginPage />,
-    // },
+    {
+      index: true ,
+      element: <LoginPage />,
+    },
     // {
     //   path: '404',
     //   element: <Page404 />,
