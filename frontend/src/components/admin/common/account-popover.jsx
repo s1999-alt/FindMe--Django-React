@@ -8,6 +8,9 @@ import { alpha } from '@mui/material/styles';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useRouter } from '../../../components/admin/hooks';
 
 
 // ----------------------------------------------------------------------
@@ -31,6 +34,7 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
+  const router = useRouter();
 
   const account = {
     displayName: 'Jaydon Frankie',
@@ -46,6 +50,20 @@ export default function AccountPopover() {
   const handleClose = () => {
     setOpen(null);
   };
+
+  const handlelogout = async () =>{
+    try{
+      const responce = await axios.get('http://localhost:8000/api/v1/admin/logout/')
+
+      if (responce.status === 200){
+        router.push('/admin')
+      }else{
+        toast.error('Logout failed')
+      }
+    }catch(error){
+      toast.error(`An Error Occured during logout: ${error.message}`) 
+    }
+  }
 
   return (
     <>
@@ -111,7 +129,7 @@ export default function AccountPopover() {
         <MenuItem
           disableRipple
           disableTouchRipple
-          onClick={handleClose}
+          onClick={handlelogout}
           sx={{ typography: 'body2', color: 'error.main', py: 1.5 }}
         >
           Logout

@@ -19,29 +19,48 @@ import { bgGradient } from '../../../../components/admin/theme/css';
 
 import Logo from '../../../../components/admin/logo';
 import Iconify from '../../../../components/admin/iconify/iconify';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
   const theme = useTheme();
-
   const router = useRouter();
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClick = () => {
-    router.push('/dashboard');
+  const handleLogin = async() => {
+    try{
+      const responce = await axios.post('http://localhost:8000/api/v1/admin/login/',{
+        email:email,
+        password:password
+      });
+
+      if(responce.status === 200){
+        router.push('/admin/index')
+      }else{
+        toast.error('Login failed')
+      }
+    }
+    catch(error){
+      toast.error(`An error occurred during login: ${error.message}`)
+    }
+
   };
 
   const renderForm = (
     <>
       <Stack spacing={3}>
-        <TextField name="email" label="Email address" />
+        <TextField name="email" label="Email address" value={email} onChange={(e)=>setEmail(e.target.value)} />
 
         <TextField
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -66,7 +85,7 @@ export default function LoginView() {
         type="submit"
         variant="contained"
         color="inherit"
-        onClick={handleClick}
+        onClick={handleLogin}
       >
         Login
       </LoadingButton>
