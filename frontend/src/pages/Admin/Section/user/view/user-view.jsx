@@ -56,7 +56,7 @@ export default function UserPage() {
 
  const handleBlockUser = async (userId) => {
     await axios.patch(`http://localhost:8000/api/v1/admin/block/${userId}`,{
-      is_active:false
+      is_active:false,
     }).then((res)=>{
       console.log(res);
     }).catch((err)=>{
@@ -64,18 +64,20 @@ export default function UserPage() {
     })
 
     setUsers((prevUsers) =>
-    prevUsers.map((user) =>
+     prevUsers.map((user) =>
       user.id === userId ? { ...user, is_active: false } : user
     )
 
   );
  }
 
+
+
  const handleUnblockUser = async (userId) => {
-  
-    await axios.patch(`http://localhost:8000/api/v1/admin/block/${userId}`,{
+    const formData = {
       is_active:true
-    }).then((res)=>{
+    }
+    await axios.patch(`http://localhost:8000/api/v1/admin/block/${userId}`,formData).then((res)=>{
       console.log(res);
     }).catch((err)=>{
       console.log(err);
@@ -88,6 +90,7 @@ export default function UserPage() {
 
   )
  }
+
 
 
   const handleSort = (event, id) => {
@@ -145,8 +148,6 @@ export default function UserPage() {
     filterName,
   });
 
-  console.log('users:', users);
-  console.log('dataFiltered:', dataFiltered);
 
   const notFound = !dataFiltered.length && !!filterName;
 
@@ -211,7 +212,6 @@ export default function UserPage() {
                   height={77}
                   emptyRows={emptyRows(page, rowsPerPage, users.length)}
                 />
-
                 {notFound && <TableNoData query={filterName} />}
               </TableBody>
             </Table>

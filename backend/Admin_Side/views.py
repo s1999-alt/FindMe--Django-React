@@ -42,7 +42,6 @@ class UserListView(APIView):
             }
             for user in users
         ]
-        print("Data sent to the frontend:", {'users': data})
         return JsonResponse({'users': data}, status=status.HTTP_200_OK) 
     
 class UserActiveView(generics.RetrieveUpdateAPIView):

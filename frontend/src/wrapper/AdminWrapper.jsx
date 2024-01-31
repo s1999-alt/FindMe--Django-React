@@ -3,11 +3,16 @@ import { Outlet, useRoutes } from 'react-router-dom';
 import AdminLogin from '../pages/Admin/AdminLogin';
 import ThemeProvider from '../pages/Admin/MIUI/ThemeWagon';
 import DashboardLayout from '../pages/Admin/AdminIndex';
+import UserPage from '../pages/Admin/user'
+import AppPage from '../pages/Admin/App'
+import ProductsPage from '../pages/Admin/App'
+import LoginPage from '../pages/Admin/App'
 
-export const IndexPage = lazy(() => import('../pages/Admin/App'));
-export const UserPage = lazy(() => import('../pages/Admin/user'));
-export const ProductsPage = lazy(() => import('../pages/Admin/products'));
-export const LoginPage = lazy(() => import('../pages/Admin/login'));
+
+// export const IndexPage = lazy(() => import('../pages/Admin/App'));
+// export const UserPage = lazy(() => import('../pages/Admin/user'));
+// export const ProductsPage = lazy(() => import('../pages/Admin/products'));
+// export const LoginPage = lazy(() => import('../pages/Admin/login'));
 
 
 function AdminWrapper() {
@@ -23,7 +28,7 @@ function AdminWrapper() {
       children: [
         // {element: <AdminLogin/>, index: true },
         {path: "/", element: <h1>Hello</h1>},
-        {path: 'index', element: <IndexPage /> },
+        {path: 'index', element: <AppPage /> },
         {path: 'user', element: <UserPage /> },
         {path: 'products', element: <ProductsPage /> },
         // { path: 'blog', element: <BlogPage /> },
