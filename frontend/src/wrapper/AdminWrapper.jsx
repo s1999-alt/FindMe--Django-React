@@ -1,5 +1,6 @@
 import React, { lazy } from 'react'
 import { Outlet, useRoutes } from 'react-router-dom';
+import AdminLogin from '../pages/Admin/AdminLogin';
 import ThemeProvider from '../pages/Admin/MIUI/ThemeWagon';
 import DashboardLayout from '../pages/Admin/AdminIndex';
 
@@ -20,6 +21,8 @@ function AdminWrapper() {
         </ThemeProvider>
       ),
       children: [
+        // {element: <AdminLogin/>, index: true },
+        {path: "/", element: <h1>Hello</h1>},
         {path: 'index', element: <IndexPage /> },
         {path: 'user', element: <UserPage /> },
         {path: 'products', element: <ProductsPage /> },

@@ -17,14 +17,17 @@ import Iconify from '../../../../components/admin/iconify/iconify';
 // ----------------------------------------------------------------------
 
 export default function UserTableRow({
-  selected,
-  name,
-  avatarUrl,
-  company,
-  role,
-  isVerified,
+  userid,
+  firstname,
+  lastname,
+  email,
+  // phone,
   status,
+  selected,
   handleClick,
+  avatarUrl,
+  handleBlockUser,
+  handleUnblockUser,
 }) {
   const [open, setOpen] = useState(null);
 
@@ -36,6 +39,14 @@ export default function UserTableRow({
     setOpen(null);
   };
 
+  const getStatusColor = () => {
+    if (status === 'Active') {
+      return 'success'
+    } else if (status === 'Inactive') {
+      return 'error';
+    }
+  }
+
   return (
     <>
       <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
@@ -45,21 +56,23 @@ export default function UserTableRow({
 
         <TableCell component="th" scope="row" padding="none">
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={name} src={avatarUrl} />
+            <Avatar alt={firstname} src={avatarUrl} />
             <Typography variant="subtitle2" noWrap>
-              {name}
+              {firstname}
             </Typography>
           </Stack>
         </TableCell>
 
-        <TableCell>{company}</TableCell>
 
-        <TableCell>{role}</TableCell>
+        <TableCell>{lastname}</TableCell>
 
-        <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
+        <TableCell>{email}</TableCell>
+
+        {/* <TableCell>{phone}</TableCell> */}
+
 
         <TableCell>
-          <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
+          <Label color={getStatusColor()}>{status}</Label>
         </TableCell>
 
         <TableCell align="right">
@@ -79,27 +92,32 @@ export default function UserTableRow({
           sx: { width: 140 },
         }}
       >
-        <MenuItem onClick={handleCloseMenu}>
-          <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
-          Edit
+        {(status === 'Active') ? (
+        <MenuItem onClick={() => handleBlockUser(userid)} sx={{ color: 'error.main' }}>
+          <Iconify icon="eva:slash-outline" sx={{ mr: 2 }} />
+          Block
         </MenuItem>
-
-        <MenuItem onClick={handleCloseMenu} sx={{ color: 'error.main' }}>
-          <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
-          Delete
+        ) : (
+          <MenuItem onClick={() => handleUnblockUser(userid)} sx={{ color: 'success.main' }}>
+          <Iconify icon="eva:checkmark-outline" sx={{ mr: 2 }} />
+          UnBlock
         </MenuItem>
+        )
+    }
+        
       </Popover>
     </>
   );
 }
 
 UserTableRow.propTypes = {
-  avatarUrl: PropTypes.any,
-  company: PropTypes.any,
   handleClick: PropTypes.func,
-  isVerified: PropTypes.any,
-  name: PropTypes.any,
-  role: PropTypes.any,
   selected: PropTypes.any,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  email: PropTypes.string,
+  phone: PropTypes.string,
   status: PropTypes.string,
+  handleBlockUser: PropTypes.func,
+  handleUnblockUser: PropTypes.func,
 };

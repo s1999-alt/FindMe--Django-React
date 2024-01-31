@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
-import { users } from '../../../../../_mock/user';
+// import { users } from '../../../../../_mock/user';
 
 import Iconify from '../../../../../components/admin/iconify/iconify';
 import Scrollbar from '../../../../../components/admin/scrollbar/scrollbar';
@@ -21,10 +21,13 @@ import UserTableHead from '../user-table-head';
 import TableEmptyRows from '../table-empty-rows';
 import UserTableToolbar from '../user-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
+import axios from 'axios';
 
 // ----------------------------------------------------------------------
 
 export default function UserPage() {
+  const [users, setUsers] = useState([]) 
+
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -36,6 +39,56 @@ export default function UserPage() {
   const [filterName, setFilterName] = useState('');
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const responce = await axios.get('http://localhost:8000/api/v1/admin/users')
+        setUsers(responce.data.users)
+      } catch (error) {
+        console.error('Error fetching users:', error)
+      }
+    }
+
+    fetchUsers();
+  },[])
+
+
+ const handleBlockUser = async (userId) => {
+    await axios.patch(`http://localhost:8000/api/v1/admin/block/${userId}`,{
+      is_active:false
+    }).then((res)=>{
+      console.log(res);
+    }).catch((err)=>{
+      console.log(err);
+    })
+
+    setUsers((prevUsers) =>
+    prevUsers.map((user) =>
+      user.id === userId ? { ...user, is_active: false } : user
+    )
+
+  );
+ }
+
+ const handleUnblockUser = async (userId) => {
+  
+    await axios.patch(`http://localhost:8000/api/v1/admin/block/${userId}`,{
+      is_active:true
+    }).then((res)=>{
+      console.log(res);
+    }).catch((err)=>{
+      console.log(err);
+    })
+
+    setUsers((prevUsers) =>
+    prevUsers.map((user) =>
+      user.id === userId ? { ...user, is_active: true } : user
+    )
+
+  )
+ }
+
 
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === 'asc';
@@ -86,11 +139,14 @@ export default function UserPage() {
     setFilterName(event.target.value);
   };
 
-  const dataFiltered = applyFilter({
-    inputData: users,
+  const dataFiltered = applyFilter({  
+    inputData: Array.isArray(users) ? users : [],
     comparator: getComparator(order, orderBy),
     filterName,
   });
+
+  console.log('users:', users);
+  console.log('dataFiltered:', dataFiltered);
 
   const notFound = !dataFiltered.length && !!filterName;
 
@@ -122,10 +178,10 @@ export default function UserPage() {
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
-                  { id: 'name', label: 'Name' },
-                  { id: 'company', label: 'Company' },
-                  { id: 'role', label: 'Role' },
-                  { id: 'isVerified', label: 'Verified', align: 'center' },
+                  { id: 'first_name', label: 'FirstName' },
+                  { id: 'last_name', label: 'LastName' },
+                  { id: 'email', label: 'Email' },
+                  // { id: 'phone', label: 'Phone', align: 'center' },
                   { id: 'status', label: 'Status' },
                   { id: '' },
                 ]}
@@ -133,19 +189,23 @@ export default function UserPage() {
               <TableBody>
                 {dataFiltered
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => (
+                  .map((user) => {
+                    console.log(user.id,'\n\n\n aksdfjlkadflkj');
+                    return (
                     <UserTableRow
-                      key={row.id}
-                      name={row.name}
-                      role={row.role}
-                      status={row.status}
-                      company={row.company}
-                      avatarUrl={row.avatarUrl}
-                      isVerified={row.isVerified}
-                      selected={selected.indexOf(row.name) !== -1}
-                      handleClick={(event) => handleClick(event, row.name)}
+                      key={user.id}
+                      userid = {user.id}
+                      firstname={user.first_name}
+                      lastname={user.last_name}
+                      email={user.email}
+                      phone={user.phone}
+                      status={user.is_active ? 'Active' : 'Inactive'}
+                      selected={selected.indexOf(user.id) !== -1}
+                      handleClick={(event) => handleClick(event, user.id)}
+                      handleBlockUser={handleBlockUser}
+                      handleUnblockUser={handleUnblockUser}
                     />
-                  ))}
+                  )})}
 
                 <TableEmptyRows
                   height={77}
