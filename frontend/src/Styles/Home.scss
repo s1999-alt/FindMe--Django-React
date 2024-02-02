@@ -6,7 +6,7 @@
   --greyText : hsl(0, 0%, 75%);
   --bgColor : hsl(0, 0%, 100%);
   --shadowColor : hsla(0, 0%, 0%, 0.314);
-  --gradient : linear-gradient(to bottom, hsl(16, 100%, 71%,), hsl(8, 100%, 70%));
+  // --gradient : linear-gradient(to bottom, hsl(16, 100%, 71%,), hsl(8, 100%, 70%));
   --boxShadow: rgba(0,0,0,0.1) 0px 10px 15px -3px,
   rgba(0,0,0,0.05) 0px 4px 6px -2px;
 
@@ -21,4 +21,75 @@
   --smallFontSize: 0.813rem;
   --smallestFontSize: 0.75rem;
 
+}
+
+.Home{
+  padding-top: 4rem;
+  flex-direction: column;
+  gap: 2rem;
+  height: auto;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+
+  .textDiv {
+    .redText{
+      color: var(--hoverColor);
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    h2{
+      position: relative;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--primaryColor);
+    }
+
+    p{
+      color: var(--secColor);
+      font-size: var(--h3FontSize);
+      line-height: 25px;
+    }
+
+    .buttons{
+      gap: 1rem;
+
+      .btn{
+        padding: 1rem;
+        font-size: 15px;
+      }
+
+      .playBtn{
+        gap: 0.5rem;
+        cursor: pointer;
+
+        .icon{
+          justify-content: center;
+          height: 40px;
+          width: 40px;
+          padding: 8px;
+          border-radius: 50%;
+          background: var(--hoverColor);
+          color: whitesmoke;
+        }
+      }
+    }
+  }
+
+  .imgDiv{
+    width: 90%;
+    margin: auto;
+    img{
+      scale: 1;
+    }
+  }
+
+  .subMainImage{
+    position: absolute;
+    width: 7rem;
+    top: 5rem;
+    right: 50%;
+  }
 }

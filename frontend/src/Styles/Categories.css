@@ -1,0 +1,75 @@
+:root {
+  --primaryColor: hsl(233, 52%, 19%);
+  --secColor: hsl(233, 16%, 44%);
+  --hoverColor: hsl(8, 100%, 70%);
+  --blackColor: #707070;
+  --greyText: hsl(0, 0%, 75%);
+  --bgColor: hsl(0, 0%, 100%);
+  --shadowColor: hsla(0, 0%, 0%, 0.314);
+  --boxShadow: rgba(0,0,0,0.1) 0px 10px 15px -3px,
+  rgba(0,0,0,0.05) 0px 4px 6px -2px;
+  --borderRadius: 10px;
+  /* Font ang Typography */
+  --biggestFontSize: 2.4rem;
+  --h1FontSize: 2.2rem;
+  --h2FontSize: 1.25rem;
+  --h3FontSize: 1rem;
+  --normalFontSize: 0.938rem;
+  --smallFontSize: 0.813rem;
+  --smallestFontSize: 0.75rem;
+}
+
+.Categories .secHeader {
+  text-align: center;
+}
+.Categories .secContainer {
+  gap: 1rem;
+}
+.Categories .secContainer .singleCard {
+  text-align: center;
+  padding: 2rem;
+  border-radius: var(--borderRadius);
+  gap: 1rem;
+  height: 100%;
+}
+.Categories .secContainer .singleCard .imgDiv {
+  position: relative;
+  width: 90%;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem auto;
+}
+.Categories .secContainer .singleCard .imgDiv .mainImage {
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+.Categories .secContainer .singleCard .imgDiv .design {
+  position: absolute;
+  width: 60px;
+  right: 40%;
+  left: 60%;
+  top: -10px;
+  z-index: -1;
+  transform: translate(-80%);
+}
+.Categories .secContainer .singleCard span {
+  font-size: var(--h1FontSize);
+  font-weight: 600;
+  color: var(--primaryColor);
+}
+.Categories .secContainer .singleCard p {
+  max-width: 80%;
+  text-align: center;
+  margin: auto;
+  font-weight: 500;
+  color: var(--secColor);
+  line-height: 23px;
+  font-size: var(--h3FontSize);
+}
+.Categories .secContainer .singleCard:hover {
+  box-shadow: var(--boxShadow);
+  transition: all 0.4s ease-in-out;
+}/*# sourceMappingURL=Categories.css.map */

@@ -44,6 +44,7 @@ class UserListView(APIView):
         ]
         return JsonResponse({'users': data}, status=status.HTTP_200_OK) 
     
+    
 class UserActiveView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserDetailsSerializer
