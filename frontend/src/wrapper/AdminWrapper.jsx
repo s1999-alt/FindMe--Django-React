@@ -5,8 +5,8 @@ import ThemeProvider from '../pages/Admin/MIUI/ThemeWagon';
 import DashboardLayout from '../pages/Admin/AdminIndex';
 import UserPage from '../pages/Admin/user'
 import AppPage from '../pages/Admin/App'
-import ProductsPage from '../pages/Admin/App'
 import LoginPage from '../pages/Admin/App'
+import ProductsPage from '../pages/Admin/products';
 
 
 // export const IndexPage = lazy(() => import('../pages/Admin/App'));

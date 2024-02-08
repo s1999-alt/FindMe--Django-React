@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from rest_framework.authtoken.models import Token
 from users.models import User
+from .models import Packages
 from django.http import JsonResponse
 from rest_framework import generics
 from .serializers import UserDetailsSerializer
@@ -49,3 +50,4 @@ class UserActiveView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserDetailsSerializer
     lookup_field = 'id'
+   

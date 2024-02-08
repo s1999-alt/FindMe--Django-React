@@ -1,103 +1,89 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800;900&display=swap");
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
-}
-
+@import url("https://fonts.googleapis.com/css2?family=Island+Moments&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
 :root {
-  --primaryColor: hsl(233, 52%, 19%);
-  --secColor: hsl(233, 16%, 44%);
-  --hoverColor: hsl(8, 100%, 70%);
-  --blackColor: #707070;
-  --greyText: hsl(0, 0%, 75%);
-  --bgColor: hsl(0, 0%, 100%);
-  --shadowColor: hsla(0, 0%, 0%, 0.314);
-  --gradient: linear-gradient(to bottom, hsl(16, 100%, 71%),hsl(8, 100%, 70%));
-  --boxShadow: rgba(0,0,0,0.1) 0px 10px 15px -3px,
-  rgba(0,0,0,0.05) 0px 4px 6px -2px;
-  /* Font ang Typography */
-  --biggestFontSize: 2.4rem;
-  --h1FontSize: 2.2rem;
-  --h2FontSize: 1.25rem;
-  --h3FontSize: 1rem;
-  --normalFontSize: 0.938rem;
-  --smallFontSize: 0.813rem;
-  --smallestFontSize: 0.75rem;
+  --primary-color: #ff7e01;
+  --secondary-color: #faa935;
+  --heading-color: #0b2727;
+  --text-color: #6e7074;
+  --font-name: "Montserrat", sans-serif;
+  --subtitle-font-name: "Island Moments", cursive;
 }
 
-/* Default Page styling (Reusable Styles) */
-.flex {
-  display: flex;
-  align-items: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.grid {
-  display: grid;
-  align-items: center;
-  gap: 1.5rem;
+body {
+  font-family: var(--font-name);
+}
+
+section {
+  padding: 50px 0px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--heading-color);
 }
 
 a {
   text-decoration: none;
+  color: unset;
 }
 
-li {
+ul {
   list-style: none;
 }
 
-.icon {
-  font-size: var(--h2FontSize);
-  cursor: pointer;
+.primary__btn {
+  background: var(--secondary-color) !important;
+  border: none !important;
+  border-radius: 50px !important;
+  padding: 0.4rem 1.5rem !important;
 }
 
-img {
-  height: auto;
-  width: 100%;
+.primary__btn a {
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: #fff;
 }
 
-.btn {
-  border: none;
-  outline: none;
-  cursor: pointer;
-  border-radius: 8px;
-  background: var(--gradient);
-  box-shadow: var(--boxShadow);
-  font-size: var(--h3FontSize);
+.primary__btn a:hover {
+  color: inherit;
+}
+
+.secondary__btn {
+  background: transparent !important;
+  color: #0b2727 !important;
+  border: none !important;
+  font-weight: 500 !important;
+}
+
+.secondary__btn a {
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: var(--heading-color);
+}
+
+.secondary__btn a:hover {
+  color: inherit;
+}
+
+.section__subtitle {
+  background: var(--secondary-color);
+  font-family: var(--subtitle-font-name);
+  width: -moz-max-content;
+  width: max-content;
+  padding: 0px 0.5rem;
+  padding-right: 1rem;
+  border-radius: 50px;
   font-weight: 500;
-  color: var(--primaryColor);
-  padding: 0.8rem 1rem;
-}
-
-.btn:hover {
-  background: var(--hoverColor);
-}
-
-.section {
-  padding: 2rem 0 2rem;
-}
-
-.container {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-.secHeader {
-  margin-top: 2rem;
-}
-.secHeader span {
-  text-transform: uppercase;
-  color: var(--secColor);
-  font-size: var(--h3FontSize);
-  font-weight: 600;
-  letter-spacing: 0.5rem;
-}
-.secHeader h2 {
-  font-weight: 800;
-  color: var(--primaryColor);
-  padding: 1rem 0;
-  display: block;
-  text-transform: capitalize;
-  font-size: var(--h2FontSize);
+  font-size: 1.7rem;
+  color: var(--heading-color);
 }/*# sourceMappingURL=App.css.map */

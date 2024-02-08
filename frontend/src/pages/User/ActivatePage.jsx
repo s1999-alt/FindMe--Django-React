@@ -4,7 +4,7 @@ import '../../Styles/ActivatePage.scss'
 import {toast} from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux';
 import { activate, reset } from '../../features/auth/authSlice';
-import Spinner from '../../components/navigation/Spinner';
+import Spinner from '../../components/navigation/users/Spinner';
 import { useNavigate, useParams } from 'react-router-dom';
 
 

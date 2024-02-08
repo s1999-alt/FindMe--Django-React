@@ -14,9 +14,9 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import Iconify from 'src/components/iconify';
-import Scrollbar from 'src/components/scrollbar';
-import { ColorPicker } from 'src/components/color-utils';
+import Iconify from '../../../../components/admin/iconify/iconify';
+import Scrollbar from '../../../../components/admin/scrollbar';
+import { ColorPicker } from '../../../../components/admin/color-utils';
 
 // ----------------------------------------------------------------------
 

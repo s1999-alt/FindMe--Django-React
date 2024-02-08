@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import Category, Packages, PackageImages
 
-# Register your models here.
+
+admin.site.register(Category)
+admin.site.register(Packages)
+admin.site.register(PackageImages)
+

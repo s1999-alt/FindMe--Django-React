@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify'
-import Spinner from '../../components/navigation/Spinner';
+import Spinner from '../../components/navigation/users/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, reset,getUserInfo } from '../../features/auth/authSlice';
 

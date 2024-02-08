@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { resetPasswordConfirm } from '../../features/auth/authSlice'
 import { toast } from 'react-toastify'
-import Spinner from '../../components/navigation/Spinner'
+import Spinner from '../../components/navigation/users/Spinner'
 
 
 
