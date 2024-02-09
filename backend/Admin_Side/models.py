@@ -1,8 +1,6 @@
 from django.db import models
 
 
-
-
 class Category(models.Model):
   category_name = models.CharField( max_length=50)
   is_available = models.BooleanField(default=True)

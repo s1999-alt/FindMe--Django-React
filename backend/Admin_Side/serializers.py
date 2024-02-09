@@ -23,21 +23,21 @@ class PackageImageSerializer(serializers.ModelSerializer):
 
 
 class PackageSerializer(serializers.ModelSerializer):
-  category = CategorySerializer()
+  # category = CategorySerializer()
   images = PackageImageSerializer(many=True, read_only=True)
-  uploaded_images = serializers.ListField(
-    child = serializers.ImageField(max_length = 1000000, allow_empty_file = False, use_url = False),
-    write_only = True
-  )
+  # uploaded_images = serializers.ListField(
+  #   child = serializers.ImageField(max_length = 1000000, allow_empty_file = False, use_url = False),
+  #   write_only = True
+  # )
 
   class Meta:
     model = Packages
-    fields = ["id", "package_name", "duration", "price", "sale_price", "overview", "category","image", "images", "uploaded_images"]
+    fields = ["id", "package_name", "duration", "price", "sale_price", "overview", "category","image", "images"]
 
   def create(self, validated_data):
-    uploaded_images = validated_data.pop("uploaded_images")
+    # uploaded_images = validated_data.pop("uploaded_images")
     package = Packages.objects.create(**validated_data)
-    for image in uploaded_images:
-      new_package_image = PackageImages.objects.create(package=package, image = image)
+    # for image in uploaded_images:
+    #   new_package_image = PackageImages.objects.create(package=package, image = image)
     return package  
 

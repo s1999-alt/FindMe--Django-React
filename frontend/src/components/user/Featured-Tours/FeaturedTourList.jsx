@@ -10,7 +10,7 @@ const FeaturedTourList = () => {
     const fetchData = async () =>{
       try{
         const response = await axios.get('http://localhost:8000/api/v1/user/packages/')
-        setPackages(response.data)
+        setPackages(response.data )
       }catch(error){
         console.error('Error fetching package details:', error)
       }
