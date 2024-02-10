@@ -8,6 +8,7 @@ import AppPage from '../pages/Admin/App'
 import LoginPage from '../pages/Admin/App'
 import ProductsPage from '../pages/Admin/products';
 import AddPackageForm from '../pages/Admin/Section/products/view/AddPackageForm';
+import PackageList from '../pages/Admin/Section/products/view/PackageList';
 
 
 // export const IndexPage = lazy(() => import('../pages/Admin/App'));
@@ -33,6 +34,7 @@ function AdminWrapper() {
         {path: 'user', element: <UserPage /> },
         {path: 'products', element: <ProductsPage /> },        
         {path: 'AddPackages', element: <AddPackageForm/> },        
+        {path: 'AdminPackageList', element: <PackageList/> },        
 
         // { path: 'blog', element: <BlogPage /> },
       ],

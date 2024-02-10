@@ -5,10 +5,10 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from rest_framework.authtoken.models import Token
 from users.models import User
-from .models import Packages,Category
+from .models import Packages, Category
 from django.http import JsonResponse
 from rest_framework import generics
-from .serializers import UserDetailsSerializer,CategorySerializer
+from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer
 
 class AdminLoginView(APIView):
     def post(self, request, *args, **kwargs):
@@ -55,3 +55,7 @@ class UserActiveView(generics.RetrieveUpdateAPIView):
 class CategoryListView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+class AdminPackageListView(generics.ListAPIView):
+    queryset = Packages.objects.all()
+    serializer_class = AdminPackageListSerializer

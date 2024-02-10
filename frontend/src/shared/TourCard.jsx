@@ -11,7 +11,8 @@ const TourCard = ({pack}) => {
     <div className='tour__card'>
       <Card>
         <div className="tour__img">
-        <img src={images.length > 0 ? images[0].image : 'default_image_url'} alt="pack-img" />
+        {/* <img src={images.length > 0 ? images[0].image : 'default_image_url'} alt="pack-img" /> */}
+        <img src={pack.image} alt="pack-img" />
           <span>Featured</span>
         </div>
       </Card>

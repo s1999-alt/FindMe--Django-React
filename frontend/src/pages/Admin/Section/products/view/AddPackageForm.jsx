@@ -13,6 +13,9 @@ const AddPackageForm = () => {
     overview: '',
     category: '',
     image: [],
+    city: '',
+    rating:'',
+    is_active: false,
   })
 
   const [categories, setCategories] = useState([])
@@ -29,13 +32,20 @@ const AddPackageForm = () => {
 
     fetchCategories()
   },[])
+  
 
   const handleInputChange = (e) =>{
     setFormData({...formData, [e.target.name]: e.target.value})
   }
 
+  
+
   const handleImageChange = (e) => {
     setFormData({ ...formData, image: e.target.files[0]})
+  }
+  
+  const handleRadioChange = (e) => {
+    setFormData({ ...formData, is_active: e.target.value === 'true' });
   }
 
   const handleSubmit = async (e) =>{
@@ -58,7 +68,7 @@ const AddPackageForm = () => {
   }
 
   return (
-    <div className='container'>
+    <div className='addpackage-container'>
       <h2 className="heading">Add Package</h2>
       <form className="form" onSubmit={handleSubmit}>
         <label className='label'>
@@ -127,6 +137,52 @@ const AddPackageForm = () => {
         <label className='label'>
           Image:
           <input className='input' type="file" name="image" onChange={handleImageChange} />
+        </label>
+        <label className='label'>
+          City:
+          <input
+            className='input'
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleInputChange}
+          />
+        </label>
+
+        <label className='label'>
+          Rating:
+          <input
+            className='input'
+            type="text"
+            name="rating"
+            value={formData.rating}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label className='label'>
+          Is Active:
+          <div className='radio-group'>
+            <label>
+              <input
+                type="radio"
+                name="is_active"
+                value="true"
+                checked={formData.is_active === true}
+                onChange={handleRadioChange}
+              />
+              True
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="is_active"
+                value="false"
+                checked={formData.is_active === false}
+                onChange={handleRadioChange}
+              />
+              False
+            </label>
+          </div>
         </label>
         <button className='button' type="submit">Add Package</button>
       </form>

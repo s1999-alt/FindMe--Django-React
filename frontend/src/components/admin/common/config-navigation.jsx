@@ -19,7 +19,7 @@ const navConfig = [
   },
   {
     title: 'packages',
-    path: '/admin/products',
+    path: '/admin/AdminPackageList',
     icon: icon('ic_cart'),
   },
   {
