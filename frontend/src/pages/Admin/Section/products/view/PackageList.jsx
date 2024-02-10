@@ -13,7 +13,6 @@ const PackageList = () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/api/v1/admin/packages')
         setPackages(response.data)
-        console.log(response.data);
       } catch (error) {
         console.log('Error Fetching packages', error)
       }
@@ -21,6 +20,10 @@ const PackageList = () => {
     fetchPackages()
   }, [])
 
+  const handleEdit = (packageId) => {
+    navigate(`/admin/edit-package/${packageId}`)
+  }
+ 
 
   return (
     <div className='package-list-container'>
@@ -49,7 +52,7 @@ const PackageList = () => {
               <td>{pack.is_available ? 'Available' : 'Not Available'}</td>
               <td>{pack.category_name}</td>
               <td>
-                <button>Edit</button>
+                <button onClick={() => handleEdit(pack.id)}>Edit</button>
                 <button className='delete-button'>Delete</button>
               </td>
             </tr>

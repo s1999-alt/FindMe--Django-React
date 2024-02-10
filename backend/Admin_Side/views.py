@@ -8,7 +8,7 @@ from users.models import User
 from .models import Packages, Category
 from django.http import JsonResponse
 from rest_framework import generics
-from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer
+from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer
 
 class AdminLoginView(APIView):
     def post(self, request, *args, **kwargs):
@@ -56,6 +56,17 @@ class CategoryListView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
+
+class PackageCreateView(generics.CreateAPIView):
+    queryset = Packages.objects.all()
+    serializer_class = PackageSerializer    
+
 class AdminPackageListView(generics.ListAPIView):
     queryset = Packages.objects.all()
     serializer_class = AdminPackageListSerializer
+
+class PackageUpdateView(generics.RetrieveUpdateAPIView):
+    queryset = Packages.objects.all()
+    serializer_class = PackageSerializer
+    lookup_field = 'id'    
+    

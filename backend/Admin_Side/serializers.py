@@ -31,7 +31,8 @@ class PackageSerializer(serializers.ModelSerializer):
 
   def create(self, validated_data):
     package = Packages.objects.create(**validated_data)
-    return package 
+    return package
+ 
 
 class AdminPackageListSerializer(PackageSerializer):
   category_name = serializers.CharField(source='category.category_name', read_only=True)

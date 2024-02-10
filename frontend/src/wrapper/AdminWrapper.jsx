@@ -9,12 +9,8 @@ import LoginPage from '../pages/Admin/App'
 import ProductsPage from '../pages/Admin/products';
 import AddPackageForm from '../pages/Admin/Section/products/view/AddPackageForm';
 import PackageList from '../pages/Admin/Section/products/view/PackageList';
+import EditPackageForm from '../pages/Admin/Section/products/view/EditPackageForm';
 
-
-// export const IndexPage = lazy(() => import('../pages/Admin/App'));
-// export const UserPage = lazy(() => import('../pages/Admin/user'));
-// export const ProductsPage = lazy(() => import('../pages/Admin/products'));
-// export const LoginPage = lazy(() => import('../pages/Admin/login'));
 
 
 function AdminWrapper() {
@@ -35,6 +31,7 @@ function AdminWrapper() {
         {path: 'products', element: <ProductsPage /> },        
         {path: 'AddPackages', element: <AddPackageForm/> },        
         {path: 'AdminPackageList', element: <PackageList/> },        
+        {path: 'edit-package/:id', element: <EditPackageForm/> },        
 
         // { path: 'blog', element: <BlogPage /> },
       ],

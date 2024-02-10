@@ -11,10 +11,7 @@ class PackageListView(generics.ListCreateAPIView):
     queryset = Packages.objects.all()
     serializer_class = PackageSerializer
 
+
 class packageDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Packages.objects.all()
-    serializer_class = PackageSerializer
-
-class PackageCreateView(generics.CreateAPIView):
-    queryset = Packages.objects.all()
-    serializer_class = PackageSerializer     
+    serializer_class = PackageSerializer         

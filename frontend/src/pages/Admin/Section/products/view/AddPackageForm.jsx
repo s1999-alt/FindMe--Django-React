@@ -38,12 +38,10 @@ const AddPackageForm = () => {
     setFormData({...formData, [e.target.name]: e.target.value})
   }
 
-  
-
   const handleImageChange = (e) => {
     setFormData({ ...formData, image: e.target.files[0]})
   }
-  
+
   const handleRadioChange = (e) => {
     setFormData({ ...formData, is_active: e.target.value === 'true' });
   }
@@ -57,7 +55,7 @@ const AddPackageForm = () => {
     }
 
     try{
-      const response = await axios.post('http://127.0.0.1:8000/api/v1/user/packages/create/', packageData)
+      const response = await axios.post('http://127.0.0.1:8000/api/v1/admin/packages/create/', packageData)
       console.log('Package added:', response.data);
       toast.success('Package Added Successfully')
 
