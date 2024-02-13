@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import './add-packageform.css'
 
 
+
 const AddPackageForm = () => {
   const [formData, setFormData] = useState({
     package_name: '',
@@ -23,7 +24,7 @@ const AddPackageForm = () => {
   useEffect(() =>{
     const fetchCategories = async () => {
       try{
-        const response = await axios.get('http://127.0.0.1:8000/api/v1/admin/categories/')
+        const response = await axios.get('http://127.0.0.1:8000/api/v1/admin/categories/list/')
         setCategories(response.data);
       }catch(error){
         console.error('Error fetching categories:', error);
@@ -127,7 +128,9 @@ const AddPackageForm = () => {
             onChange={handleInputChange}
           >
             <option value="" disabled>Select a category</option>
-            {categories.map(category => (
+            {categories
+            .filter(category => category.is_available)
+            .map(category => (
               <option key={category.id} value={category.id}>{category.category_name}</option>
             ))}
           </select>

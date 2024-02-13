@@ -1,10 +1,11 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 const EditPackageForm = () => {
   const { id } = useParams();
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     package_name : '',
     duration : '',
@@ -23,7 +24,7 @@ const EditPackageForm = () => {
   useEffect(() =>{
     const fetchCategories = async () => {
       try{
-        const response = await axios.get('http://127.0.0.1:8000/api/v1/admin/categories/')
+        const response = await axios.get('http://127.0.0.1:8000/api/v1/admin/categories/list/')
         setCategories(response.data);
       }catch(error){
         console.error('Error fetching categories:', error);
@@ -70,6 +71,7 @@ const EditPackageForm = () => {
     try{
       const response = await axios.put(`http://127.0.0.1:8000/api/v1/admin/packages/update/${id}`, packageData)
       console.log('Package updated:', response.data);
+      navigate('/admin/AdminPackageList')
       toast.success('Package Updated Successfully')
 
     }catch(error){
@@ -142,7 +144,9 @@ const EditPackageForm = () => {
             onChange={handleInputChange}
           >
             <option value="" disabled>Select a category</option>
-            {categories.map(category => (
+            {categories
+            .filter(category => category.is_available)
+            .map(category => (
               <option key={category.id} value={category.id}>{category.category_name}</option>
             ))}
           </select>

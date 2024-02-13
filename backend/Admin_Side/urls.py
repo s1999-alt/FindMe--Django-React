@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import AdminLoginView,UserListView,UserActiveView,CategoryListView,AdminPackageListView,PackageCreateView,PackageUpdateView,CategoryUpdateView,CategoryCreateView
+from .views import AdminLoginView,UserListView,UserActiveView,CategoryListView,AdminPackageListView,PackageCreateView,PackageUpdateView,CategoryUpdateView,CategoryCreateView,CategoryDetails
 
 urlpatterns = [
     path('login/', AdminLoginView.as_view(), name='admin-login'),
@@ -15,5 +15,7 @@ urlpatterns = [
 
     path('categories/', CategoryCreateView.as_view(), name='category-create'),
     path('categories/list/', CategoryListView.as_view(), name='category-list'),
-    path('categories/block/<int:pk>/', CategoryUpdateView.as_view(), name='category-list'),
+    path('categories/block/<int:pk>/', CategoryUpdateView.as_view(), name='category-block-unblock'),
+    path('categories/<int:pk>', CategoryDetails.as_view(), name='category-details'),
+    path('categories/update/<int:pk>', CategoryDetails.as_view(), name='category-update'),
 ]

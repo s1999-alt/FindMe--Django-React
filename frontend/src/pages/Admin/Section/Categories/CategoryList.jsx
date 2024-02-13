@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const CategoryListPage = () => {
   const [categories, setCategories] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -32,11 +33,15 @@ const CategoryListPage = () => {
     }
   };
 
+  const handleEdit = (categoryId) =>{
+    navigate(`/admin/edit-category/${categoryId}`)
+  }
+
   return (
     <div className='category-list-container'>
       <h2 className='category-list-heading'>Category List</h2>
       <Link to="/admin/add-category">
-          <button className="add-packages-button">Add Packages</button>
+          <button className="add-packages-button">Add Categories</button> 
       </Link>
       <table className='category-list-table'>
         <thead>
@@ -54,7 +59,7 @@ const CategoryListPage = () => {
               <td>{category.id}</td>
               <td><img src={category.category_image} alt={category.category_name} /></td>
               <td>{category.category_name}</td>
-              <td style={{ backgroundColor: category.is_available ? 'lightgreen' : 'red' }}>
+              <td style={{fontWeight: 'bold', color: category.is_available ? 'green' : 'red' }}>
                 {category.is_available ? 'Available' : 'Unavailable'}
               </td>
               <td>
@@ -68,7 +73,7 @@ const CategoryListPage = () => {
                     Unblock
                   </button>
                 )}
-                <button>Edit</button>
+                <button onClick={() => handleEdit(category.id)}>Edit</button>
               </td>
             </tr>
           ))}

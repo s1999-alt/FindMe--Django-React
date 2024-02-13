@@ -28,7 +28,6 @@ class AdminLoginView(APIView):
         logout(request)
         return Response({'message':'Admin logout Successful'}, status=status.HTTP_200_OK)
     
-
 class UserListView(APIView):
     def get(self, request, *args, **kwargs):
         users = User.objects.all()
@@ -44,13 +43,13 @@ class UserListView(APIView):
             for user in users
         ]
         return JsonResponse({'users': data}, status=status.HTTP_200_OK) 
-    
-    
+      
 class UserActiveView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserDetailsSerializer
     lookup_field = 'id'
   
+
 
 
 
@@ -62,7 +61,7 @@ class CategoryListView(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-class CategoryUpdateView(generics.RetrieveUpdateDestroyAPIView):
+class CategoryUpdateView(generics.RetrieveUpdateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
@@ -72,11 +71,12 @@ class CategoryUpdateView(generics.RetrieveUpdateDestroyAPIView):
         instance.save()
         serializer = self.get_serializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class CategoryDetails(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer 
+
    
-
-
-
-
 
 
 

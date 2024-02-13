@@ -12,6 +12,7 @@ import PackageList from '../pages/Admin/Section/products/view/PackageList';
 import EditPackageForm from '../pages/Admin/Section/products/view/EditPackageForm';
 import AddCategoryForm from '../pages/Admin/Section/Categories/AddCategoryForm';
 import CategoryList from '../pages/Admin/Section/Categories/CategoryList';
+import EditCategoryForm from '../pages/Admin/Section/Categories/EditCategoryForm';
 
 
 
@@ -36,6 +37,7 @@ function AdminWrapper() {
         {path: 'edit-package/:id', element: <EditPackageForm/> },        
         {path: 'add-category', element: <AddCategoryForm/> },        
         {path: 'categories', element: <CategoryList/> },        
+        {path: 'edit-category/:id', element: <EditCategoryForm/> },        
 
         // { path: 'blog', element: <BlogPage /> },
       ],
