@@ -23,6 +23,16 @@ const PackageList = () => {
   const handleEdit = (packageId) => {
     navigate(`/admin/edit-package/${packageId}`)
   }
+
+  const handleDelete = async (packageId) => {
+    try{
+      await axios.delete(`http://127.0.0.1:8000/api/v1/user/packages/${packageId}`)
+      const response = await axios.get('http://127.0.0.1:8000/api/v1/admin/packages')
+      setPackages(response.data)
+    } catch(error){
+      console.log('Error deleting package', error)
+    }
+  }
  
 
   return (
@@ -49,11 +59,11 @@ const PackageList = () => {
               <td>{pack.duration}</td>
               <td>{pack.price}</td>
               <td>{pack.sale_price}</td>
-              <td>{pack.is_available ? 'Available' : 'Not Available'}</td>
+              <td>{pack.is_active ? 'Available' : 'Not Available'}</td>
               <td>{pack.category_name}</td>
               <td>
                 <button onClick={() => handleEdit(pack.id)}>Edit</button>
-                <button className='delete-button'>Delete</button>
+                <button className='delete-button' onClick={() => handleDelete(pack.id)}>Delete</button>
               </td>
             </tr>
           ))}

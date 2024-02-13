@@ -4,6 +4,7 @@ from users.models import User
 from rest_framework import serializers
 from .models import Category,Packages,PackageImages
 
+
 class UserDetailsSerializer(serializers.ModelSerializer):
   class Meta:
     model = User

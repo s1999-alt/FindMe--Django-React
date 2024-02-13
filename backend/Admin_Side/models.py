@@ -4,7 +4,7 @@ from django.db import models
 class Category(models.Model):
   category_name = models.CharField( max_length=50)
   is_available = models.BooleanField(default=True)
-  soft_deleted = models.BooleanField(default=True)
+  soft_deleted = models.BooleanField(default=False)
   category_image = models.ImageField(upload_to='category_images/', blank=True, null=True)
 
   def __str__(self):

@@ -52,9 +52,32 @@ class UserActiveView(generics.RetrieveUpdateAPIView):
     lookup_field = 'id'
   
 
-class CategoryListView(generics.ListCreateAPIView):
+
+
+class CategoryCreateView(generics.CreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+class CategoryListView(generics.ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class CategoryUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.is_available = not instance.is_available
+        instance.save()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+   
+
+
+
+
+
 
 
 class PackageCreateView(generics.CreateAPIView):
