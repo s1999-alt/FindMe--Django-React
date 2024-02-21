@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from djoser.serializers import UserCreateSerializer
 from users.models import User
 from rest_framework import serializers
-from .models import Category,Packages,PackageImages
+from .models import Category,Packages,PackageImages,Hotels
 
 
 class UserDetailsSerializer(serializers.ModelSerializer):
@@ -39,5 +39,14 @@ class AdminPackageListSerializer(PackageSerializer):
   category_name = serializers.CharField(source='category.category_name', read_only=True)
   class Meta:
     model = Packages
-    fields = ["id", "package_name", "duration", "price", "sale_price", "category","category_name", "image", "images","city","rating","is_active"]  
+    fields = ["id", "package_name", "duration", "price", "sale_price", "category","category_name", "image", "images","city","rating","is_active"] 
+
+
+
+class AdminHotelSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Hotels
+    fields = '__all__'
+
+
 

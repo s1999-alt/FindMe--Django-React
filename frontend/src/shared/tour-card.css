@@ -1,4 +1,3 @@
-
 .tour__img img{
   width: 100%;
   border-radius: 5px 5px 0 0;
@@ -25,3 +24,92 @@
   padding: 0.3rem 0.5rem;
   border-radius: 3px 0 0 0;
 }
+
+.card__top span i{
+  color: var(--secondary-color);
+}
+
+.tour__rating{
+  font-size: .9rem;
+  color: var(--text-color);
+}
+
+.tour__location{
+  color: var(--heading-color);
+  font-weight: 500;
+  font-size: .9rem;
+}
+
+.tour__rating i, .tour__location i {
+  font-size: 1rem;
+}
+
+.tour__title{
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.tour__title a{
+  text-decoration: none;
+  color: var(--heading-color);
+  transition: .3s;
+}
+
+.tour__title a:hover{
+  color: var(--secondary-color);
+}
+
+.card__bottom h6 {
+  color: var(--secondary-color);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.card__bottom h6 span{
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 0.8re;
+}
+
+.booking__btn{
+  background: var(--secondary-color) !important;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem !important;
+}
+
+.booking__btn a{
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.booking__btn a:hover{
+  color: #fff;
+}
+
+
+.inclsn{
+  width: 100%;
+  float: left;
+  margin: 8px 0 0px 0;
+  display: flex;
+  justify-content: flex-start;
+  border-top: 1px solid #e3e3e3;
+  padding: 7px 0;
+}
+
+.hicn {
+  float: left;
+  margin-right: 15px;
+}
+
+.i-htl {
+  width: 40px;
+  height: 40px;
+  background: url(../../src/assets/hotel-1.svg) no-repeat 0 0;
+  background-size: 40px 40px;
+  display: table;
+  margin: 0 auto;
+}
+

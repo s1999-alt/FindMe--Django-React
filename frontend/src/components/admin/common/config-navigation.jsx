@@ -33,6 +33,11 @@ const navConfig = [
     icon: icon('ic_blog'),
   },
   {
+    title: 'Hotels',
+    path: '/admin/Hotels',
+    icon: icon('ic_building'),
+  },
+  {
     title: 'login',
     path: '/admin/login',
     icon: icon('ic_lock'),

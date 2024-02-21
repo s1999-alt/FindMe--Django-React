@@ -32,3 +32,14 @@ class PackageImages(models.Model):
   package = models.ForeignKey(Packages, on_delete=models.CASCADE , related_name = "images") 
   image = models.ImageField(upload_to="package_images/", default="", null=True, blank=True)
 
+
+class Hotels(models.Model):
+  hotel_name = models.CharField(max_length=50)
+  place = models.CharField(max_length=50)
+  hotel_overview = models.TextField()
+  hotel_image = models.ImageField(upload_to="hotel_images/",default="",null=True,blank=True)
+  is_available = models.BooleanField(default=True)
+
+  def __str__(self):
+    return self.hotel_name 
+

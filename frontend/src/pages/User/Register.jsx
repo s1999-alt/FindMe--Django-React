@@ -91,7 +91,7 @@ const Register = () => {
     <div className='regis'>
       <form className="form" onSubmit={handleChange}>
         <p className="title">Register</p>
-        <p className="message">Signup now and get full access to our app.</p>
+        {/* <h6 className="message">Signup now and get full access to our app.</h6> */}
         <div className="flex">
           <label>
             <input
@@ -181,7 +181,7 @@ const Register = () => {
           Already have an account? <Link to="/auth/login">Sign in</Link>
         </p>
       </form>
-    </div>
+      </div>
   );
 };
 

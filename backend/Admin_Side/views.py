@@ -5,10 +5,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from rest_framework.authtoken.models import Token
 from users.models import User
-from .models import Packages, Category
+from .models import Packages, Category, Hotels
 from django.http import JsonResponse
 from rest_framework import generics
-from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer
+from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer
+
 
 class AdminLoginView(APIView):
     def post(self, request, *args, **kwargs):
@@ -91,5 +92,21 @@ class AdminPackageListView(generics.ListAPIView):
 class PackageUpdateView(generics.RetrieveUpdateAPIView):
     queryset = Packages.objects.all()
     serializer_class = PackageSerializer
-    lookup_field = 'id'    
+    lookup_field = 'id' 
+
+
+
+
+class AdminHotelCreateView(generics.CreateAPIView):
+    queryset = Hotels.objects.all()
+    serializer_class = AdminHotelSerializer
+
+class AdminHotelListView(generics.ListAPIView):
+    queryset = Hotels.objects.all()
+    serializer_class = AdminHotelSerializer
+
+class AdminHotelView(generics.RetrieveUpdateDestroyAPIView):
+    queryset =  Hotels.objects.all()  
+    serializer_class = AdminHotelSerializer
+
     

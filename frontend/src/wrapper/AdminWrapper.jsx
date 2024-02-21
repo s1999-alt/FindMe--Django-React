@@ -13,6 +13,8 @@ import EditPackageForm from '../pages/Admin/Section/products/view/EditPackageFor
 import AddCategoryForm from '../pages/Admin/Section/Categories/AddCategoryForm';
 import CategoryList from '../pages/Admin/Section/Categories/CategoryList';
 import EditCategoryForm from '../pages/Admin/Section/Categories/EditCategoryForm';
+import AddHotelForm from '../pages/Admin/Section/Hotels/AddHotelForm';
+import HotelList from '../pages/Admin/Section/Hotels/HotelList';
 
 
 
@@ -37,7 +39,10 @@ function AdminWrapper() {
         {path: 'edit-package/:id', element: <EditPackageForm/> },        
         {path: 'add-category', element: <AddCategoryForm/> },        
         {path: 'categories', element: <CategoryList/> },        
-        {path: 'edit-category/:id', element: <EditCategoryForm/> },        
+        {path: 'edit-category/:id', element: <EditCategoryForm/> },
+        {path: 'AddHotels', element: <AddHotelForm/> },
+        {path: 'Hotels', element: <HotelList/> }, 
+
 
         // { path: 'blog', element: <BlogPage /> },
       ],

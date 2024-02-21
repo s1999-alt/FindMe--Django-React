@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 const AddCategoryForm = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate()  
   const [formData, setFormData] = useState({
     category_name : '',
     is_available : true,
