@@ -9,10 +9,13 @@ import heroImg02 from '../../assets/hero-img02.jpg'
 import heroVideo from '../../assets/hero-video.mp4'
 import Subtitle from '../../shared/Subtitle';
 import worlImage from '../../assets/world.png'
+import experienceImg from '../../assets/experience.png'
 
 import SearchBar from '../../shared/SearchBar';
 import ServiceList from '../../services/ServiceList';
 import FeaturedTourList from '../../components/user/Featured-Tours/FeaturedTourList';
+import MasonryImagesGallery from '../../components/user/image-gallery/MasonryImagesGallery';
+import Newsletter from '../../shared/Newsletter';
 
 
 const Home = () => {
@@ -86,6 +89,74 @@ const Home = () => {
       </Container>
     </section>
     {/*======================Featured Tour Section End==========================*/}
+
+    {/*======================experience Section Start==========================*/}
+    <section>
+      <Container>
+        <Row>
+          <Col lg='6'>
+            <div className='experience__content'>
+              <Subtitle subtitle={'Experience'}/>
+            <h2>
+              With our all experience <br/>We will serve you
+            </h2>
+            <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+            <br/>
+            when an unknown printer took a galley of type and scrambled it to make a type 
+            specimen book.
+            </p>  
+            </div>
+
+            <div className='counter__wrapper d-flex align-items-center gap-5'>
+              <div className='counter__box'>
+                <span>12k+</span>
+                <h6>Successfull Trip</h6>
+              </div>
+              <div className='counter__box'>
+                <span>2k+</span>
+                <h6>Regular Clients</h6>
+              </div>
+              <div className='counter__box'>
+                <span>1</span>
+                <h6>Year</h6>
+              </div>
+            </div>
+          </Col>
+          <Col lg="6">
+            <div className="experience__img">
+              <img src={experienceImg} alt="" />
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </section>
+    {/*======================experience Section End==========================*/}
+    
+    {/*======================gallery Section Start==========================*/}
+
+    <section>
+      <Container>
+        <Row>
+          <Col lg='12'>
+            <Subtitle subtitle={"Gallery"}/>
+            <h2 className='gallery__title'>
+              Visit our Customers tour Gallery
+            </h2>
+          </Col>
+          <Col lg='12'>
+            <MasonryImagesGallery/>
+          </Col>
+        </Row>
+      </Container>
+    </section>
+
+    {/*======================gallery Section End==========================*/}
+
+    <Newsletter/>
+
+
     </>
   );
 };

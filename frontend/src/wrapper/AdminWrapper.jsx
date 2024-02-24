@@ -15,6 +15,7 @@ import CategoryList from '../pages/Admin/Section/Categories/CategoryList';
 import EditCategoryForm from '../pages/Admin/Section/Categories/EditCategoryForm';
 import AddHotelForm from '../pages/Admin/Section/Hotels/AddHotelForm';
 import HotelList from '../pages/Admin/Section/Hotels/HotelList';
+import EditHotelForm from '../pages/Admin/Section/Hotels/EditHotelForm';
 
 
 
@@ -41,7 +42,8 @@ function AdminWrapper() {
         {path: 'categories', element: <CategoryList/> },        
         {path: 'edit-category/:id', element: <EditCategoryForm/> },
         {path: 'AddHotels', element: <AddHotelForm/> },
-        {path: 'Hotels', element: <HotelList/> }, 
+        {path: 'Hotels', element: <HotelList/> },
+        {path: 'edit-hotel/:id', element: <EditHotelForm/> },
 
 
         // { path: 'blog', element: <BlogPage /> },

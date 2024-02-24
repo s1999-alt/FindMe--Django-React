@@ -17,6 +17,7 @@
 
 body {
   font-family: var(--font-name);
+  padding-top: 87px;
 }
 
 section {

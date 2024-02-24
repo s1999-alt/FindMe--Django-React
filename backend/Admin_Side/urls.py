@@ -23,5 +23,4 @@ urlpatterns = [
     path('hotels/list/', AdminHotelListView.as_view(), name='hotels-list'),
     path('hotels/list/<int:pk>/', AdminHotelView.as_view(), name='hotels-list'),
 
-
 ]

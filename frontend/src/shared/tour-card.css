@@ -6,6 +6,11 @@
 .card{
   border: none !important;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+  transition: .5s;
+}
+
+.card:hover{
+  transform: scale(1.1);
 }
 
 .tour__img{
@@ -47,7 +52,7 @@
 .tour__title{
   margin-top: 1rem;
   font-size: 1.1rem;
-  cursor: pointer;
+  cursor: pointer;  
 }
 
 .tour__title a{
@@ -58,6 +63,11 @@
 
 .tour__title a:hover{
   color: var(--secondary-color);
+}
+
+.card__bottom{
+  border-top: 1px solid #e3e3e3;
+  padding-top: .5rem;
 }
 
 .card__bottom h6 {
@@ -108,6 +118,41 @@
   width: 40px;
   height: 40px;
   background: url(../../src/assets/hotel-1.svg) no-repeat 0 0;
+  background-size: 40px 40px;
+  display: table;
+  margin: 0 auto;
+}
+
+.incTxt {
+  font-size: 11px;
+  color: #000;
+  display: block;
+  text-align: center;
+}
+
+.i-sig {
+  width: 40px;
+  height: 40px;
+  background: url(../../src/assets/sightseeing-1.svg) no-repeat 0 0;
+  background-size: 40px 40px;
+  display: table;
+  margin: 0 auto;
+}
+
+
+.i-car {
+  width: 40px;
+  height: 40px;
+  background: url(../../src/assets/transfer-1.svg) no-repeat 0 0;
+  background-size: 40px 40px;
+  display: table;
+  margin: 0 auto;
+}
+
+.i-mea {
+  width: 40px;
+  height: 40px;
+  background: url(../../src/assets/meal-1.svg) no-repeat 0 0;
   background-size: 40px 40px;
   display: table;
   margin: 0 auto;

@@ -1,8 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const HotelList = () => {
   const [hotels,setHotels] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchHotels = async () => {
@@ -33,7 +35,7 @@ const HotelList = () => {
   }
 
   const handleEditHotel = (hotelId) => {
-
+    navigate(`/admin/edit-hotel/${hotelId}`)
     console.log(`Edit hotel with ID: ${hotelId}`);
   }
 
@@ -63,7 +65,9 @@ const HotelList = () => {
               <td>{hotel.hotel_name}</td>
               <td>{hotel.place}</td>
               <td>{hotel.hotel_overview}</td>
-              <td>{hotel.is_available ? 'Available' : 'Unavailable'}</td>
+              <td style={{fontWeight: 'bold', color: hotel.is_available ? 'green' : 'red' }}>
+                {hotel.is_available ? 'Available' : 'Unavailable'}
+                </td>
               <td>
                 <button onClick={() => handleToggleAvailability(hotel.id, hotel.is_available)}>
                   {hotel.is_available ? 'Block' : 'Unblock'}

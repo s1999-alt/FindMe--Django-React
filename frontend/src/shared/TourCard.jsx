@@ -30,6 +30,18 @@ const TourCard = ({pack}) => {
               <i class="i-htl"></i>
               <span class="incTxt">Hotel</span>
             </div>
+            <div className="hicn">
+              <i class="i-sig"></i>
+              <span class="incTxt">Sightseeing</span>
+            </div>
+            <div className="hicn">
+              <i class="i-car"></i>
+              <span class="incTxt">Transfer</span>
+            </div>
+            <div className="hicn">
+              <i class="i-mea"></i>
+              <span class="incTxt">Meal</span>
+            </div>
           </div>
           <h5 className='tour__title'><Link to={``}>{package_name}</Link></h5>
           <div className="card__bottom d-flex align-items-center 

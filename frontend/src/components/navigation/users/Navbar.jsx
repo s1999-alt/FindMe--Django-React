@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { getUserInfo, logout, reset } from '../../../features/auth/authSlice';
@@ -67,6 +67,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+
   const {user, userInfo} = useSelector((state) => state.auth);
 
   const handleLogout = () => {
@@ -83,11 +84,10 @@ const Navbar = () => {
       dispatch(getUserInfo());
     }
   }, [dispatch, user]);
-  
 
   return (
     <>
-    <nav className="flex flex-wrap justify-between items-center py-4 bg-white/80 backdrop-blur-md shadow-md w-full relative z-10 px-10">
+    <nav className="flex flex-wrap justify-between items-center py-4 bg-white/80 backdrop-blur-md shadow-md w-full fixed top-0 z-10 px-10">
       {/* Logo Container */}
       <div className="flex items-center">
         {/* Logo */}

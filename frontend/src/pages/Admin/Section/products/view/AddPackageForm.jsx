@@ -52,6 +52,7 @@ const AddPackageForm = () => {
 
     const packageData = new FormData()
     for (const key in formData){
+      
       packageData.append(key, formData[key])
     }
 
