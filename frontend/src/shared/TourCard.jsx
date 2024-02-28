@@ -48,7 +48,7 @@ const TourCard = ({pack}) => {
           justify-content-between mt-3">
             <h6>${sale_price} <span>/per person</span></h6>
             <button className='btn booking__btn'>
-              <Link>Book Now</Link>
+              <Link to={`/packages/${id}`}>Book Now</Link>
             </button>
           </div>
         </CardBody>

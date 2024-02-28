@@ -11,6 +11,31 @@ class Category(models.Model):
     return self.category_name
   
 
+class Inclusions(models.Model):
+  inclusion = models.CharField(max_length=100) 
+
+  def __str__(self):
+    return self.inclusion 
+  
+  
+class Exclusions(models.Model):
+  exclusion = models.CharField(max_length=100) 
+
+  def __str__(self):
+    return self.exclusion
+  
+
+class Hotels(models.Model):
+  hotel_name = models.CharField(max_length=50)
+  place = models.CharField(max_length=50)
+  hotel_overview = models.TextField()
+  hotel_image = models.ImageField(upload_to="hotel_images/",default="",null=True,blank=True)
+  is_available = models.BooleanField(default=True)
+
+  def __str__(self):
+    return self.hotel_name    
+  
+
 class Packages(models.Model):
   package_name = models.CharField(max_length=50)
   duration = models.CharField(max_length=50)
@@ -21,25 +46,32 @@ class Packages(models.Model):
   image = models.ImageField(upload_to='package_images/', blank=True, null=True)
   city = models.CharField(max_length=50)
   rating = models.DecimalField(max_digits=5, decimal_places=2)
+  inclusions = models.ManyToManyField(Inclusions, blank=True)
+  exclusions = models.ManyToManyField(Exclusions, blank=True)
+  hotels = models.ManyToManyField(Hotels, blank=True)
   is_active = models.BooleanField(default=False)
 
 
   def __str__(self):
     return self.package_name
   
-  
+
+    
 class PackageImages(models.Model):
   package = models.ForeignKey(Packages, on_delete=models.CASCADE , related_name = "images") 
   image = models.ImageField(upload_to="package_images/", default="", null=True, blank=True)
 
 
-class Hotels(models.Model):
-  hotel_name = models.CharField(max_length=50)
-  place = models.CharField(max_length=50)
-  hotel_overview = models.TextField()
-  hotel_image = models.ImageField(upload_to="hotel_images/",default="",null=True,blank=True)
-  is_available = models.BooleanField(default=True)
+class Itinarary(models.Model):
+  package = models.ForeignKey(Packages, on_delete=models.CASCADE)
+  day_number = models.PositiveIntegerField()
+  activities = models.TextField()
 
   def __str__(self):
-    return self.hotel_name 
+    return f"{self.package.package_name} - Day {self.day_number}"
+
+
+
+
+ 
 

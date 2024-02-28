@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from djoser.serializers import UserCreateSerializer
 from users.models import User
 from rest_framework import serializers
-from .models import Category,Packages,PackageImages,Hotels
+from .models import Category,Packages,PackageImages,Hotels,Inclusions,Exclusions,Itinarary
 
 
 class UserDetailsSerializer(serializers.ModelSerializer):
@@ -20,15 +20,35 @@ class CategorySerializer(serializers.ModelSerializer):
 class PackageImageSerializer(serializers.ModelSerializer):
   class Meta:
     model = PackageImages
-    fields = ["id", "package", "image"]    
+    fields = ["id", "package", "image"] 
+
+class InclusionsSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Inclusions
+    fields = '__all__'  
+
+
+class ExclusionsSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Exclusions
+    fields = '__all__'
+
+
+class AdminHotelSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Hotels
+    fields = '__all__'    
 
 
 class PackageSerializer(serializers.ModelSerializer):
   images = PackageImageSerializer(many=True, read_only=True)
+  inclusions = InclusionsSerializer(many=True, read_only=True)
+  exclusions = ExclusionsSerializer(many=True, read_only=True) 
+  hotels = AdminHotelSerializer(many=True, read_only=True)
 
   class Meta:
     model = Packages
-    fields = ["id", "package_name", "duration", "price", "sale_price", "overview", "category","image", "images","city","rating","is_active"]
+    fields = ["id", "package_name", "duration", "price", "sale_price", "overview", "category","image", "images","city","rating","inclusions","exclusions","hotels","is_active"]
 
   def create(self, validated_data):
     package = Packages.objects.create(**validated_data)
@@ -42,11 +62,13 @@ class AdminPackageListSerializer(PackageSerializer):
     fields = ["id", "package_name", "duration", "price", "sale_price", "category","category_name", "image", "images","city","rating","is_active"] 
 
 
-
-class AdminHotelSerializer(serializers.ModelSerializer):
+class ItinararySerializer(serializers.ModelSerializer):
   class Meta:
-    model = Hotels
+    model = Itinarary
     fields = '__all__'
+
+
+
 
 
 
