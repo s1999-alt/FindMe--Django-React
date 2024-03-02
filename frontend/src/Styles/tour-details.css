@@ -381,6 +381,21 @@ div.item {
   z-index: 2;
 }
 
+.slick-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  cursor: pointer;
+  color: #c3b3b3; 
+}
+
+.next-arrow {
+  right: 10px;
+}
+
+
+
 
 
 

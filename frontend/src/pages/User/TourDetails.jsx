@@ -1,16 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import '../../Styles/tour-details.css'
-import { Container, Row, Col, Form, ListGroup } from 'reactstrap'
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { Container, Row, Col} from 'reactstrap'
 import { useParams } from 'react-router-dom'
+import '../../Styles/tour-details.css'
 import axios from 'axios'
+import Booking from '../../components/user/Bookings/Booking';
 
 import threestar from '../../assets/3-star.gif'
+import { HiOutlineArrowRight } from "react-icons/hi";
 
 
 const TourDetails = () => {
   const {id} = useParams()
   const [packageDetails, setPackageDetails] = useState(null)
   const [itinararies, setItinararies] = useState([])
+
+  const Settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000, // set the interval for automatic image change (in milliseconds)
+  };
 
   useEffect( () => {
     const fetchData = async () => {
@@ -30,8 +44,6 @@ const TourDetails = () => {
 
     fetchData()
   }, [id])
-
-
 
   if (!packageDetails) {
     return <div>Loading...</div>;
@@ -54,6 +66,12 @@ const TourDetails = () => {
     is_active,
   } = packageDetails;
 
+  const NextArrow = ({onClick}) => (
+    <div className="slick-arrow next-arrow" onClick={onClick}>
+    Next
+      <HiOutlineArrowRight/>
+    </div>
+  )
   return (
     <>
       <section>
@@ -61,11 +79,17 @@ const TourDetails = () => {
           <Row>
             <Col lg="8">
               <div className="tour__content">
-                <img style={{width:"100%",height:"22rem"}} src={image} alt="" />
+                <Slider {...Settings} nextArrow={<NextArrow/>}>
+                  {images.map((img, index) => (
+                    <div key={index}>
+                      <img style={{ width: "100%", height: "21rem" }} src={img.image} alt={`Slide ${index}`} />
+                    </div>
+                  ))}
+                </Slider>
 
                 <div className="tour__info">
                   <h2 style={{ display: 'inline-block', marginRight: '8px' }}>{package_name}</h2>
-                  <p style={{ display: 'inline-block', fontSize: 'medium' }}>{duration}</p>
+                  <p style={{ display: 'inline-block', fontSize: 'medium' }}>{duration} days</p>
                   <span className='landonly'style={{ display: 'inline-block', fontSize: 'medium',marginLeft: '8px' }} >Land Only</span>
                   <div className="d-flex align-items-center gap-5">
                     <span className="d-flex align-items-center gap-1">
@@ -73,13 +97,13 @@ const TourDetails = () => {
                       {{'color':"var(--secondary-color)"}}></i>{rating}{" "}
                     </span>
                     <span>
-                      <i class="ri-map-pin-fill"></i>{city}
+                      <i className="ri-map-pin-fill"></i>{city}
                     </span>
                   </div>
 
                   <div className="tour__extra-details">
-                    <span><i class="ri-money-rupee-circle-line"></i>{price} / per person</span>
-                    <span><i class="ri-group-line"></i>17(maximum)</span>
+                    <span><i className="ri-money-rupee-circle-line"></i>{sale_price} / per person</span>
+                    <span><i className="ri-group-line"></i>17(maximum)</span>
                   </div>
                   <h5>Description</h5>
                   <p>{overview}</p>
@@ -130,7 +154,7 @@ const TourDetails = () => {
                               </div>
                               <div className="clr"></div>
                                 <span>
-                                  <i class="ri-map-pin-fill"></i>{hotel.place}
+                                  <i className="ri-map-pin-fill"></i>{hotel.place}
                                 </span>
                               <div className="holi-can-holiy">
                                 <p className='ng-binding'>
@@ -174,15 +198,16 @@ const TourDetails = () => {
                           ))
                         }
                         
-                        
-
-                        
                       </div>
                     </div>
                   </div>
                 </div>
 
               </div>
+            </Col>
+
+            <Col lg="4">
+              <Booking packageDetails={packageDetails}/>
             </Col>
           </Row>
         </Container>

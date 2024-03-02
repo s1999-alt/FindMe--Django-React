@@ -8,13 +8,16 @@ import PageNotFound from '../pages/User/PageNotFound'
 import ActivatePage from '../pages/User/ActivatePage'
 import ResetPasswordConfirmPage from '../pages/User/ResetPasswordConfirmPage'
 import TourDetails from '../pages/User/TourDetails'
+import UserRouter from '../route/userRouter'
 
 function UserWrapper() {
   const routes = useRoutes([{
     element: (
       <>
       <Navbar/>
-      <Outlet/>
+      
+        <Outlet/>
+        
       <Footer/>
       </>
     ),
@@ -23,7 +26,7 @@ function UserWrapper() {
       {path: "/", element: <Home/>},
       {path: "/activate/:uid/:token", element: <ActivatePage/>},
       {path: "/password/reset/:uid/:token", element: <ResetPasswordConfirmPage/>},
-      {path: "/packages/:id", element: <TourDetails/>},
+      {path: "/packages/:id", element: <UserRouter><TourDetails/></UserRouter>},
       
     ],
   },

@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from Admin_Side.serializers import PackageSerializer,ItinararySerializer
+from Admin_Side.serializers import PackageSerializer,ItinararySerializer,BookingSerializer
 from rest_framework import generics
-from Admin_Side.models import Packages,Itinarary
+from Admin_Side.models import Packages,Itinarary,Booking
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -24,6 +24,17 @@ class ItineraryListView(generics.ListCreateAPIView):
 class ItineraryDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Itinarary.objects.all()
     serializer_class = ItinararySerializer
+
+
+
+class BookingListView(generics.ListCreateAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer  
+
+class BookingDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+
 
 
 

@@ -1,5 +1,6 @@
 from django.db import models
-
+from users.models import User
+from datetime import timedelta
 
 class Category(models.Model):
   category_name = models.CharField( max_length=50)
@@ -69,6 +70,34 @@ class Itinarary(models.Model):
 
   def __str__(self):
     return f"{self.package.package_name} - Day {self.day_number}"
+  
+
+class Booking(models.Model):
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  package = models.ForeignKey(Packages,on_delete=models.CASCADE)
+  full_name = models.CharField(max_length=255)
+  phone = models.CharField(max_length=15)
+  email = models.EmailField(max_length=254)
+  start_date = models.DateField()
+  end_date = models.DateField(null=True)
+  no_of_guest = models.PositiveIntegerField()
+  total = models.DecimalField(max_digits=10, decimal_places=2)
+
+  def __str__(self):
+    return f"{self.full_name} - {self.package.package_name}"
+  
+  def save(self, *args, **kwargs):
+    package_duration = int(self.package.duration)
+
+    end_date = self.start_date + timedelta(days=package_duration)
+
+    self.end_date = end_date
+
+    super().save(*args, **kwargs)
+  
+
+
+
 
 
 
