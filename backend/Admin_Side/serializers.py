@@ -72,7 +72,7 @@ class ItinararySerializer(serializers.ModelSerializer):
 class BookingSerializer(serializers.ModelSerializer):
   class Meta:
     model = Booking
-    fields = ['id','user','package','full_name','phone','email','start_date','end_date','no_of_guest','total']
+    fields = ['id','user','package','full_name','phone','email','start_date','end_date','no_of_guest','total','status']
 
 
 

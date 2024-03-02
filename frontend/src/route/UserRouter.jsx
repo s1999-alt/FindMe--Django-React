@@ -18,14 +18,9 @@ function UserRouter({children}) {
     console.log("==================================",userInfo);
   if (!user){
     setisAuthenticated(false)
-    // setTimeout(() => { setLoading(false); }, 600);
   }
   },[])
 
-  // if (isLoading) {
-  //   // Handle loading state, you might show a loading spinner
-  //   return <Spinner/>
-  // }
 
   if (isAuthenticated){
     return children

@@ -73,6 +73,11 @@ class Itinarary(models.Model):
   
 
 class Booking(models.Model):
+  STATUS_CHOICES = [
+    ('Pending Payment', 'Pending Payment'),
+    ('Payment Complete', 'Payment Complete')
+  ]
+
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   package = models.ForeignKey(Packages,on_delete=models.CASCADE)
   full_name = models.CharField(max_length=255)
@@ -82,6 +87,7 @@ class Booking(models.Model):
   end_date = models.DateField(null=True)
   no_of_guest = models.PositiveIntegerField()
   total = models.DecimalField(max_digits=10, decimal_places=2)
+  status = models.CharField(max_length=50, choices=STATUS_CHOICES , default='Pending Payment')
 
   def __str__(self):
     return f"{self.full_name} - {self.package.package_name}"

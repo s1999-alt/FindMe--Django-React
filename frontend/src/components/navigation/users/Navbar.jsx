@@ -73,7 +73,7 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(logout());
     dispatch(reset());
-    navigate("/");
+    navigate("/auth/login/");
   };
 
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
