@@ -9,6 +9,7 @@ import ActivatePage from '../pages/User/ActivatePage'
 import ResetPasswordConfirmPage from '../pages/User/ResetPasswordConfirmPage'
 import TourDetails from '../pages/User/TourDetails'
 import UserRouter from '../route/userRouter'
+import BookingConfirm from '../components/user/BookingConfirm/BookingConfirm'
 
 function UserWrapper() {
   const routes = useRoutes([{
@@ -27,6 +28,7 @@ function UserWrapper() {
       {path: "/activate/:uid/:token", element: <ActivatePage/>},
       {path: "/password/reset/:uid/:token", element: <ResetPasswordConfirmPage/>},
       {path: "/packages/:id", element: <UserRouter><TourDetails/></UserRouter>},
+      {path: "/bookingconfirm/:bookingId", element: <BookingConfirm/>},
       
     ],
   },

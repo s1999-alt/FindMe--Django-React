@@ -70,9 +70,11 @@ class ItinararySerializer(serializers.ModelSerializer):
 
 
 class BookingSerializer(serializers.ModelSerializer):
+  package_details = PackageSerializer(source='package', read_only=True)
+  user_details = UserDetailsSerializer(source='user' , read_only=True) 
   class Meta:
     model = Booking
-    fields = ['id','user','package','full_name','phone','email','start_date','end_date','no_of_guest','total','status']
+    fields = ['id','user','package','full_name','phone','email','start_date','end_date','no_of_guest','total','status','package_details','user_details']
 
 
 

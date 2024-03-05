@@ -4,10 +4,12 @@ import { Button, Form, FormGroup, ListGroup, ListGroupItem } from 'reactstrap'
 import { FaRupeeSign } from "react-icons/fa";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 const Booking = ({packageDetails}) => {
   const {user, userInfo} = useSelector((state) => state.auth);
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
     full_name:'',
@@ -16,9 +18,6 @@ const Booking = ({packageDetails}) => {
     start_date:'',
     no_of_guest:'',
   })
-
-  // const [totalAmount, setTotalAmount] = useState(0)
-
 
   useEffect(()=>{
   },[formData,packageDetails])
@@ -35,11 +34,6 @@ const Booking = ({packageDetails}) => {
   const taxAmount = parseFloat(rawtaxAmount.toFixed(2));
   const grandTotal = packageAmount + taxAmount + serviceCharge
 
-  // const calculateTotalAmount = () => {
-  //   setTotalAmount(grandTotal)
-  // }
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -53,6 +47,9 @@ const Booking = ({packageDetails}) => {
       })
       console.log('Booking successful:', response.data);
       // Navigate to the checkout page or show a success message
+      const bookingId = response.data.id
+      navigate(`/bookingConfirm/${bookingId}`)
+      
     } catch (error) {
       console.error('Error during booking:', error);
     }
