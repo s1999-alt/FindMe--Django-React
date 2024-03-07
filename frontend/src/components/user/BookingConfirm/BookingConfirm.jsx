@@ -13,6 +13,8 @@ const BookingConfirm = () => {
   const {bookingId} = useParams()
   const [bookingDetails,setBookingDetails] = useState(null)
 
+
+
   useEffect(() => {
     const fetchBookingDetails = async ()=> {
       try {
@@ -25,6 +27,7 @@ const BookingConfirm = () => {
     }
     fetchBookingDetails()
   },[bookingId])
+
 
   const packageFullAmount = bookingDetails?.package_details?.sale_price * Number(bookingDetails?.no_of_guest) || 0;
   const rawtaxAmount = 0.1 * packageFullAmount
@@ -161,7 +164,9 @@ const BookingConfirm = () => {
                     </div>
                   </div>
                   <div className="contn-pay-rt-main">
-                    <button>Make Payment</button>
+                    <form>
+                      <button type='button' onClick="">Make Payment</button>
+                    </form>
                   </div>
                 </div>
               )}
@@ -203,11 +208,11 @@ const BookingConfirm = () => {
                     </div>
                     <div className="rate-info-section-2">
                         <p style={{fontWeight:"Bold"}}>Traveller Details</p>
-                        <p style={{color:"black"}}>1. {bookingDetails.user_details.first_name} {bookingDetails.user_details.last_name} </p>
+                        <p style={{color:"black"}}>1. {bookingDetails.full_name} </p>
                     </div>
                     <div className="rate-info-section-2">
                         <p style={{fontWeight:"Bold"}}>Contact Details</p>
-                        <p>Email : {bookingDetails.user_details.email} </p>
+                        <p>Email : {bookingDetails.email} </p>
                         <p>Phone : {bookingDetails.phone} </p>
                     </div>
                     <div className="rate-info-grandtotal-2">
@@ -216,7 +221,9 @@ const BookingConfirm = () => {
                     </div>
                   </div>
                   <div className="contn-pay-rt">
-                    <button>Make Payment</button>
+                    <form>
+                      <button>Make Payment</button>
+                    </form>
                   </div>
                 </>  
               )}

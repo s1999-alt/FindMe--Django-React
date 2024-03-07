@@ -83,7 +83,20 @@ class CategoryDetails(generics.RetrieveUpdateDestroyAPIView):
 
 class PackageCreateView(generics.CreateAPIView):
     queryset = Packages.objects.all()
-    serializer_class = PackageSerializer    
+    serializer_class = PackageSerializer 
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        image = request.data.get('image')
+        if image:
+            if not image.content_type.startswith('image'):
+                return Response({'image': ['Invalid image format. Only images are allowed.']}, status=status.HTTP_400_BAD_REQUEST)
+            
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)   
 
 class AdminPackageListView(generics.ListAPIView):
     queryset = Packages.objects.all()
@@ -92,7 +105,15 @@ class AdminPackageListView(generics.ListAPIView):
 class PackageUpdateView(generics.RetrieveUpdateAPIView):
     queryset = Packages.objects.all()
     serializer_class = PackageSerializer
-    lookup_field = 'id' 
+    lookup_field = 'id'
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.is_active = not instance.is_active
+        instance.save()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 
 

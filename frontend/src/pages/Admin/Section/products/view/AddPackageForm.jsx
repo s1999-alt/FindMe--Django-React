@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import './add-packageform.css'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -18,7 +19,8 @@ const AddPackageForm = () => {
     rating:'',
     is_active: false,
   })
-
+   
+  const navigate = useNavigate()
   const [categories, setCategories] = useState([])
 
   useEffect(() =>{
@@ -59,11 +61,19 @@ const AddPackageForm = () => {
     try{
       const response = await axios.post('http://127.0.0.1:8000/api/v1/admin/packages/create/', packageData)
       console.log('Package added:', response.data);
+      navigate('/admin/AdminPackageList')
       toast.success('Package Added Successfully')
 
     }catch(error){
       console.error('Error adding package:', error)
-      toast.error(`An error occurred during adding package: ${error.message}`)
+
+      if (error.response && error.response.status === 400 && error.response.data && error.response.data.package_name){
+        toast.error(` '${error.response.data.package_name}'`);
+      }else if (error.response && error.response.data && error.response.data.image) {
+        toast.error(`Image validation error: ${error.response.data.image.join(', ')}`)
+      }else{
+        toast.error(`An error occurred during adding package: ${error.message}`)
+      }  
     }
   }
 

@@ -140,6 +140,15 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'
+    ]
+}
+
+STRIPE_SECRET_KEY = 'sk_test_51Or2HPSDdBPTenO66DJMmHH5aI7nUFdIguYQrxBDYYbvsEqutPQOP0rkht9sX10FQTKZ7MRqC1gRIzWAGQxivqjE00iiW4MOMX'
+SITE_URL = 'http://localhost:5173'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -199,4 +208,5 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = "findme112024@gmail.com"
 DOMAIN = env("DOMAIN")
 SITE_NAME = 'FindMe'
+
 

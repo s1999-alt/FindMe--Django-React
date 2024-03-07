@@ -3,7 +3,7 @@ from users.models import User
 from datetime import timedelta
 
 class Category(models.Model):
-  category_name = models.CharField( max_length=50)
+  category_name = models.CharField( max_length=50, unique=True )
   is_available = models.BooleanField(default=True)
   soft_deleted = models.BooleanField(default=False)
   category_image = models.ImageField(upload_to='category_images/', blank=True, null=True)
@@ -38,7 +38,7 @@ class Hotels(models.Model):
   
 
 class Packages(models.Model):
-  package_name = models.CharField(max_length=50)
+  package_name = models.CharField(max_length=50, unique=True)
   duration = models.CharField(max_length=50)
   price = models.DecimalField(max_digits=10, decimal_places=2)
   sale_price = models.DecimalField(max_digits=10, decimal_places=2)

@@ -33,7 +33,19 @@ const PackageList = () => {
       console.log('Error deleting package', error)
     }
   }
- 
+
+  const handleBlockUnblock = async (packageId, isActive) => {
+    try {
+      await axios.patch(`http://127.0.0.1:8000/api/v1/admin/packages/block/${packageId}/`)
+      setPackages(prevPackages =>
+        prevPackages.map(pack =>
+          pack.id === packageId ? {...pack, is_active: !isActive} : pack
+        )
+        )
+    } catch (error) {
+      console.error('Error updating packages')
+    }
+  }
 
   return (
     <div className='package-list-container'>
@@ -59,10 +71,21 @@ const PackageList = () => {
               <td>{pack.duration}</td>
               <td>{pack.price}</td>
               <td>{pack.sale_price}</td>
-              <td>{pack.is_active ? 'Available' : 'Not Available'}</td>
+              <td style={{fontWeight:'bold', color: pack.is_active ? 'green' : 'red'}}>{pack.is_active ? 'Available' : 'Not Available'}</td>
               <td>{pack.category_name}</td>
               <td>
-                <button onClick={() => handleEdit(pack.id)}>Edit</button>
+                {pack.is_active && (
+                  <button style={{backgroundColor:'red'}} onClick={() => handleBlockUnblock(pack.id, pack.is_active)}>
+                    Unlist 
+                  </button>
+                )}
+                {!pack.is_active && (
+                  <button onClick={() => handleBlockUnblock(pack.id , pack.is_active) }>
+                    List
+                  </button>
+                )
+                }
+                <button style={{backgroundColor:'grey'}} onClick={() => handleEdit(pack.id)}>Edit</button>
                 <button className='delete-button' onClick={() => handleDelete(pack.id)}>Delete</button>
               </td>
             </tr>

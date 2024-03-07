@@ -40,7 +40,12 @@ const AddCategoryForm = () => {
       })
     }catch(error){
       console.error('Error adding category:', error);
-      toast.error(`An error occurred during category addition: ${error.message}`);  
+      
+      if (error.response && error.response.status == 400 && error.response.data && error.response.data.category_name){
+        toast.error(` '${error.response.data.category_name}'`);
+      }else{
+        toast.error(`An error occurred during category addition: ${error.message}`);
+      }  
     }
   }
 

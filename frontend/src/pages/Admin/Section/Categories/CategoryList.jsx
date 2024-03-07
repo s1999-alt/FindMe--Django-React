@@ -65,12 +65,12 @@ const CategoryListPage = () => {
               <td>
                 {category.is_available && (
                   <button onClick={() => handleBlockUnblock(category.id, category.is_available)}>
-                    Block
-                  </button>
+                    List
+                  </button> 
                 )}
                 {!category.is_available && (
                   <button onClick={() => handleBlockUnblock(category.id, category.is_available)}>
-                    Unblock
+                    Unlist
                   </button>
                 )}
                 <button onClick={() => handleEdit(category.id)}>Edit</button>

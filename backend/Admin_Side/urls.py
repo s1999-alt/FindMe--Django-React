@@ -10,7 +10,8 @@ urlpatterns = [
     
     path('packages/', AdminPackageListView.as_view(), name='admin-packagelist'),
     path('packages/create/', PackageCreateView.as_view(), name='package-create'),
-    path('packages/update/<int:id>',PackageUpdateView.as_view(),name='package-update'),
+    path('packages/update/<int:id>',PackageUpdateView.as_view(),name='package-block-unblock'),
+    path('packages/block/<int:id>/',PackageUpdateView.as_view(),name='package-update'),
 
 
     path('categories/', CategoryCreateView.as_view(), name='category-create'),

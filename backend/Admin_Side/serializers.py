@@ -50,6 +50,14 @@ class PackageSerializer(serializers.ModelSerializer):
     model = Packages
     fields = ["id", "package_name", "duration", "price", "sale_price", "overview", "category","image", "images","city","rating","inclusions","exclusions","hotels","is_active"]
 
+  def validate_image(self, value):
+    allowed_content_types = ['image/jpeg', 'image/png', 'image/gif']
+
+    if value.content_type not in allowed_content_types:
+      raise serializers.ValidationError('Invalid Image File Type. Only JPEG, PNG, and GIF are allowed')  
+    
+    return value
+
   def create(self, validated_data):
     package = Packages.objects.create(**validated_data)
     return package
