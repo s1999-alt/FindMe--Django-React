@@ -13,11 +13,21 @@ const EditCategoryForm = () => {
     category_image: null,
   })
 
+  const [imageURL, setImageURL] = useState('');
+  const [fileInput, setFileInput] = useState(null);
+
   useEffect( () => {
     const fetchCategoryDetails = async () =>{
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/v1/admin/categories/${id}`)
-        setFormData(response.data)
+        const {category_name, is_available, soft_deleted, category_image} = response.data
+        setFormData({
+          category_name,
+          is_available,
+          soft_deleted,
+        })
+        setImageURL(category_image);
+        console.log("======================",response.data);
       } catch (error) {
         console.log('Error fetching category details', error)
       }
@@ -30,7 +40,9 @@ const EditCategoryForm = () => {
   }
 
   const handleImageChange = (e) => {
-    setFormData({...formData, category_image: e.target.files[0]})
+    const selectedFile = e.target.files[0];
+    setFileInput(selectedFile);
+    setImageURL(selectedFile ? selectedFile.name : '');
   }
 
   const handleSubmit = async (e) => {
@@ -39,6 +51,10 @@ const EditCategoryForm = () => {
     const categoryData = new FormData()
     for (const key in formData){
       categoryData.append(key, formData[key])
+    }
+
+    if (fileInput) {
+      categoryData.append('category_image', fileInput)
     }
 
     try {
@@ -83,8 +99,19 @@ const EditCategoryForm = () => {
           Category Image:
           <input
             className='input'
-            type="file"
+            type="text"
+            value={imageURL}
             name="category_image"
+            readOnly
+          />
+          {imageURL && <img src={imageURL} style={{maxWidth:'10%',marginLeft:'10px'}} alt='Category Preview' />}
+        </label>
+        <label className='label'>
+          Choose new image:
+          <input
+            className='input'
+            type="file"
+            accept="image/*"
             onChange={handleImageChange}
           />
         </label>

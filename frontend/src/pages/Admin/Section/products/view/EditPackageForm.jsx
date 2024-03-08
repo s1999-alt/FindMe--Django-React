@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+// import './edit-packageform.css'
 
 const EditPackageForm = () => {
   const { id } = useParams();
@@ -13,12 +14,13 @@ const EditPackageForm = () => {
     sale_price : '',
     overview : '',
     category: '',
-    image: [],
     city: '',
     rating:'',
     is_active: false,
   })
 
+  const [imageURL, setImageURL] = useState('');
+  const [fileInput, setFileInput] = useState(null);
   const [categories, setCategories] = useState([])
 
   useEffect(() =>{
@@ -38,7 +40,19 @@ const EditPackageForm = () => {
     const fetchPackageDetails = async () => {
       try{
         const response = await axios.get(`http://127.0.0.1:8000/api/v1/user/packages/${id}`)
-        setFormData(response.data)
+        const { package_name, duration, price, sale_price, overview, category, image, city, rating, is_active } = response.data;
+        setFormData({
+          package_name,
+          duration,
+          price,
+          sale_price,
+          overview,
+          category,
+          city,
+          rating,
+          is_active,
+        })
+        setImageURL(image)
       }catch(error){
         console.log('Error fetching package details', error)
       }
@@ -53,7 +67,9 @@ const EditPackageForm = () => {
   }
 
   const handleImageChange = (e) => {
-    setFormData({ ...formData, image: e.target.files[0]})
+    const selectedFile = e.target.files[0];
+    setFileInput(selectedFile);
+    setImageURL(selectedFile ? selectedFile.name : '');
   }
 
   const handleRadioChange = (e) => {
@@ -66,6 +82,10 @@ const EditPackageForm = () => {
     const packageData = new FormData()
     for (const key in formData){
       packageData.append(key, formData[key])
+    }
+
+    if (fileInput) {
+      packageData.append('image', fileInput);
     }
 
     try{
@@ -153,7 +173,17 @@ const EditPackageForm = () => {
         </label>
         <label className='label'>
           Image:
-          <input className='input' type="file" name="image" onChange={handleImageChange} />
+          <input className='input' value={imageURL} type="text" name="image" readOnly />
+          {imageURL && <img src={imageURL} style={{maxWidth:'10%',marginLeft:'15px',marginBottom:'10px'}} alt='package Preview' />}
+        </label>
+        <label className='label'>
+          Choose new image:
+          <input
+            className='input'
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
         </label>
         <label className='label'>
           City:

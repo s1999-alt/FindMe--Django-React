@@ -102,17 +102,20 @@ class AdminPackageListView(generics.ListAPIView):
     queryset = Packages.objects.all()
     serializer_class = AdminPackageListSerializer
 
-class PackageUpdateView(generics.RetrieveUpdateAPIView):
+class PackageUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Packages.objects.all()
     serializer_class = PackageSerializer
-    lookup_field = 'id'
+
+class PackageBlockUnblockView(generics.RetrieveUpdateAPIView):
+    queryset = Packages.objects.all()
+    serializer_class = PackageSerializer 
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
         instance.is_active = not instance.is_active
         instance.save()
         serializer = self.get_serializer(instance)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)   
 
 
 
