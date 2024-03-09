@@ -13,35 +13,46 @@
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  gap: 15px;
 }
 
 .label {
-  margin-bottom: 10px;
+  font-size: 16px
 }
 
-.input {
-  padding: 8px;
-  margin-bottom: 10px;
+.input,
+.textarea,
+.select,
+.button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
-.textarea {
+.input[type="file"] {
   padding: 8px;
-  margin-bottom: 10px;
-  min-height: 80px;
-}
-
-.select {
-  padding: 8px;
-  margin-bottom: 10px;
+  font-size: 14px;
 }
 
 .button {
-  padding: 10px;
   background-color: #4caf50;
   color: white;
-  border: none;
-  border-radius: 4px;
   cursor: pointer;
+}
+
+.radio-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input,
+.textarea,
+.select,
+.input[type="file"],
+.button {
+  width: 100%;
+  box-sizing: border-box;
 }
