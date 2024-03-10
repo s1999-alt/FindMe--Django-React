@@ -5,10 +5,13 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from rest_framework.authtoken.models import Token
 from users.models import User
-from .models import Packages, Category, Hotels
+from .models import Packages, Category, Hotels,Booking
 from django.http import JsonResponse
+from django.shortcuts import redirect
 from rest_framework import generics
-from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer
+from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer,BookingSerializer
+import stripe
+from django.conf import settings
 
 
 class AdminLoginView(APIView):
@@ -133,4 +136,50 @@ class AdminHotelView(generics.RetrieveUpdateDestroyAPIView):
     queryset =  Hotels.objects.all()  
     serializer_class = AdminHotelSerializer
 
-    
+
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+class StripeCheckoutView(APIView):
+    def post(self, request):
+        try:
+            booking_id = request.data.get('booking_id')
+            booking = Booking.objects.get(id=booking_id)
+            package = booking.package
+
+            # customer_name = booking.full_name
+            # customer_address = booking.full_name
+
+            image_url = request.build_absolute_uri(package.image.url)
+
+
+            checkout_session = stripe.checkout.Session.create(
+                line_items=[
+                    {
+                        'price_data' : {
+                            'currency': 'inr',
+                            'product_data':{
+                                'name': package.package_name,
+                                'images': [image_url],
+                            },
+                            'unit_amount': int(booking.total * 100),
+                        },
+                        'quantity': 1,
+                    },
+                ],
+                payment_method_types=['card',],
+                mode='payment',
+                success_url=settings.SITE_URL + '/?success=true&session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=settings.SITE_URL + '/?canceled=True',
+                customer_email=booking.email,
+                billing_address_collection='required',
+                payment_intent_data={
+                    'description': f'Booking ID: {booking.id}',
+                },
+            )
+            return redirect(checkout_session.url)
+        except:
+            return Response(
+                {'error':'something went wrong....'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

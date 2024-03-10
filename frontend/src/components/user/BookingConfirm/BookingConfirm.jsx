@@ -164,8 +164,9 @@ const BookingConfirm = () => {
                     </div>
                   </div>
                   <div className="contn-pay-rt-main">
-                    <form>
-                      <button type='button' onClick="">Make Payment</button>
+                    <form action='http://localhost:8000/api/v1/admin/create-checkout-session' method='POST'>
+                      <input type="hidden" name="booking_id" value={bookingId} />
+                      <button type='submit'>Make Paym</button>
                     </form>
                   </div>
                 </div>

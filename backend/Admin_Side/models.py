@@ -57,7 +57,6 @@ class Packages(models.Model):
     return self.package_name
   
 
-    
 class PackageImages(models.Model):
   package = models.ForeignKey(Packages, on_delete=models.CASCADE , related_name = "images") 
   image = models.ImageField(upload_to="package_images/", default="", null=True, blank=True)
