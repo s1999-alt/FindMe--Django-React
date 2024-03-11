@@ -12,6 +12,7 @@ from rest_framework import generics
 from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer,BookingSerializer
 import stripe
 from django.conf import settings
+from django.db import transaction
 
 
 class AdminLoginView(APIView):
@@ -60,6 +61,19 @@ class UserActiveView(generics.RetrieveUpdateAPIView):
 class CategoryCreateView(generics.CreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        category_image = request.data.get('image')
+        if category_image:
+            if not category_image.content_type.startswith('image'):
+                return Response({'category_image': ['Invalid image format. Only images are allowed.']}, status=status.HTTP_400_BAD_REQUEST)
+            
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 class CategoryListView(generics.ListAPIView):
     queryset = Category.objects.all()
@@ -147,9 +161,6 @@ class StripeCheckoutView(APIView):
             booking = Booking.objects.get(id=booking_id)
             package = booking.package
 
-            # customer_name = booking.full_name
-            # customer_address = booking.full_name
-
             image_url = request.build_absolute_uri(package.image.url)
 
 
@@ -167,9 +178,9 @@ class StripeCheckoutView(APIView):
                         'quantity': 1,
                     },
                 ],
-                payment_method_types=['card',],
+                payment_method_types=['card'],
                 mode='payment',
-                success_url=settings.SITE_URL + '/?success=true&session_id={CHECKOUT_SESSION_ID}',
+                success_url=settings.SITE_URL + '/success?success=true&session_id={CHECKOUT_SESSION_ID}',
                 cancel_url=settings.SITE_URL + '/?canceled=True',
                 customer_email=booking.email,
                 billing_address_collection='required',
@@ -177,6 +188,11 @@ class StripeCheckoutView(APIView):
                     'description': f'Booking ID: {booking.id}',
                 },
             )
+
+            with transaction.atomic():
+                booking.status = 'Payment Complete'
+                booking.save()
+
             return redirect(checkout_session.url)
         except:
             return Response(

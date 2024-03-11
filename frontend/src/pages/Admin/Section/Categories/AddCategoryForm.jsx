@@ -43,6 +43,8 @@ const AddCategoryForm = () => {
       
       if (error.response && error.response.status == 400 && error.response.data && error.response.data.category_name){
         toast.error(` '${error.response.data.category_name}'`);
+      }else if (error.response && error.response.data && error.response.data.category_image) {
+        toast.error(`Image validation error: ${error.response.data.category_image.join(', ')}`)
       }else{
         toast.error(`An error occurred during category addition: ${error.message}`);
       }  

@@ -10,6 +10,7 @@ import ResetPasswordConfirmPage from '../pages/User/ResetPasswordConfirmPage'
 import TourDetails from '../pages/User/TourDetails'
 import UserRouter from '../route/userRouter'
 import BookingConfirm from '../components/user/BookingConfirm/BookingConfirm'
+import SuccessPage from '../components/user/BookingSuccess/SuccessPage'
 
 function UserWrapper() {
   const routes = useRoutes([{
@@ -29,6 +30,7 @@ function UserWrapper() {
       {path: "/password/reset/:uid/:token", element: <ResetPasswordConfirmPage/>},
       {path: "/packages/:id", element: <UserRouter><TourDetails/></UserRouter>},
       {path: "/bookingconfirm/:bookingId", element: <BookingConfirm/>},
+      {path: "/success", element: <SuccessPage/>},
       
     ],
   },

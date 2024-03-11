@@ -17,6 +17,14 @@ class CategorySerializer(serializers.ModelSerializer):
     fields = '__all__'
 
 
+  def validate_image(self, value):
+    allowed_content_types = ['image/jpeg', 'image/png', 'image/gif']
+
+    if value.content_type not in allowed_content_types:
+      raise serializers.ValidationError('Invalid Image File Type. Only JPEG, PNG, and GIF are allowed')  
+    return value  
+
+
 class PackageImageSerializer(serializers.ModelSerializer):
   class Meta:
     model = PackageImages
@@ -55,7 +63,6 @@ class PackageSerializer(serializers.ModelSerializer):
 
     if value.content_type not in allowed_content_types:
       raise serializers.ValidationError('Invalid Image File Type. Only JPEG, PNG, and GIF are allowed')  
-    
     return value
 
   def create(self, validated_data):
