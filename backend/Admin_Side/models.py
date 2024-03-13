@@ -93,11 +93,8 @@ class Booking(models.Model):
   
   def save(self, *args, **kwargs):
     package_duration = int(self.package.duration)
-
     end_date = self.start_date + timedelta(days=package_duration)
-
     self.end_date = end_date
-
     super().save(*args, **kwargs)
   
 

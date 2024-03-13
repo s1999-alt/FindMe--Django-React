@@ -5,6 +5,7 @@ import { FaRupeeSign } from "react-icons/fa";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const Booking = ({packageDetails}) => {
@@ -24,6 +25,13 @@ const Booking = ({packageDetails}) => {
 
 
   const handleChange = (e) =>{
+
+    const { name, value } = e.target;
+
+    if (name === 'phone' && (!/^[1-9][0-9]{0,9}$/.test(value))) {
+      toast.error('Invalid phone number. Please enter a valid positive number.');
+      return;
+    }
     console.log(e);
     setFormData({...formData,[e.target.name]:e.target.value})
   }
@@ -38,12 +46,35 @@ const Booking = ({packageDetails}) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    const { full_name, phone, email, start_date, no_of_guest } = formData;
+
+    if (!full_name || !phone || !email || !start_date || !no_of_guest) {
+      toast.error('All fields are required');
+      return;
+    }
+
+    if (!/^\d+$/.test(no_of_guest)) {
+      toast.error('Number of guests should contain only numeric values');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error('Invalid email address');
+      return;
+    }
+
+    if (!/^[1-9][0-9]{9}$/.test(formData.phone)) {
+     toast.error('Invalid phone number. Please enter a valid 10-digit number.');
+      return;
+    }
+
     try {
       const response = await axios.post('http://localhost:8000/api/v1/user/bookings/',{
         ...formData,
         package: packageDetails.id,
         user:userInfo.id,
-        total:grandTotal
+        total:grandTotal,
       })
       console.log('Booking successful:', response.data);
       // Navigate to the checkout page or show a success message
@@ -52,8 +83,15 @@ const Booking = ({packageDetails}) => {
       
     } catch (error) {
       console.error('Error during booking:', error);
+      if (error.response && error.response.data && error.response.data.error) {
+        toast.error(error.response.data.error);
+      } else {
+        console.error('Error during booking:', error);
+      }
     }
   }
+
+  const today = new Date().toISOString().split('T')[0];
 
   return (
     <div className='booking'>
@@ -80,7 +118,7 @@ const Booking = ({packageDetails}) => {
             <input type="email" placeholder='Email' name='email' required onChange={handleChange}/>
           </FormGroup>
           <FormGroup className='d-flex align-items-center gap-1'>
-            <input type="date" placeholder='' name='start_date' required onChange={handleChange}/>
+            <input type="date" placeholder='' name='start_date' min={today} required onChange={handleChange}/>
             <input type="number" placeholder='No of Guest' name='no_of_guest' required onChange={handleChange}/>
           </FormGroup>
         </Form>

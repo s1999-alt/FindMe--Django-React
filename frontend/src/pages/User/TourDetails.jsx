@@ -16,7 +16,7 @@ const TourDetails = () => {
   const {id} = useParams()
   const [packageDetails, setPackageDetails] = useState(null)
   const [itinararies, setItinararies] = useState([])
-
+    
   const Settings = {
     infinite: true,
     speed: 500,

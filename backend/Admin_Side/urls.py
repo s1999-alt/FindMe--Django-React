@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import AdminLoginView,UserListView,UserActiveView,CategoryListView,AdminPackageListView,PackageCreateView,PackageUpdateView,PackageBlockUnblockView,CategoryUpdateView,CategoryCreateView,CategoryDetails,AdminHotelCreateView,AdminHotelListView,AdminHotelView,StripeCheckoutView
+from .views import AdminLoginView,UserListView,UserActiveView,CategoryListView,AdminPackageListView,PackageCreateView,PackageUpdateView,PackageBlockUnblockView,CategoryUpdateView,CategoryCreateView,CategoryDetails,AdminHotelCreateView,AdminHotelListView,AdminHotelView,StripeCheckoutView,StripeSuccessView
 
 urlpatterns = [
     path('login/', AdminLoginView.as_view(), name='admin-login'),
@@ -25,5 +25,7 @@ urlpatterns = [
     path('hotels/list/<int:pk>/', AdminHotelView.as_view(), name='hotels-list'),
 
     path('create-checkout-session',StripeCheckoutView.as_view(), name='create-checkout-session'),
+    path('stripe-success/', StripeSuccessView.as_view(), name='stripe-success'),
+    # path('success', SuccessPage.as_view(), name='success'),
 
 ]

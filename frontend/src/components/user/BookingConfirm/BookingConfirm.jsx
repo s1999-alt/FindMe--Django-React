@@ -7,6 +7,7 @@ import a16 from '../../../assets/a16.png'
 import a18 from '../../../assets/a18.png'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 
 const BookingConfirm = () => {
@@ -21,12 +22,19 @@ const BookingConfirm = () => {
         const response = await axios.get(`http://localhost:8000/api/v1/user/bookings/${bookingId}`)
         setBookingDetails(response.data)
         console.log(response.data);
-      } catch (error) {
+
+        if (response.data.status === 'Payment Complete') {
+          toast.error('This booking has already been paid for.');
+        }
+
+      } catch (error) { 
         console.error('Error fetching booking details:', error)
       }
     }
     fetchBookingDetails()
   },[bookingId])
+
+
 
 
   const packageFullAmount = bookingDetails?.package_details?.sale_price * Number(bookingDetails?.no_of_guest) || 0;
