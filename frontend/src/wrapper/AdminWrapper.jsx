@@ -16,6 +16,9 @@ import EditCategoryForm from '../pages/Admin/Section/Categories/EditCategoryForm
 import AddHotelForm from '../pages/Admin/Section/Hotels/AddHotelForm';
 import HotelList from '../pages/Admin/Section/Hotels/HotelList';
 import EditHotelForm from '../pages/Admin/Section/Hotels/EditHotelForm';
+import ResetPassword from '../pages/Admin/AdminForgotPassword/ResetPassword';
+import ForgotPassword from '../pages/Admin/AdminForgotPassword/ForgotPassword';
+
 
 
 
@@ -44,6 +47,8 @@ function AdminWrapper() {
         {path: 'AddHotels', element: <AddHotelForm/> },
         {path: 'Hotels', element: <HotelList/> },
         {path: 'edit-hotel/:id', element: <EditHotelForm/> },
+        {path: 'forgot-password/', element: <ForgotPassword/> },
+        {path: 'password-reset/:uid/:token/', element: <ResetPassword/> },
 
 
         // { path: 'blog', element: <BlogPage /> },

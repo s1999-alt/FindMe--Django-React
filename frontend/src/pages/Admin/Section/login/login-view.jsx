@@ -74,7 +74,7 @@ export default function LoginView() {
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="flex-end" sx={{ my: 3 }}>
-        <Link variant="subtitle2" underline="hover">
+        <Link variant="subtitle2" underline="hover" href="admin/forgot-password/">
           Forgot password?
         </Link>
       </Stack>

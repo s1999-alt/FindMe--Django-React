@@ -1,11 +1,14 @@
 from django.urls import path
-from .views import AdminLoginView,UserListView,UserActiveView,CategoryListView,AdminPackageListView,PackageCreateView,PackageUpdateView,PackageBlockUnblockView,CategoryUpdateView,CategoryCreateView,CategoryDetails,AdminHotelCreateView,AdminHotelListView,AdminHotelView,StripeCheckoutView,StripeSuccessView
+from .views import AdminLoginView,UserListView,UserActiveView,CategoryListView,AdminPackageListView,PackageCreateView,PackageUpdateView,PackageBlockUnblockView,CategoryUpdateView,CategoryCreateView,CategoryDetails,AdminHotelCreateView,AdminHotelListView,AdminHotelView,StripeCheckoutView,StripeSuccessView,ResetPasswordView,PasswordResetView
 
 urlpatterns = [
     path('login/', AdminLoginView.as_view(), name='admin-login'),
     path('logout/', AdminLoginView.as_view(), name='admin-logout'),
     path('users/', UserListView.as_view(), name='user-list'),
     path('block/<int:id>', UserActiveView.as_view(), name='user-block'),
+
+    path('reset-password/', ResetPasswordView.as_view(), name='reset-password'),
+    path('password-reset/<str:uidb64>/<str:token>/', PasswordResetView.as_view(), name='password-reset'),
 
     
     path('packages/', AdminPackageListView.as_view(), name='admin-packagelist'),
@@ -26,6 +29,5 @@ urlpatterns = [
 
     path('create-checkout-session',StripeCheckoutView.as_view(), name='create-checkout-session'),
     path('stripe-success/', StripeSuccessView.as_view(), name='stripe-success'),
-    # path('success', SuccessPage.as_view(), name='success'),
 
 ]

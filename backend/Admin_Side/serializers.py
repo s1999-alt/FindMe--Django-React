@@ -8,7 +8,7 @@ from .models import Category,Packages,PackageImages,Hotels,Inclusions,Exclusions
 class UserDetailsSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
-    fields = '__all__'
+    fields = '__all__'  
 
 
 class CategorySerializer(serializers.ModelSerializer):
