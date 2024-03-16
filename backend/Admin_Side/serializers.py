@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from djoser.serializers import UserCreateSerializer
 from users.models import User
 from rest_framework import serializers
-from .models import Category,Packages,PackageImages,Hotels,Inclusions,Exclusions,Itinarary,Booking
+from .models import Category,Packages,PackageImages,Hotels,Inclusions,Exclusions,Itinarary,Booking,Wallet
 
 
 class UserDetailsSerializer(serializers.ModelSerializer):
@@ -92,6 +92,11 @@ class BookingSerializer(serializers.ModelSerializer):
     model = Booking
     fields = ['id','user','package','full_name','phone','email','start_date','end_date','no_of_guest','total','status','package_details','user_details']
 
+
+class WalletSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Wallet
+    fields = ['user','balance']
 
   
 

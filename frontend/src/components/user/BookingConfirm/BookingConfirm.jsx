@@ -8,14 +8,17 @@ import a18 from '../../../assets/a18.png'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { useSelector } from 'react-redux'
 
 
 const BookingConfirm = () => {
+  const {user, userInfo} = useSelector((state) => state.auth);
   const {bookingId} = useParams()
   const [bookingDetails,setBookingDetails] = useState(null)
+  const [useWallet, setUseWallet] = useState(false)
+  const [walletAmount, setWalletAmount] = useState(null);
 
-
-
+  console.log("-------------------",walletAmount);
   useEffect(() => {
     const fetchBookingDetails = async ()=> {
       try {
@@ -34,9 +37,22 @@ const BookingConfirm = () => {
     fetchBookingDetails()
   },[bookingId])
 
+  useEffect(() => {
+    const fetchWalletAmount = async () => {
+        try {
+          if(userInfo && userInfo.id) {
+            const response = await axios.get(`http://localhost:8000/api/v1/user/wallet/${userInfo.id}`);
+            setWalletAmount(response.data.balance);
+          }
+        } catch (error) {
+            console.error('Error fetching wallet amount:', error);
+        }
+    };
+    fetchWalletAmount();
+}, [userInfo]);
 
 
-
+  
   const packageFullAmount = bookingDetails?.package_details?.sale_price * Number(bookingDetails?.no_of_guest) || 0;
   const rawtaxAmount = 0.1 * packageFullAmount
   const taxAmount = parseFloat(rawtaxAmount.toFixed(2))
@@ -174,6 +190,11 @@ const BookingConfirm = () => {
                   <div className="contn-pay-rt-main">
                     <form action='http://localhost:8000/api/v1/admin/create-checkout-session' method='POST'>
                       <input type="hidden" name="booking_id" value={bookingId} />
+                      <h2>Wallet Amount: ₹{walletAmount}</h2>
+                      <label className='wallet-checkbox'>
+                          <input type="checkbox" checked={useWallet} onChange={(e) => setUseWallet(e.target.checked)} />
+                          use wallet
+                        </label>
                       <button type='submit'>Make Paym</button>
                     </form>
                   </div>

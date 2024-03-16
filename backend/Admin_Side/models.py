@@ -71,6 +71,16 @@ class Itinarary(models.Model):
     return f"{self.package.package_name} - Day {self.day_number}"
   
 
+class Wallet(models.Model):
+  user = models.OneToOneField(User,on_delete=models.CASCADE)
+  balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+  is_active = models.BooleanField(default=True)
+
+  def __str__(self):
+      return f"Wallet of {self.user.first_name}"
+  
+  
+
 class Booking(models.Model):
   STATUS_CHOICES = [
     ('Pending Payment', 'Pending Payment'),

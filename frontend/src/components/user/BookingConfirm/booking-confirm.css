@@ -371,6 +371,12 @@ ul:not(.browser-default) {
   outline: 0;
 }
 
+.wallet-checkbox {
+  display: inline-flex;
+  align-items: center;
+}
+
+
 
 
 
