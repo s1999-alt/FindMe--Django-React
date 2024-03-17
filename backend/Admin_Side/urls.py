@@ -27,7 +27,7 @@ urlpatterns = [
     path('hotels/list/', AdminHotelListView.as_view(), name='hotels-list'),
     path('hotels/list/<int:pk>/', AdminHotelView.as_view(), name='hotels-list'),
 
-    path('create-checkout-session',StripeCheckoutView.as_view(), name='create-checkout-session'),
+    path('create-checkout-session/',StripeCheckoutView.as_view(), name='create-checkout-session'),
     path('stripe-success/', StripeSuccessView.as_view(), name='stripe-success'),
 
 ]

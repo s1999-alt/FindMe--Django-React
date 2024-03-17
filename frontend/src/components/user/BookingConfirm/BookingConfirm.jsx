@@ -17,14 +17,13 @@ const BookingConfirm = () => {
   const [bookingDetails,setBookingDetails] = useState(null)
   const [useWallet, setUseWallet] = useState(false)
   const [walletAmount, setWalletAmount] = useState(null);
+  
 
-  console.log("-------------------",walletAmount);
   useEffect(() => {
     const fetchBookingDetails = async ()=> {
       try {
         const response = await axios.get(`http://localhost:8000/api/v1/user/bookings/${bookingId}`)
         setBookingDetails(response.data)
-        console.log(response.data);
 
         if (response.data.status === 'Payment Complete') {
           toast.error('This booking has already been paid for.');
@@ -41,7 +40,7 @@ const BookingConfirm = () => {
     const fetchWalletAmount = async () => {
         try {
           if(userInfo && userInfo.id) {
-            const response = await axios.get(`http://localhost:8000/api/v1/user/wallet/${userInfo.id}`);
+            const response = await axios.get(`http://localhost:8000/api/v1/user/wallet/${userInfo.id}/`);
             setWalletAmount(response.data.balance);
           }
         } catch (error) {
@@ -49,7 +48,7 @@ const BookingConfirm = () => {
         }
     };
     fetchWalletAmount();
-}, [userInfo]);
+  }, [userInfo]);
 
 
   
@@ -188,11 +187,12 @@ const BookingConfirm = () => {
                     </div>
                   </div>
                   <div className="contn-pay-rt-main">
-                    <form action='http://localhost:8000/api/v1/admin/create-checkout-session' method='POST'>
+                    <form action='http://localhost:8000/api/v1/admin/create-checkout-session/' method='POST'>
                       <input type="hidden" name="booking_id" value={bookingId} />
+                      <input type="hidden" name="user_id" value={userInfo.id} />
                       <h2>Wallet Amount: ₹{walletAmount}</h2>
                       <label className='wallet-checkbox'>
-                          <input type="checkbox" checked={useWallet} onChange={(e) => setUseWallet(e.target.checked)} />
+                          <input type="checkbox" name="use_wallet" checked={useWallet} onChange={(e) => setUseWallet(e.target.checked)} />
                           use wallet
                         </label>
                       <button type='submit'>Make Paym</button>

@@ -11,6 +11,6 @@ urlpatterns = [
     path('bookings/', BookingListView.as_view(), name='booking-list'),
     path('bookings/<int:pk>', BookingDetailView.as_view(), name='booking-detail'),
 
-    path('wallet/<int:pk>', WalletView.as_view(), name='wallet'),
+    path('wallet/<int:pk>/', WalletView.as_view(), name='wallet'),
 
 ]

@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from rest_framework.authtoken.models import Token
 from users.models import User
-from .models import Packages, Category, Hotels,Booking
+from .models import Packages, Category, Hotels, Booking, Wallet
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from rest_framework import generics
@@ -18,10 +18,10 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
-from django.core.exceptions import ValidationError
-from django.views.decorators.csrf import csrf_exempt
-from django.template.loader import render_to_string
 from django.utils.encoding import force_str
+from django.contrib.auth import get_user_model
+
+
 
 
 
@@ -206,11 +206,16 @@ class AdminHotelView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AdminHotelSerializer
 
 
+
+User = get_user_model()
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class StripeCheckoutView(APIView):
     def post(self, request):
         try:
+            user_id = request.data.get('user_id')
+            print("userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr____iddddd",user_id)
             booking_id = request.data.get('booking_id')
             print(f"Retrieved booking ID from session metadata: {booking_id}")
             booking = Booking.objects.get(id=booking_id)
@@ -224,37 +229,81 @@ class StripeCheckoutView(APIView):
                     {'warning' : 'This booking has already been paid for..'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
+            
+            if request.data.get('use_wallet'):
+                user = User.objects.get(id=user_id)
+                wallet = Wallet.objects.get(user=user)
+                if wallet.balance >= booking.total:
+                    with transaction.atomic():
+                        booking.status = 'Payment Complete'
+                        booking.save()
+                        wallet.balance -= booking.total
+                        wallet.save()
+                    return redirect('http://localhost:5173/success?success=true')    
+                else:
+                    booking.total -= wallet.balance 
 
-            checkout_session = stripe.checkout.Session.create(
-                line_items=[
-                    {
-                        'price_data' : {
-                            'currency': 'inr',
-                            'product_data':{
-                                'name': package.package_name,
-                                'images': [image_url],
+                    checkout_session = stripe.checkout.Session.create(
+                        line_items=[
+                            {
+                                'price_data' : {
+                                    'currency': 'inr',
+                                    'product_data':{
+                                        'name': package.package_name,
+                                        'images': [image_url],
+                                    },
+                                    'unit_amount': int(booking.total * 100),
+                                },
+                                'quantity': 1,
                             },
-                            'unit_amount': int(booking.total * 100),
+                        ],
+                        payment_method_types=['card'],
+                        mode='payment',
+                        success_url='http://localhost:8000/api/v1/admin/stripe-success/?session_id={CHECKOUT_SESSION_ID}',
+                        cancel_url=settings.SITE_URL + '/?canceled=True',
+                        customer_email=booking.email,
+                        billing_address_collection='required',
+                        payment_intent_data={
+                            'description': f'Booking ID: {booking.id}',
                         },
-                        'quantity': 1,
-                    },
-                ],
-                payment_method_types=['card'],
-                mode='payment',
-                success_url='http://localhost:8000/api/v1/admin/stripe-success/?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url=settings.SITE_URL + '/?canceled=True',
-                customer_email=booking.email,
-                billing_address_collection='required',
-                payment_intent_data={
-                    'description': f'Booking ID: {booking.id}',
-                },
-                metadata={
-                    'booking_id': booking.id,
-                },
+                        metadata={
+                            'booking_id': booking.id,
+                        },
 
-            )
+                    )
 
-            return redirect(checkout_session.url)
+                    return redirect(checkout_session.url)
+            else:
+                checkout_session = stripe.checkout.Session.create(
+                        line_items=[
+                            {
+                                'price_data' : {
+                                    'currency': 'inr',
+                                    'product_data':{
+                                        'name': package.package_name,
+                                        'images': [image_url],
+                                    },
+                                    'unit_amount': int(booking.total * 100),
+                                },
+                                'quantity': 1,
+                            },
+                        ],
+                        payment_method_types=['card'],
+                        mode='payment',
+                        success_url='http://localhost:8000/api/v1/admin/stripe-success/?session_id={CHECKOUT_SESSION_ID}',
+                        cancel_url=settings.SITE_URL + '/?canceled=True',
+                        customer_email=booking.email,
+                        billing_address_collection='required',
+                        payment_intent_data={
+                            'description': f'Booking ID: {booking.id}',
+                        },
+                        metadata={
+                            'booking_id': booking.id,
+                        },
+
+                )
+                return redirect(checkout_session.url)    
+
         except Exception as e:
             print(f"Error in StripeCheckoutView: {str(e)}")
             return Response(
@@ -308,17 +357,24 @@ class StripeSuccessView(APIView):
 
 
 
-
 # stripe.api_key = settings.STRIPE_SECRET_KEY
 
 # class StripeCheckoutView(APIView):
 #     def post(self, request):
 #         try:
 #             booking_id = request.data.get('booking_id')
+#             print(f"Retrieved booking ID from session metadata: {booking_id}")
 #             booking = Booking.objects.get(id=booking_id)
 #             package = booking.package
 
 #             image_url = request.build_absolute_uri(package.image.url)
+#             print(image_url)
+
+#             if booking.status == 'Payment Complete':
+#                 return Response(
+#                     {'warning' : 'This booking has already been paid for..'},
+#                     status=status.HTTP_400_BAD_REQUEST
+#                 )
 
 #             checkout_session = stripe.checkout.Session.create(
 #                 line_items=[
@@ -336,21 +392,22 @@ class StripeSuccessView(APIView):
 #                 ],
 #                 payment_method_types=['card'],
 #                 mode='payment',
-#                 success_url=settings.SITE_URL + '/success?success=true&session_id={CHECKOUT_SESSION_ID}',
+#                 success_url='http://localhost:8000/api/v1/admin/stripe-success/?session_id={CHECKOUT_SESSION_ID}',
 #                 cancel_url=settings.SITE_URL + '/?canceled=True',
 #                 customer_email=booking.email,
 #                 billing_address_collection='required',
 #                 payment_intent_data={
 #                     'description': f'Booking ID: {booking.id}',
 #                 },
+#                 metadata={
+#                     'booking_id': booking.id,
+#                 },
+
 #             )
 
-#             with transaction.atomic():
-#                 booking.status = 'Payment Complete'
-#                 booking.save()
-
 #             return redirect(checkout_session.url)
-#         except:
+#         except Exception as e:
+#             print(f"Error in StripeCheckoutView: {str(e)}")
 #             return Response(
 #                 {'error':'something went wrong....'},
 #                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
