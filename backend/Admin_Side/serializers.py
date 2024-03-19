@@ -90,7 +90,7 @@ class BookingSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Booking
-    fields = ['id','user','package','full_name','phone','email','start_date','end_date','no_of_guest','total','status','package_details','user_details']
+    fields = ['id','user','package','full_name','phone','email','start_date','end_date','no_of_guest','total','status','payment_method','booking_number','package_details','user_details']
 
 
 class WalletSerializer(serializers.ModelSerializer):

@@ -11,9 +11,14 @@ import TourDetails from '../pages/User/TourDetails'
 import UserRouter from '../route/userRouter'
 import BookingConfirm from '../components/user/BookingConfirm/BookingConfirm'
 import SuccessPage from '../components/user/BookingSuccess/SuccessPage'
+import UserAccount from '../pages/User/UserAccount'
+
+import Dashboard from '../pages/User/Dashboard'
+import BookingTable from '../pages/User/BookingTable'
 
 function UserWrapper() {
-  const routes = useRoutes([{
+  const routes = useRoutes([
+    {
     element: (
       <>
       <Navbar/>
@@ -29,9 +34,28 @@ function UserWrapper() {
       {path: "/activate/:uid/:token", element: <ActivatePage/>},
       {path: "/password/reset/:uid/:token", element: <ResetPasswordConfirmPage/>},
       {path: "/packages/:id", element: <UserRouter><TourDetails/></UserRouter>},
-      {path: "/bookingconfirm/:bookingId", element: <BookingConfirm/>},
+      {path: "/bookingconfirm/:bookingId", element:<UserRouter><BookingConfirm/></UserRouter> },
       {path: "/success", element: <SuccessPage/>},
       
+    ],
+  },
+  // New ......
+    {
+    element: (
+      <>
+      <Navbar/>
+      <UserAccount>
+
+        <Outlet/>
+
+      </UserAccount>
+        
+      <Footer/>
+      </>
+    ),
+    children:[
+      {path: "/userAccount/", element: <Dashboard/>},
+      {path: "/userAccount/bookings", element: <BookingTable/>},
     ],
   },
   {

@@ -152,7 +152,7 @@ const Navbar = () => {
               </NavLink>
 
               {/* Account */}
-              <NavLink className="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600">
+              <NavLink to="/userAccount" className="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600">
                 {accountIcon}
                 Account
               </NavLink>

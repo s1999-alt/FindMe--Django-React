@@ -236,12 +236,14 @@ class StripeCheckoutView(APIView):
                 if wallet.balance >= booking.total:
                     with transaction.atomic():
                         booking.status = 'Payment Complete'
+                        booking.payment_method = 'Wallet'
                         booking.save()
                         wallet.balance -= booking.total
                         wallet.save()
                     return redirect('http://localhost:5173/success?success=true')    
                 else:
                     booking.total -= wallet.balance 
+                    booking.payment_method = 'Stripe'
 
                     checkout_session = stripe.checkout.Session.create(
                         line_items=[
@@ -330,7 +332,8 @@ class StripeSuccessView(APIView):
             with transaction.atomic():
                 booking = Booking.objects.get(id=booking_id)
                 booking.status = 'Payment Complete'
-                booking.save()
+                booking.payment_method = 'Stripe'
+                booking.save()    
 
             return redirect('http://localhost:5173/success?success=true')
 
