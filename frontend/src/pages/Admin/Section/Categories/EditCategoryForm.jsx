@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import {useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { AdminAxios } from '../../../../axios_instance/Axios_instance'
 
 const EditCategoryForm = () => {
   const {id} = useParams()
@@ -19,7 +20,7 @@ const EditCategoryForm = () => {
   useEffect( () => {
     const fetchCategoryDetails = async () =>{
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/v1/admin/categories/${id}`)
+        const response = await AdminAxios.get(`api/v1/admin/categories/${id}`)
         const {category_name, is_available, soft_deleted, category_image} = response.data
         setFormData({
           category_name,

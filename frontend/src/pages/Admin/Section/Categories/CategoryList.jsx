@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { AdminAxios } from '../../../../axios_instance/Axios_instance';
 
 const CategoryListPage = () => {
   const [categories, setCategories] = useState([]);
@@ -21,7 +22,8 @@ const CategoryListPage = () => {
 
   const handleBlockUnblock = async (categoryId, isAvailable) => {
     try {
-      await axios.patch(`http://127.0.0.1:8000/api/v1/admin/categories/block/${categoryId}/`);
+      // await axios.patch(`http://127.0.0.1:8000/api/v1/admin/categories/block/${categoryId}/`);
+      await AdminAxios.patch(`api/v1/admin/categories/block/${categoryId}/`);
       // Assuming you're updating the state based on the response.
       setCategories(prevCategories => 
         prevCategories.map(category =>

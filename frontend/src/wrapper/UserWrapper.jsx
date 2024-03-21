@@ -15,6 +15,7 @@ import UserAccount from '../pages/User/UserAccount'
 
 import Dashboard from '../pages/User/Dashboard'
 import BookingTable from '../pages/User/BookingTable'
+import BookingDetailPage from '../pages/User/BookingDetailPage'
 
 function UserWrapper() {
   const routes = useRoutes([
@@ -56,6 +57,7 @@ function UserWrapper() {
     children:[
       {path: "/userAccount/", element: <Dashboard/>},
       {path: "/userAccount/bookings", element: <BookingTable/>},
+      {path: "/userAccount/bookings/:id", element: <BookingDetailPage/>},
     ],
   },
   {

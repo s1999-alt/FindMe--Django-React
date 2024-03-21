@@ -9,7 +9,7 @@ from .models import Packages, Category, Hotels, Booking, Wallet
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from rest_framework import generics
-from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer
+from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer,AdminUserSerializer
 import stripe
 from django.conf import settings
 from django.db import transaction
@@ -20,6 +20,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.utils.encoding import force_str
 from django.contrib.auth import get_user_model
+from rest_framework.permissions import IsAuthenticated
+
 
 
 
@@ -35,6 +37,8 @@ class AdminLoginView(APIView):
         if user and user.is_staff:
             login(request, user)
             token, created = Token.objects.get_or_create(user=user)
+            print('\n\n\n\thisiis the refresh token or access token')
+            print(token.key)
             return Response({'message': 'Admin login successful','token' : token.key}, status=status.HTTP_200_OK)
         else:
             return Response({'message': 'Invalid admin credentials'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -108,7 +112,12 @@ class UserActiveView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserDetailsSerializer
     lookup_field = 'id'
-  
+
+
+class AdminUserDetailsView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = AdminUserSerializer
+    lookup_field = 'id'
 
 
 
@@ -137,6 +146,7 @@ class CategoryListView(generics.ListAPIView):
 class CategoryUpdateView(generics.RetrieveUpdateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [IsAuthenticated]
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -160,7 +170,6 @@ class PackageCreateView(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
         image = request.data.get('image')
         if image:
             if not image.content_type.startswith('image'):
@@ -207,11 +216,11 @@ class AdminHotelView(generics.RetrieveUpdateDestroyAPIView):
 
 
 
-User = get_user_model()
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class StripeCheckoutView(APIView):
+    User = get_user_model()
     def post(self, request):
         try:
             user_id = request.data.get('user_id')
@@ -338,7 +347,6 @@ class StripeSuccessView(APIView):
             return redirect('http://localhost:5173/success?success=true')
 
         except stripe.error.StripeError as e:
-            # Handle Stripe errors if necessary
             return Response(
                 {'error': str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR

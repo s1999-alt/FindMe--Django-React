@@ -2,6 +2,7 @@ from django.db import models
 from users.models import User
 from datetime import timedelta
 import uuid
+from django.utils import timezone
 
 class Category(models.Model):
   category_name = models.CharField( max_length=50, unique=True )
@@ -83,15 +84,23 @@ class Wallet(models.Model):
   
 
 class Booking(models.Model):
-  STATUS_CHOICES = [
+  PAYMENT_STATUS_CHOICES = [
     ('Pending Payment', 'Pending Payment'),
-    ('Payment Complete', 'Payment Complete')
+    ('Payment Complete', 'Payment Complete'),
+    ('Returned', 'Returned')  
   ]
 
   PAYMENT_METHOD_CHOICES = [
     ('Stripe', 'Stripe'),
     ('Wallet','Wallet'),
     ('Not-paid','Not-paid')
+  ]
+
+  BOOKING_STATUS_CHOICES = [
+    ('Upcoming' , 'Upcoming'),
+    ('Ongoing' , 'Ongoing'),
+    ('Completed' , 'Completed'),
+    ('Cancelled' , 'Cancelled'),
   ]
 
   user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -103,10 +112,11 @@ class Booking(models.Model):
   end_date = models.DateField(null=True)
   no_of_guest = models.PositiveIntegerField()
   total = models.DecimalField(max_digits=10, decimal_places=2)
-  status = models.CharField(max_length=50, choices=STATUS_CHOICES , default='Pending Payment')
+  status = models.CharField(max_length=50, choices=PAYMENT_STATUS_CHOICES , default='Pending Payment')
   payment_method = models.CharField(max_length=20, choices=PAYMENT_METHOD_CHOICES, default='Not-paid')
   booking_number = models.CharField(max_length=20, unique=True, blank=True, null=True)
-
+  booking_status = models.CharField(max_length=20, choices=BOOKING_STATUS_CHOICES, default='Upcoming')
+  
 
   def __str__(self):
     return f"{self.full_name} - {self.package.package_name}"
@@ -117,6 +127,14 @@ class Booking(models.Model):
     package_duration = int(self.package.duration)
     end_date = self.start_date + timedelta(days=package_duration)
     self.end_date = end_date
+    now = timezone.now().date()
+    if self.start_date > now:
+      self.booking_status = 'Upcoming'
+    elif self.start_date <= now <=self.end_date:
+      self.status = 'Ongoing'
+    elif now > self.end_date:
+      self.status = 'Completed'    
+
     super().save(*args, **kwargs)
 
   def generate_booking_number(self):

@@ -18,6 +18,7 @@ import HotelList from '../pages/Admin/Section/Hotels/HotelList';
 import EditHotelForm from '../pages/Admin/Section/Hotels/EditHotelForm';
 import ResetPassword from '../pages/Admin/AdminForgotPassword/ResetPassword';
 import ForgotPassword from '../pages/Admin/AdminForgotPassword/ForgotPassword';
+import AdminRouter from '../route/AdminRouter';
 
 
 
@@ -28,7 +29,9 @@ function AdminWrapper() {
       element: (
         <ThemeProvider>
           <DashboardLayout>
-            <Outlet />
+            <AdminRouter>
+              <Outlet />
+            </AdminRouter>
           </DashboardLayout>
         </ThemeProvider>
       ),

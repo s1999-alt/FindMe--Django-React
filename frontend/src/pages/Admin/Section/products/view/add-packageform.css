@@ -58,3 +58,9 @@
   width: 100%;
   box-sizing: border-box;
 }
+
+.checkbox-wrapper {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px; 
+}

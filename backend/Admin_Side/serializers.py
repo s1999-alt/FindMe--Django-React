@@ -9,13 +9,18 @@ class UserDetailsSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
     fields = '__all__'  
+    
+
+class AdminUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'first_name', 'last_name', 'email', 'is_active', 'is_superuser']
 
 
 class CategorySerializer(serializers.ModelSerializer):
   class Meta:
     model = Category
     fields = '__all__'
-
 
   def validate_image(self, value):
     allowed_content_types = ['image/jpeg', 'image/png', 'image/gif']
@@ -29,6 +34,7 @@ class PackageImageSerializer(serializers.ModelSerializer):
   class Meta:
     model = PackageImages
     fields = ["id", "package", "image"] 
+
 
 class InclusionsSerializer(serializers.ModelSerializer):
   class Meta:
@@ -90,7 +96,7 @@ class BookingSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Booking
-    fields = ['id','user','package','full_name','phone','email','start_date','end_date','no_of_guest','total','status','payment_method','booking_number','package_details','user_details']
+    fields = ['id','user','package','full_name','phone','email','start_date','end_date','no_of_guest','total','status','payment_method','booking_number','booking_status','package_details','user_details']
 
 
 class WalletSerializer(serializers.ModelSerializer):

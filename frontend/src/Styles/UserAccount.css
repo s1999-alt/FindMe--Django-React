@@ -6,6 +6,7 @@
 .navbar {
   width: 200px;
   background: linear-gradient(90deg, #C9D6FF, #E2E2E2);
+  height: 25rem;
 }
 
 .navbar-header {

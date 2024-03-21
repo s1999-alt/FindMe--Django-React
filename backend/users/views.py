@@ -37,23 +37,41 @@ class BookingDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
 
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        data = request.data
+
+        if 'status' in data and 'booking_status' in data:
+            instance.status = data['status']
+            instance.booking_status = data['booking_status']
+            instance.save()
+            return Response(self.get_serializer(instance).data, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'Missing status or booking_status in request data'}, status=status.HTTP_400_BAD_REQUEST)
+
+
 class BookingDataView(generics.ListAPIView):
     serializer_class = BookingSerializer
-
     def get_queryset(self):
         user_id = self.kwargs['user_id']
         return Booking.objects.filter(user_id=user_id)
-      
-    # def list(self, request, *args, **kwargs):
-    #     queryset = self.get_queryset()
-    #     serializer = self.get_serializer(queryset, many=True)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)  
 
 
 
 class WalletView(generics.RetrieveAPIView):
     queryset=Wallet.objects.all()
     serializer_class = WalletSerializer
+
+    def put(self, request, *args, **kwargs):
+        instance = self.get_object()
+        data = request.data
+
+        if 'balance' in data:
+            instance.balance = data['balance']
+            instance.save()
+            return Response(self.get_serializer(instance).data, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'Missing balance in request data'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 

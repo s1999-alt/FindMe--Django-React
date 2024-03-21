@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../Styles/booking-table.css'; 
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const BookingTable = () => {
   const {user, userInfo} = useSelector((state) => state.auth)
@@ -45,7 +46,9 @@ const BookingTable = () => {
               <td>₹{booking.total}</td>
               <td>
                 {/* Use a button with appropriate styling for the "Track" action */}
-                <button className="track-button">Show</button>
+                <button className="track-button">
+                  <Link to={`/userAccount/bookings/${booking.id}`} style={{color:'white'}}>show</Link>
+                </button>
               </td>
             </tr>
           ))}
@@ -54,5 +57,4 @@ const BookingTable = () => {
     </div>
   );
 };
-
 export default BookingTable;

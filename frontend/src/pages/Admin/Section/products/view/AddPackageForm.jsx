@@ -45,8 +45,8 @@ const AddPackageForm = () => {
     setFormData({ ...formData, image: e.target.files[0]})
   }
 
-  const handleRadioChange = (e) => {
-    setFormData({ ...formData, is_active: e.target.value === 'true' });
+  const handleCheckboxChange = (e) => {
+    setFormData({ ...formData, is_active: e.target.checked});
   }
 
   const handleSubmit = async (e) =>{
@@ -173,28 +173,14 @@ const AddPackageForm = () => {
         </label>
         <label className='label'>
           Is Active:
-          <div className='radio-group'>
-            <label>
-              <input
-                type="radio"
-                name="is_active"
-                value="true"
-                checked={formData.is_active === true}
-                onChange={handleRadioChange}
-              />
-              True
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="is_active"
-                value="false"
-                checked={formData.is_active === false}
-                onChange={handleRadioChange}
-              />
-              False
-            </label>
-          </div>
+          <div className='checkbox-wrapper'>
+            <input
+              type="checkbox"
+              name="is_active"
+              checked={formData.is_active}
+              onChange={handleCheckboxChange}
+            />
+          </div>  
         </label>
         <button className='button' type="submit">Add Package</button>
       </form>
