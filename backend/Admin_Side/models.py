@@ -127,13 +127,13 @@ class Booking(models.Model):
     package_duration = int(self.package.duration)
     end_date = self.start_date + timedelta(days=package_duration)
     self.end_date = end_date
-    now = timezone.now().date()
-    if self.start_date > now:
-      self.booking_status = 'Upcoming'
-    elif self.start_date <= now <=self.end_date:
-      self.status = 'Ongoing'
-    elif now > self.end_date:
-      self.status = 'Completed'    
+    # now = timezone.now().date()
+    # if self.start_date > now:
+    #   self.booking_status = 'Upcoming'
+    # elif self.start_date <= now <=self.end_date:
+    #   self.status = 'Ongoing'
+    # elif now > self.end_date:
+    #   self.status = 'Completed'    
 
     super().save(*args, **kwargs)
 

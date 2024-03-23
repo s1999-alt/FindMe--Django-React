@@ -11,6 +11,8 @@ import IconButton from '@mui/material/IconButton';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useRouter } from '../../../components/admin/hooks';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../features/auth/authSlice';
 
 
 // ----------------------------------------------------------------------
@@ -50,11 +52,12 @@ export default function AccountPopover() {
   const handleClose = () => {
     setOpen(null);
   };
-
+  const dispatch = useDispatch()
   const handlelogout = async () =>{
     try{
       const responce = await axios.get('http://localhost:8000/api/v1/admin/logout/')
-
+      dispatch(logout())
+      localStorage.setItem('user', null)
       if (responce.status === 200){
         router.push('/admin')
       }else{

@@ -17,7 +17,6 @@ const BookingConfirm = () => {
   const [bookingDetails,setBookingDetails] = useState(null)
   const [useWallet, setUseWallet] = useState(false)
   const [walletAmount, setWalletAmount] = useState(null);
-  
 
   useEffect(() => {
     const fetchBookingDetails = async ()=> {
@@ -39,8 +38,12 @@ const BookingConfirm = () => {
   useEffect(() => {
     const fetchWalletAmount = async () => {
         try {
+          console.log("============================",typeof(userInfo.id));
+
           if(userInfo && userInfo.id) {
+            console.log(userInfo.id);
             const response = await axios.get(`http://localhost:8000/api/v1/user/wallet/${userInfo.id}/`);
+            console.log(response);
             setWalletAmount(response.data.balance);
           }
         } catch (error) {

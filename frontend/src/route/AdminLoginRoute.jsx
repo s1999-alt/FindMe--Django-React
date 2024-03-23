@@ -6,8 +6,8 @@ import { toast } from 'react-toastify';
 import { Spinner } from 'reactstrap';
 
 
-function AdminRouter({children}) {
-  const [isAuthenticated, setisAuthenticated] = useState(true)
+function AdminLoginRouter({children}) {
+  const [isAuthenticated, setisAuthenticated] = useState(false)
   const [isLoading, setLoading] = useState(true);
   const navigate = useNavigate()
   
@@ -16,8 +16,8 @@ function AdminRouter({children}) {
   useEffect(()=>{
     fetchisAdmin
     console.log("==================================",userInfo);
-  if (!user){
-    setisAuthenticated(false)
+  if (user){
+    setisAuthenticated(true)
   }
   },[])
   
@@ -41,14 +41,14 @@ const fetchisAdmin = async () => {
   }
 };
 
-  if (isAuthenticated){
+  if (!isAuthenticated){
     return children
   }
 
   else{
-    toast.warning('please Login')
-    return navigate('/admin/')
+    toast.warning('please Logout')
+    return navigate('/admin/index')
   }
 }
 
-export default AdminRouter
+export default AdminLoginRouter

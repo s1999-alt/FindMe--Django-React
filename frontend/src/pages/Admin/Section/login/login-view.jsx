@@ -21,10 +21,13 @@ import Logo from '../../../../components/admin/logo';
 import Iconify from '../../../../components/admin/iconify/iconify';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { login } from '../../../../features/auth/authSlice';
 
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
+  const dispatch = useDispatch()
   const theme = useTheme();
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -33,12 +36,17 @@ export default function LoginView() {
 
   const handleLogin = async() => {
     try{
-      const responce = await axios.post('http://localhost:8000/api/v1/admin/login/',{
+      const val = {
         email:email,
         password:password
-      });
+      }
+      const responce = await axios.post('http://localhost:8000/api/v1/admin/login/',val);
+      console.log('the below kone the response');
+      console.log(responce)
 
       if(responce.status === 200){
+        dispatch(login(val))
+        localStorage.setItem("user", JSON.stringify(responce.data.token))
         router.push('/admin/index')
       }else{
         toast.error('Login failed')

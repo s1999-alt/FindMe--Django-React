@@ -13,6 +13,9 @@ class PackageListView(generics.ListCreateAPIView):
     queryset = Packages.objects.all()
     serializer_class = PackageSerializer
 
+    def get_queryset(self):
+        return Packages.objects.filter(category__is_available=True)
+
 class packageDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Packages.objects.all()
     serializer_class = PackageSerializer
@@ -61,6 +64,7 @@ class BookingDataView(generics.ListAPIView):
 class WalletView(generics.RetrieveAPIView):
     queryset=Wallet.objects.all()
     serializer_class = WalletSerializer
+    lookup_field = 'user'
 
     def put(self, request, *args, **kwargs):
         instance = self.get_object()

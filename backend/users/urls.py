@@ -12,6 +12,6 @@ urlpatterns = [
     path('bookings/<int:pk>', BookingDetailView.as_view(), name='booking-detail'),
     path('bookings/<int:user_id>/', BookingDataView.as_view(), name='booking-list'),
                 
-    path('wallet/<int:pk>/', WalletView.as_view(), name='wallet'),
+    path('wallet/<int:user>/', WalletView.as_view(), name='wallet'),
 
 ]

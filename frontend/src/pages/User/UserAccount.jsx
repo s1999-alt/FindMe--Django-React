@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { FaHome, FaCalendarAlt, FaWallet, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import '../../Styles/UserAccount.css';
+import { useSelector } from 'react-redux';
 
 const UserAccount = ({children}) => {
+  const {user, userInfo} = useSelector((state) => state.auth)
   const [activeLink, setActiveLink] = useState('Dashboard');
 
   const handleNavLinkClick = (link) => {
@@ -39,7 +41,8 @@ const UserAccount = ({children}) => {
           </li>
           <li>
             <NavLink
-              to="/userAccount/wallet"
+              to={`/userAccount/wallet/${userInfo.id}`}
+              // to="/userAccount/wallet"
               activeClassName="active"
               onClick={() => handleNavLinkClick('Wallet')}
             >

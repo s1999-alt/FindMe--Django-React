@@ -9,7 +9,7 @@ from .models import Packages, Category, Hotels, Booking, Wallet
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from rest_framework import generics
-from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer,AdminUserSerializer
+from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer,AdminUserSerializer,BookingSerializer
 import stripe
 from django.conf import settings
 from django.db import transaction
@@ -147,7 +147,7 @@ class CategoryUpdateView(generics.RetrieveUpdateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [IsAuthenticated]
-
+                    
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
         instance.is_available = not instance.is_available
@@ -160,7 +160,6 @@ class CategoryDetails(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer 
 
    
-
 
 
 class PackageCreateView(generics.CreateAPIView):
@@ -350,7 +349,13 @@ class StripeSuccessView(APIView):
             return Response(
                 {'error': str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )          
+            )  
+
+
+
+class BookingListView(generics.ListAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
 
 
 

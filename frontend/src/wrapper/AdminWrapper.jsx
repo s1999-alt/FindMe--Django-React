@@ -19,6 +19,8 @@ import EditHotelForm from '../pages/Admin/Section/Hotels/EditHotelForm';
 import ResetPassword from '../pages/Admin/AdminForgotPassword/ResetPassword';
 import ForgotPassword from '../pages/Admin/AdminForgotPassword/ForgotPassword';
 import AdminRouter from '../route/AdminRouter';
+import AdminBookingTable from '../pages/Admin/Section/AdminBookings/AdminBookingTable';
+import AdminLoginRouter from '../route/AdminLoginRoute';
 
 
 
@@ -50,8 +52,7 @@ function AdminWrapper() {
         {path: 'AddHotels', element: <AddHotelForm/> },
         {path: 'Hotels', element: <HotelList/> },
         {path: 'edit-hotel/:id', element: <EditHotelForm/> },
-        {path: 'forgot-password/', element: <ForgotPassword/> },
-        {path: 'password-reset/:uid/:token/', element: <ResetPassword/> },
+        {path: 'booking-table', element: <AdminBookingTable/> }
 
 
         // { path: 'blog', element: <BlogPage /> },
@@ -59,8 +60,10 @@ function AdminWrapper() {
     },
     {
       index: true ,
-      element: <LoginPage />,
+      element: <AdminLoginRouter><LoginPage /> </AdminLoginRouter>,
     },
+    {path: 'forgot-password/', element: <ForgotPassword/> },
+    {path: 'password-reset/:uid/:token/', element: <ResetPassword/> },
     // {
     //   path: '404',
     //   element: <Page404 />,

@@ -16,6 +16,7 @@ import UserAccount from '../pages/User/UserAccount'
 import Dashboard from '../pages/User/Dashboard'
 import BookingTable from '../pages/User/BookingTable'
 import BookingDetailPage from '../pages/User/BookingDetailPage'
+import Wallet from '../pages/User/Wallet'
 
 function UserWrapper() {
   const routes = useRoutes([
@@ -58,6 +59,7 @@ function UserWrapper() {
       {path: "/userAccount/", element: <Dashboard/>},
       {path: "/userAccount/bookings", element: <BookingTable/>},
       {path: "/userAccount/bookings/:id", element: <BookingDetailPage/>},
+      {path: "/userAccount/wallet/:id", element: <Wallet/>},
     ],
   },
   {
