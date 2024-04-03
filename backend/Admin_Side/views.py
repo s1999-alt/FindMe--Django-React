@@ -5,11 +5,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from rest_framework.authtoken.models import Token
 from users.models import User
-from .models import Packages, Category, Hotels, Booking, Wallet
+from .models import Packages, Category, Hotels, Booking, Wallet,WalletTransaction,Itinarary
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from rest_framework import generics
-from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer,AdminUserSerializer,BookingSerializer
+from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer,AdminUserSerializer,BookingSerializer,ItinararySerializer
 import stripe
 from django.conf import settings
 from django.db import transaction
@@ -216,8 +216,29 @@ class AdminHotelView(generics.RetrieveUpdateDestroyAPIView):
 
 
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
+class ItineraryCreateView(generics.CreateAPIView):
+    queryset = Itinarary.objects.all()
+    serializer_class = ItinararySerializer
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    
+class ItineraryListView(generics.ListAPIView):
+    queryset = Itinarary.objects.all()
+    serializer_class = ItinararySerializer    
+
+
+
+
+
+
+
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 class StripeCheckoutView(APIView):
     User = get_user_model()
     def post(self, request):
@@ -228,7 +249,6 @@ class StripeCheckoutView(APIView):
             print(f"Retrieved booking ID from session metadata: {booking_id}")
             booking = Booking.objects.get(id=booking_id)
             package = booking.package
-
             image_url = request.build_absolute_uri(package.image.url)
             print(image_url)
 
@@ -239,17 +259,32 @@ class StripeCheckoutView(APIView):
                 )
             
             if request.data.get('use_wallet'):
+                user_id = request.data.get('user_id')
                 user = User.objects.get(id=user_id)
                 wallet = Wallet.objects.get(user=user)
+
                 if wallet.balance >= booking.total:
                     with transaction.atomic():
                         booking.status = 'Payment Complete'
                         booking.payment_method = 'Wallet'
+                        booking.wallet_paid = booking.total
                         booking.save()
                         wallet.balance -= booking.total
                         wallet.save()
+                        amount = booking.total
+                        transaction_type = 'Debit'
+                        WalletTransaction.objects.create(
+                            user=user,
+                            amount=amount,
+                            transaction_type=transaction_type
+                        )
+                        
                     return redirect('http://localhost:5173/success?success=true')    
                 else:
+                    amount_used_from_wallet = wallet.balance
+                    booking.wallet_paid = amount_used_from_wallet
+                    booking.save()
+
                     booking.total -= wallet.balance 
                     booking.payment_method = 'Stripe'
 

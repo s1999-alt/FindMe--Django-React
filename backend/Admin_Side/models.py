@@ -82,6 +82,17 @@ class Wallet(models.Model):
       return f"Wallet of {self.user.first_name}"
   
   
+class WalletTransaction(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    transaction_type = models.CharField(max_length=10)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.first_name} - {self.transaction_type} - {self.amount}"
+  
+  
+  
 
 class Booking(models.Model):
   PAYMENT_STATUS_CHOICES = [
@@ -101,6 +112,7 @@ class Booking(models.Model):
     ('Ongoing' , 'Ongoing'),
     ('Completed' , 'Completed'),
     ('Cancelled' , 'Cancelled'),
+    ('Cancelled by FindMe' , 'Cancelled by FindMe'),
   ]
 
   user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -116,6 +128,7 @@ class Booking(models.Model):
   payment_method = models.CharField(max_length=20, choices=PAYMENT_METHOD_CHOICES, default='Not-paid')
   booking_number = models.CharField(max_length=20, unique=True, blank=True, null=True)
   booking_status = models.CharField(max_length=20, choices=BOOKING_STATUS_CHOICES, default='Upcoming')
+  wallet_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
   
 
   def __str__(self):
@@ -141,6 +154,15 @@ class Booking(models.Model):
       unique_id = uuid.uuid4().hex[:6].upper()  
       return f'BOOK-{unique_id}'    
   
+class ChatMessage(models.Model):
+  sender = models.ForeignKey(User, on_delete=models.CASCADE,related_name='send_messages')
+  message = models.TimeField(default="", null=True, blank=True)
+  time_stamp = models.DateTimeField(auto_now_add=True)
+  user_id = models.IntegerField() 
+  group = models.CharField(max_length=100)
+  is_read = models.BooleanField(default=False)
+  is_send = models.BooleanField(default=False)
+
 
 
 

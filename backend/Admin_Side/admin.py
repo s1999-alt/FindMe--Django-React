@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Packages, PackageImages, Hotels, Inclusions, Exclusions,Itinarary,Booking,Wallet
+from .models import Category, Packages, PackageImages, Hotels, Inclusions, Exclusions,Itinarary,Booking,Wallet,WalletTransaction,ChatMessage
 
 
 admin.site.register(Category)
@@ -11,4 +11,6 @@ admin.site.register(Exclusions)
 admin.site.register(Itinarary)
 admin.site.register(Booking)
 admin.site.register(Wallet)
+admin.site.register(WalletTransaction)
+admin.site.register(ChatMessage)
 

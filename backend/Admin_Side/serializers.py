@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from djoser.serializers import UserCreateSerializer
 from users.models import User
 from rest_framework import serializers
-from .models import Category,Packages,PackageImages,Hotels,Inclusions,Exclusions,Itinarary,Booking,Wallet
+from .models import Category,Packages,PackageImages,Hotels,Inclusions,Exclusions,Itinarary,Booking,Wallet,WalletTransaction
 
 
 class UserDetailsSerializer(serializers.ModelSerializer):
@@ -84,6 +84,7 @@ class AdminPackageListSerializer(PackageSerializer):
 
 
 class ItinararySerializer(serializers.ModelSerializer):
+  package_details = PackageSerializer(source='package', read_only=True)
   class Meta:
     model = Itinarary
     fields = '__all__'
@@ -93,16 +94,28 @@ class ItinararySerializer(serializers.ModelSerializer):
 class BookingSerializer(serializers.ModelSerializer):
   package_details = PackageSerializer(source='package', read_only=True)
   user_details = UserDetailsSerializer(source='user' , read_only=True)
-
   class Meta:
     model = Booking
-    fields = ['id','user','package','full_name','phone','email','start_date','end_date','no_of_guest','total','status','payment_method','booking_number','booking_status','package_details','user_details']
+    fields = ['id','user','package','full_name','phone','email','start_date','end_date','no_of_guest','total','status','payment_method','booking_number','booking_status','wallet_paid','package_details','user_details']
+
 
 
 class WalletSerializer(serializers.ModelSerializer):
   class Meta:
     model = Wallet
     fields = ['user','balance']
+
+ 
+class WalletTransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+      model = WalletTransaction
+      fields = ['amount', 'transaction_type', 'timestamp']  
+
+
+
+
+    
+
 
   
 

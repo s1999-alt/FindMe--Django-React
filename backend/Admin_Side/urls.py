@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import AdminLoginView,UserListView,UserActiveView,CategoryListView,AdminPackageListView,PackageCreateView,PackageUpdateView,PackageBlockUnblockView,CategoryUpdateView,CategoryCreateView,CategoryDetails,AdminHotelCreateView,AdminHotelListView,AdminHotelView,StripeCheckoutView,StripeSuccessView,ResetPasswordView,PasswordResetView,AdminUserDetailsView,BookingListView
+from .views import AdminLoginView,UserListView,UserActiveView,CategoryListView,AdminPackageListView,PackageCreateView,PackageUpdateView,PackageBlockUnblockView,CategoryUpdateView,CategoryCreateView,CategoryDetails,AdminHotelCreateView,AdminHotelListView,AdminHotelView,StripeCheckoutView,StripeSuccessView,ResetPasswordView,PasswordResetView,AdminUserDetailsView,BookingListView,ItineraryCreateView,ItineraryListView
 
 urlpatterns = [
     path('login/', AdminLoginView.as_view(), name='admin-login'),
@@ -17,6 +17,10 @@ urlpatterns = [
     path('packages/create/', PackageCreateView.as_view(), name='package-create'),
     path('packages/update/<int:pk>',PackageUpdateView.as_view(),name='package-update'),
     path('packages/block/<int:pk>/',PackageBlockUnblockView.as_view(),name='package-block-unblock'),
+
+
+    path('itineraries/create/', ItineraryCreateView.as_view(), name='itinerary-create'),
+    path('itineraries/', ItineraryListView.as_view(), name='itinerary-list'),
 
 
     path('categories/', CategoryCreateView.as_view(), name='category-create'),

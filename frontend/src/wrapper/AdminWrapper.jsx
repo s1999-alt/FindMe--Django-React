@@ -21,6 +21,10 @@ import ForgotPassword from '../pages/Admin/AdminForgotPassword/ForgotPassword';
 import AdminRouter from '../route/AdminRouter';
 import AdminBookingTable from '../pages/Admin/Section/AdminBookings/AdminBookingTable';
 import AdminLoginRouter from '../route/AdminLoginRoute';
+import AdminChatPage from '../pages/Admin/Section/AdminChat/AdminChatPage';
+import AddItineraryForm from '../pages/Admin/Section/Itinararies/AddItineraryForm';
+import ItineraryListPage from '../pages/Admin/Section/Itinararies/ItineraryListPage';
+import AdminBookingDetailPage from '../pages/Admin/Section/AdminBookings/AdminBookingDetailPage';
 
 
 
@@ -52,7 +56,11 @@ function AdminWrapper() {
         {path: 'AddHotels', element: <AddHotelForm/> },
         {path: 'Hotels', element: <HotelList/> },
         {path: 'edit-hotel/:id', element: <EditHotelForm/> },
-        {path: 'booking-table', element: <AdminBookingTable/> }
+        {path: 'booking-table', element: <AdminBookingTable/> },
+        {path: 'add-itineraries', element: <AddItineraryForm/> },
+        {path: 'Itineraries', element: <ItineraryListPage/> },
+        {path: 'AdminBookingDetails/:id', element: <AdminBookingDetailPage/> },
+        {path: 'messages', element: <AdminChatPage/> }
 
 
         // { path: 'blog', element: <BlogPage /> },

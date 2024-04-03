@@ -2,6 +2,7 @@ import React from 'react'
 import './Footer.css'
 import { Container, Row, Col, ListGroup, ListGroupItem } from 'reactstrap'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const quick__links = [
   {
@@ -38,6 +39,7 @@ const quick__links2 = [
 ]
 
 const Footer = () => {
+  const {user, userInfo} = useSelector((state) => state.auth);
   const year = new Date().getFullYear()
   return (
     <footer className='footer'>
@@ -120,6 +122,7 @@ const Footer = () => {
           </Col>
 
           <Col lg="12" className='text-center pt-5'>
+            <Link to={`/userChat/${userInfo.id}`} className="chat-with-us">Chat with Us</Link>
             <p className='copyright'>Copyright{year}, design and developed by 
             Siyad Savad. All rights reserved</p>
           </Col>

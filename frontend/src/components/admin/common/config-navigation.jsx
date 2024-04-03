@@ -43,6 +43,16 @@ const navConfig = [
     icon: icon('ic_blog'),
   },
   {
+    title: 'Itineraries',
+    path: '/admin/Itineraries',
+    icon: icon(''),
+  },
+  {
+    title: 'Itineraries',
+    path: '/admin/Itineraries',
+    icon: icon(''),
+  },
+  {
     title: 'login',
     path: '/admin/login',
     icon: icon('ic_lock'),

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './admin-booking-table.css'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const AdminBookingTable = () => {
   const [bookings, setBookings] = useState([])
@@ -37,6 +38,7 @@ const AdminBookingTable = () => {
             <th>Payment Method</th>
             <th>Booking Status</th>
             <th>Total Amount</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -55,6 +57,11 @@ const AdminBookingTable = () => {
               <td>{booking.payment_method}</td>
               <td>{booking.booking_status}</td>
               <td>{booking.total}</td>
+              <td>
+                <button onClick={() => handleViewBooking(booking.id)}>
+                  <Link to={`/admin/AdminBookingDetails/${booking.id}`} style={{color:'white'}}>show</Link>
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -64,3 +71,4 @@ const AdminBookingTable = () => {
 }
 
 export default AdminBookingTable
+

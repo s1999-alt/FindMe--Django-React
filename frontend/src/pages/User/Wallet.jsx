@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../../Styles/walletpage.css';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import wallet from '../../assets/wallet.gif'
 
@@ -37,6 +37,7 @@ const Wallet = () => {
             {loading ? <div className="spinner"></div> : (walletAmount !== null ? `₹ ${walletAmount}` : 'No data')}
           </div>
         </div>
+        <Link to={`/userAccount/wallet/${id}/transactions`} className="wallet-transactions-link">View Wallet Transactions</Link>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PackageListView,packageDetailView,ItineraryListView,ItineraryDetailView,BookingListView,BookingDetailView,WalletView,BookingDataView
+from .views import PackageListView,packageDetailView,ItineraryListView,ItineraryDetailView,BookingListView,BookingDetailView,WalletView,BookingDataView,WalletTransactionsView
 
 urlpatterns = [
     path('packages/',PackageListView.as_view(), name='package-list'),
@@ -13,5 +13,6 @@ urlpatterns = [
     path('bookings/<int:user_id>/', BookingDataView.as_view(), name='booking-list'),
                 
     path('wallet/<int:user>/', WalletView.as_view(), name='wallet'),
+    path('wallet/<int:id>/transactions/', WalletTransactionsView.as_view(), name='wallet-transactions'), 
 
 ]

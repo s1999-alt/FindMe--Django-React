@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import '../../Styles/booking-detail-page.css'
-import { useParams } from 'react-router-dom'
+import '../../../../Styles/booking-detail-page.css'
+import { useNavigate, useParams } from 'react-router-dom'
 import { FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt, FaCalendarAlt, FaRupeeSign, FaCreditCard } from 'react-icons/fa';
 import axios from 'axios'
 import { useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import Modal from 'react-modal'
 import { toast } from 'react-toastify';
 
 
-const BookingDetailPage = () => {
+const AdminBookingDetailPage = () => {
   const {user, userInfo} = useSelector((state) => state.auth);
   const {id} = useParams()
   const [bookingDetails, setBookingDetails] = useState(null)
@@ -16,6 +16,7 @@ const BookingDetailPage = () => {
   const [walletAmount, setWalletAmount] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate()
 
   useEffect( () => {
     const fetchBookingDetails = async () => {
@@ -48,16 +49,17 @@ const BookingDetailPage = () => {
     try {
       await axios.put(`http://localhost:8000/api/v1/user/bookings/${id}`,{
         status:'Returned',
-        booking_status:'Cancelled'
+        booking_status:'Cancelled by FindMe'
       })
-      toast.success('Booking cancelled and the amount is refunded in your wallet');
+      navigate('/admin/booking-table')
+      toast.success('Booking cancelled and the amount is refunded into user wallet');
       const newWalletBalance = parseFloat(walletAmount) + parseFloat(bookingDetails.total);
       await axios.put(`http://localhost:8000/api/v1/user/wallet/${userInfo.id}/`,{
         balance: newWalletBalance
       })
       setWalletAmount(newWalletBalance);
       setShowModal(false);
-      setBookingStatus('Cancelled');
+      setBookingStatus('Cancelled by FindMe');
     } catch (error) {
       setError('Error cancelling booking:', error);
     }
@@ -113,8 +115,8 @@ const BookingDetailPage = () => {
           <p><FaRupeeSign /> Rate: ₹ {bookingDetails.package_details.price} /per person</p>
         </div>
       </div>
-      <button className="cancel-booking-button" onClick={() => setShowModal(true)} disabled={bookingDetails.booking_status === 'Cancelled'}>
-        {bookingDetails.booking_status === 'Cancelled' ? 'Booking Cancelled' : 'Cancel Booking'}
+      <button className="cancel-booking-button" onClick={() => setShowModal(true)} disabled={bookingDetails.booking_status === 'Cancelled' || bookingDetails.booking_status === 'Cancelled by FindMe'}>
+        {bookingDetails.booking_status === 'Cancelled' || bookingDetails.booking_status === 'Cancelled by FindMe' ? 'Booking Cancelled' : 'Cancel Booking'}
       </button>
       <Modal
         isOpen={showModal}
@@ -130,4 +132,5 @@ const BookingDetailPage = () => {
   )
 }
 
-export default BookingDetailPage
+export default AdminBookingDetailPage
+

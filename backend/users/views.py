@@ -1,9 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.generics import RetrieveAPIView
 from rest_framework import permissions
-from Admin_Side.serializers import PackageSerializer,ItinararySerializer,BookingSerializer,WalletSerializer
+from Admin_Side.serializers import PackageSerializer,ItinararySerializer,BookingSerializer,WalletSerializer, WalletTransactionSerializer
 from rest_framework import generics
-from Admin_Side.models import Packages,Itinarary,Booking,Wallet
+from Admin_Side.models import Packages,Itinarary,Booking,Wallet,WalletTransaction,User
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -23,8 +23,11 @@ class packageDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ItineraryListView(generics.ListCreateAPIView):
-    queryset = Itinarary.objects.all()
     serializer_class = ItinararySerializer
+
+    def get_queryset(self):
+        package_id = self.request.query_params.get('package')
+        return Itinarary.objects.filter(package_id=package_id) 
     
 class ItineraryDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Itinarary.objects.all()
@@ -71,11 +74,36 @@ class WalletView(generics.RetrieveAPIView):
         data = request.data
 
         if 'balance' in data:
-            instance.balance = data['balance']
+            old_balance = instance.balance
+            new_balance = data['balance']
+
+            instance.balance = new_balance
             instance.save()
+
+            if new_balance != old_balance:
+                transaction_type = 'Credit' if new_balance > old_balance else 'Debit'
+                amount = abs(new_balance - old_balance)
+                WalletTransaction.objects.create(
+                    user = instance.user,
+                    amount = amount,
+                    transaction_type = transaction_type 
+                )
+
+
             return Response(self.get_serializer(instance).data, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Missing balance in request data'}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class WalletTransactionsView(generics.ListAPIView):
+    serializer_class = WalletTransactionSerializer
+
+    def get_queryset(self):
+        user_id = self.kwargs['id']
+        return WalletTransaction.objects.filter(user=user_id)
+        
+
+
 
 
 
