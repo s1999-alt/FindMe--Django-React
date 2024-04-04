@@ -14,7 +14,8 @@ function AdminRouter({children}) {
   const {user, userInfo} = useSelector((state) => state.auth);
   
   useEffect(()=>{
-    fetchisAdmin
+    const isAdmin = fetchisAdmin()
+    console.log(isAdmin);
     console.log("==================================",userInfo);
   if (!user){
     setisAuthenticated(false)
@@ -37,7 +38,7 @@ const fetchisAdmin = async () => {
       return res.data.is_superuser;
 
   } catch (error) {
-      return false;
+      return false;   
   }
 };
 

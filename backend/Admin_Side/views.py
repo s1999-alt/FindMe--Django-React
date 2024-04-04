@@ -5,11 +5,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from rest_framework.authtoken.models import Token
 from users.models import User
-from .models import Packages, Category, Hotels, Booking, Wallet,WalletTransaction,Itinarary
+from .models import Packages, Category, Hotels, Booking, Wallet,WalletTransaction,Itinarary,ChatMessage
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from rest_framework import generics
-from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer,AdminUserSerializer,BookingSerializer,ItinararySerializer
+from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer,AdminUserSerializer,BookingSerializer,ItinararySerializer,UserSerializer
 import stripe
 from django.conf import settings
 from django.db import transaction
@@ -229,7 +229,11 @@ class ItineraryCreateView(generics.CreateAPIView):
     
 class ItineraryListView(generics.ListAPIView):
     queryset = Itinarary.objects.all()
-    serializer_class = ItinararySerializer    
+    serializer_class = ItinararySerializer  
+
+
+
+
 
 
 
@@ -391,6 +395,16 @@ class StripeSuccessView(APIView):
 class BookingListView(generics.ListAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
+
+
+User = get_user_model()
+
+class UniqueUserListView(APIView):
+    def get(self, request, *args, **kwargs):
+        user_ids = ChatMessage.objects.values('sender').distinct()
+        users = User.objects.filter(id__in=user_ids)
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
 
 
 

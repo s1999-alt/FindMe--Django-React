@@ -4,6 +4,7 @@ from Admin_Side.models import ChatMessage
 # from .models import User
 from django.contrib.auth import get_user_model
 from asgiref.sync import sync_to_async
+from datetime import datetime
 
 User = get_user_model()
 
@@ -19,15 +20,22 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
         )
         await self.accept()
 
-  async def receive(self, text_data):
-      data = json.loads(text_data)
-      message = data['message']
-      sender_email = "none"
 
+
+  async def receive(self, text_data):
+      print("Received message:", text_data)
+      data = json.loads(text_data)
+      nested_message = data['message']
+      message = nested_message['message']
+      print(data)
+      sender_id = nested_message['sender']
+
+      print("======================================",text_data) 
       print("messageeeeeeeeeeeeeeeeee",data)
-      print("senderrrrrrrrrrrrrrrrrrrr",sender_email)
+      print("senderrrrrrrrrrrrrrrrrrrr",sender_id)
+
       try:
-        sender_user = await sync_to_async(User.objects.get)(email=sender_email)
+        sender_user = await sync_to_async(User.objects.get)(id=sender_id)
       except User.DoesNotExist:
         sender_user = None
 
@@ -36,7 +44,7 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
             sender=sender_user,
             message = message,
             user_id = sender_user.id,
-            group = self.room_group_name
+            group = self.room_group_name,
         )
 
       await self.channel_layer.group_send(
@@ -45,7 +53,7 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
               'type':'chat.message',
               'data':{
                   'message':message,
-                  'sender':sender_email
+                  'sender':sender_id
               },
     })
 

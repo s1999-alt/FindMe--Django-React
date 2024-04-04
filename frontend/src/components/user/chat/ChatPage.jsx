@@ -44,7 +44,7 @@ const ChatPage = () => {
     <>
       <div className='chat-container'>
         <ChatSideBar/>
-        <ChatArea messages={messages}/>
+        <ChatArea messages={messages} user_id={userInfo.id}/>
       </div>
       <MessageInput sendMessage={sendMessage}/>
     </>

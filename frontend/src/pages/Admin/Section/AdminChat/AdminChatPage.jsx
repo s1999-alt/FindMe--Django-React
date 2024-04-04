@@ -4,22 +4,42 @@ import AdminChatArea from './AdminChatArea';
 import './admin-chat-page.css'; // Add your CSS file for styling
 import AdminChatSidebar from './AdminChatSidebar';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const AdminChatPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
+
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
 
-  useEffect( () => {
-    const newSocket = new WebSocket(`ws://localhost:8000/ws/chat/${3}/`)
+  const [users, setUsers] = useState([])
 
+  useEffect( () => {
+    const fetchChatUsers = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/v1/admin/chat-unique-users/')
+        setUsers(response.data)
+      } catch (error) {
+        console.error("Error fetching unique users:", error);
+      }
+    }
+    fetchChatUsers()
+  },[])
+
+  console.log("===========",users);
+  console.log("=========================selected user",selectedUser);
+
+  useEffect( () => {
+    const newSocket = new WebSocket(`ws://localhost:8000/ws/chat/${selectedUser}/`)
+    console.log('-------------------');
+    console.log(newSocket);
     newSocket.onopen = () => {
       console.log('WebSocket connection established.');
     };
 
     newSocket.onmessage = (event) => {
       const message = JSON.parse(event.data);
-      setMessages((prevMessages) => [...prevMessages, message]);
+      setMessages(prevMessages => [...prevMessages, message]);
     };
 
     setSocket(newSocket);
@@ -27,7 +47,9 @@ const AdminChatPage = () => {
     return () => {
       newSocket.close();
     };
-  },[])
+  },[selectedUser])
+
+  console.log("=======messagesssssssssssssssssssssssss", messages);
 
   return (
     <div className="admin-chat-container">
@@ -35,10 +57,12 @@ const AdminChatPage = () => {
         messages={messages}
         selectedUser={selectedUser}
         setSelectedUser={setSelectedUser}
+        users={users}
       />
       <AdminChatArea
-        messages={messages.filter((message) => message.sender === selectedUser)}
+        messages={messages}
         selectedUser={selectedUser}
+        socket={socket}
       />
     </div>
   );
