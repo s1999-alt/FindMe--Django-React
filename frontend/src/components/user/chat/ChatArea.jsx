@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './chat-area.css'
-import MessageInput from './MessageInput'
+// import MessageInput from './MessageInput'
 
 const ChatArea = ({messages, user_id}) => {
   console.log("javsdvajdvjavdjasdjdjdajdjasd",user_id);

@@ -11,14 +11,17 @@ const MessageInput = ({sendMessage}) => {
   };
 
   const handleSend = () => {
-    if (message.trim() !== '') {
-      const messageData = {
-        "message": message,
-        "sender": userInfo.id
-      };
-      sendMessage(messageData); // Send message only if it's not empty
-      setMessage('');
-    }
+   
+
+      if (message.trim() !== '') {
+        const messageData = {
+          "message": message,
+          "sender": userInfo.id
+        };
+        sendMessage(messageData); // Send message only if it's not empty
+        setMessage('');
+      }
+    
   };
   return (
     <div className='message-input'>
@@ -33,4 +36,4 @@ const MessageInput = ({sendMessage}) => {
   )
 }
 
-export default MessageInput
+export default MessageInput;

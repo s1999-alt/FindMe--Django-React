@@ -20,6 +20,7 @@ const AdminMessageInput = ({ sendMessage, socket }) => {
   }
 
   const handleSend = () => {
+    
     if (message.trim() !== '') {
       console.log(userInfo.id);
       console.log('----------------------------');

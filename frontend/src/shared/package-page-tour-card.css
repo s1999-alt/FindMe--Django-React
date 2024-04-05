@@ -1,0 +1,145 @@
+.package-page-tour__card {
+  margin: 2rem;
+  margin-top: 3rem; /* Adjust the value as needed */
+}
+
+
+.package-page-tour__card .tour__img img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 5px 5px 0 0;
+}
+
+.package-page-tour__card .card {
+  height: 450px;
+  border: none !important;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+  transition: .5s;
+  display: flex;
+  flex-direction: column;
+  width: 300px; /* Adjust width as needed */
+}
+
+.package-page-tour__card .card:hover {
+  transform: scale(1.05);
+}
+
+.package-page-tour__card .tour__img {
+  position: relative;
+}
+
+.package-page-tour__card .tour__img span {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: max-content;
+  height: max-content;
+  z-index: 10;
+  background: var(--primary-color);
+  color: #fff;
+  padding: 0.3rem 0.5rem;
+  border-radius: 3px 0 0 0;
+}
+
+.package-page-tour__card .card__top span i {
+  color: var(--secondary-color);
+}
+
+.package-page-tour__card .tour__category {
+  font-size: .9rem;
+  color: var(--text-color);
+}
+
+.package-page-tour__card .package-info {
+  flex-grow: 1;
+}
+
+.package-page-tour__card .package-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--heading-color);
+  font-weight: 500;
+  font-size: .95rem;
+  margin-bottom: 0.5rem;
+  max-width: 250px;
+}
+
+.package-page-tour__card .card__top {
+  /* Ensure flex items wrap */
+  flex-wrap: wrap;
+}
+
+.package-page-tour__card .package-details {
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.package-page-tour__card .card__bottom {
+  border-top: 1px solid #e3e3e3;
+  padding-top: .5rem;
+  height: 80px;
+  display: flex;
+}
+
+.package-page-tour__card .card__bottom h6 {
+  color: var(--secondary-color);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.package-page-tour__card .card__bottom h6 span {
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 0.8rem;
+}
+
+.package-page-tour__card .booking__btn {
+  background: var(--secondary-color) !important;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem !important;
+}
+
+.package-page-tour__card .booking__btn a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.package-page-tour__card .booking__btn a:hover {
+  color: #fff;
+}
+
+.package-page-tour__card .inclsn {
+  width: 100%;
+  float: left;
+  margin: 8px 0 0px 0;
+  display: flex;
+  justify-content: flex-start;
+  border-top: 1px solid #e3e3e3;
+  padding: 7px 0;
+}
+
+.package-page-tour__card .hicn {
+  float: left;
+  margin-right: 15px;
+}
+
+.package-page-tour__card .incTxt {
+  font-size: 11px;
+  color: #000;
+  display: block;
+  text-align: center;
+}
+
+.package-page-tour__card .i-htl,
+.package-page-tour__card .i-sig,
+.package-page-tour__card .i-car,
+.package-page-tour__card .i-mea {
+  width: 40px;
+  height: 40px;
+  background-size: 40px 40px;
+  display: table;
+  margin: 0 auto;
+}

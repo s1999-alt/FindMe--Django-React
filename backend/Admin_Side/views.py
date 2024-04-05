@@ -4,6 +4,7 @@ from rest_framework import status
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from rest_framework.authtoken.models import Token
+from rest_framework_simplejwt.tokens import RefreshToken
 from users.models import User
 from .models import Packages, Category, Hotels, Booking, Wallet,WalletTransaction,Itinarary,ChatMessage
 from django.http import JsonResponse
@@ -21,6 +22,11 @@ from django.core.mail import send_mail
 from django.utils.encoding import force_str
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAuthenticated
+from google.oauth2 import id_token
+from google.auth.transport import requests
+from rest_framework.parsers import MultiPartParser, FormParser
+from decouple import config
+from rest_framework.exceptions import AuthenticationFailed, ParseError
 
 
 
@@ -402,9 +408,48 @@ User = get_user_model()
 class UniqueUserListView(APIView):
     def get(self, request, *args, **kwargs):
         user_ids = ChatMessage.objects.values('sender').distinct()
+        # user_ids = ChatMessage.objects.exclude(sender__is_superuser=True).values('sender').distinct()
         users = User.objects.filter(id__in=user_ids)
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
+
+
+class GoogleAuth(APIView):
+    def post(self,request):
+        print(request.data)
+        
+        accountExist = True
+        try:
+            google_request = requests.Request()
+            print('===============')
+            id_info = id_token.verify_oauth2_token(
+                request.data['crediantial'], google_request,  '35803538916-7ul3bjrjijtkq25i4o3hessska71amdm.apps.googleusercontent.com', clock_skew_in_seconds=10)
+            # email = id_info['email']
+            print(id_info)
+            email = id_info['email']
+
+        except KeyError:
+            raise ParseError('Check credential')
+        if not User.objects.filter(email=email).exists():
+            
+            user = User.objects.create(first_name=id_info['given_name'], last_name=id_info['family_name'],
+                                           is_active=True)
+            user.save()
+            
+        user = User.objects.get(email=email)
+        refresh = RefreshToken.for_user(user)
+        print('htis ist eh =-====++++')
+        print(refresh)
+        print(refresh.access_token)
+        context = {
+            'access':str(refresh.access_token),
+            'refresh':str(refresh)
+        }
+
+        return Response(context, status=status.HTTP_200_OK)
+
+
+
 
 
 

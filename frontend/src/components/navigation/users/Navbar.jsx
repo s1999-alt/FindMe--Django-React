@@ -112,7 +112,7 @@ const Navbar = () => {
           Destinations
         </NavLink>
 
-        <NavLink className="flex text-gray-600 hover:text-blue-500 cursor-pointer transition-colors duration-300">
+        <NavLink to="/packages" className="flex text-gray-600 hover:text-blue-500 cursor-pointer transition-colors duration-300">
           Packages
         </NavLink>
 

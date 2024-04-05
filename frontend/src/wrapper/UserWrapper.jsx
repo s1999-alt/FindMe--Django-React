@@ -17,10 +17,9 @@ import Dashboard from '../pages/User/Dashboard'
 import BookingTable from '../pages/User/BookingTable'
 import BookingDetailPage from '../pages/User/BookingDetailPage'
 import Wallet from '../pages/User/Wallet'
-import ChatArea from '../components/user/chat/ChatArea'
 import ChatPage from '../components/user/chat/ChatPage'
-import WalletTransactionList from '../pages/User/WalletTransactions'
 import WalletTransactions from '../pages/User/WalletTransactions'
+import Packages from '../pages/User/Packages'
 
 function UserWrapper() {
   const routes = useRoutes([
@@ -41,6 +40,7 @@ function UserWrapper() {
       {path: "/password/reset/:uid/:token", element: <ResetPasswordConfirmPage/>},
       {path: "/packages/:id", element: <UserRouter><TourDetails/></UserRouter>},
       {path: "/bookingconfirm/:bookingId", element:<UserRouter><BookingConfirm/></UserRouter> },
+      {path: "/packages", element:<UserRouter><Packages/></UserRouter> },
       {path: "/userChat/:id", element:<ChatPage/>},
       {path: "/success", element: <SuccessPage/>},
       
