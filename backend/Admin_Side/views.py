@@ -407,8 +407,8 @@ User = get_user_model()
 
 class UniqueUserListView(APIView):
     def get(self, request, *args, **kwargs):
-        user_ids = ChatMessage.objects.values('sender').distinct()
-        # user_ids = ChatMessage.objects.exclude(sender__is_superuser=True).values('sender').distinct()
+        # user_ids = ChatMessage.objects.values('sender').distinct()
+        user_ids = ChatMessage.objects.exclude(sender__is_superuser=True).values('sender').distinct()
         users = User.objects.filter(id__in=user_ids)
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)

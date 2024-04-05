@@ -5,6 +5,8 @@ from Admin_Side.models import ChatMessage
 from django.contrib.auth import get_user_model
 from asgiref.sync import sync_to_async
 from datetime import datetime
+from channels.db import database_sync_to_async
+
 
 User = get_user_model()
 
@@ -20,8 +22,21 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
         )
         await self.accept()
 
+        existing_messages = await self.get_existing_messages() 
+        for message in existing_messages:
+            await self.send(text_data=json.dumps({
+                'message': message['message'],
+                'sender': message['sender'],
+            }))
+
+      
 
 
+  @database_sync_to_async
+  def get_existing_messages(self):
+      messages = ChatMessage.objects.filter(group=self.room_group_name)
+      return [{'message': message.message, 'sender': message.sender.id} for message in messages]
+    
   async def receive(self, text_data):
       print("Received message:", text_data)
       data = json.loads(text_data)
