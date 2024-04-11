@@ -9,6 +9,7 @@ urlpatterns = [
 
     path('user-details/<int:id>', AdminUserDetailsView.as_view(), name='admin-user-details'),
 
+
     path('reset-password/', ResetPasswordView.as_view(), name='reset-password'),
     path('password-reset/<str:uidb64>/<str:token>/', PasswordResetView.as_view(), name='password-reset'),
 

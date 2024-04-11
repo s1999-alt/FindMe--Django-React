@@ -7,17 +7,19 @@ import { AdminAxios } from '../../../../axios_instance/Axios_instance';
 
 const AdminChatPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
-
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
-
   const [users, setUsers] = useState([])
 
   useEffect( () => {
     const fetchChatUsers = async () => {
       try {
         const response = await AdminAxios.get('api/v1/admin/chat-unique-users/')
-        setUsers(response.data)
+        
+        setUsers(response.data.map(user => ({
+          ...user,
+          isOnline: user.is_online
+        })))
       } catch (error) {
         console.error("Error fetching unique users:", error);
       }
@@ -25,7 +27,8 @@ const AdminChatPage = () => {
     fetchChatUsers()
   },[])
 
-  console.log("===========",users);
+
+  console.log("=====this is the users ======",users);
   console.log("=========================selected user",selectedUser);
 
   useEffect( () => {

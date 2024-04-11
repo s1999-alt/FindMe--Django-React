@@ -9,10 +9,10 @@ const AdminChatSidebar = ({ users, selectedUser, setSelectedUser }) => {
         {users.map((user)=>(
           <li
             key={user.id}
-            className={selectedUser === user.id ? 'active' : ''}
+            className={`${selectedUser === user.id ? 'active' : ''} ${user.isOnline ? 'online' : 'offline'}`}
             onClick={() => setSelectedUser(user.id)}
           >
-            {user.email}
+            {user.email} {user.isOnline ? '(Online)' : '(Offline)'}
           </li>
         ))}
       </ul>

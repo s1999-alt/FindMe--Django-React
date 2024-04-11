@@ -23,6 +23,8 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
         )
         await self.accept()
 
+        await self.update_user_status(user_id, 'online')
+
         existing_messages = await self.get_existing_messages() 
         for message in existing_messages:
             await self.send(text_data=json.dumps({
@@ -79,10 +81,20 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
     })
 
   async def disconnect(self, close_code):
+      user_id = self.scope['url_route']['kwargs']['id']
+      await self.update_user_status(user_id, 'offline')
+
       await self.channel_layer.group_discard(
           self.room_group_name,
           self.channel_name
-      )    
+      ) 
+
+  @database_sync_to_async
+  def update_user_status(self, user_id, status):
+      # Update the user's status in the database
+      user = User.objects.get(id=user_id)
+      user.is_online  = status == 'online'
+      user.save()       
 
 
   async def chat_message(self, event):

@@ -116,7 +116,7 @@ class WalletTransactionSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'email']
+        fields = ['id', 'first_name', 'email', 'is_online']
 
 
 

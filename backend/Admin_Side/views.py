@@ -120,7 +120,7 @@ class UserActiveView(generics.RetrieveUpdateAPIView):
     lookup_field = 'id'
 
 
-class AdminUserDetailsView(generics.RetrieveAPIView):
+class AdminUserDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = AdminUserSerializer
     lookup_field = 'id'
