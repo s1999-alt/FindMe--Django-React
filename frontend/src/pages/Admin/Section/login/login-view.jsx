@@ -19,10 +19,10 @@ import { bgGradient } from '../../../../components/admin/theme/css';
 
 import Logo from '../../../../components/admin/logo';
 import Iconify from '../../../../components/admin/iconify/iconify';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { login } from '../../../../features/auth/authSlice';
+import { AdminAxios } from '../../../../axios_instance/Axios_instance';
 
 // ----------------------------------------------------------------------
 
@@ -40,7 +40,7 @@ export default function LoginView() {
         email:email,
         password:password
       }
-      const responce = await axios.post('http://localhost:8000/api/v1/admin/login/',val);
+      const responce = await AdminAxios.post('api/v1/admin/login/',val);
       console.log('the below kone the response');
       console.log(responce)
 

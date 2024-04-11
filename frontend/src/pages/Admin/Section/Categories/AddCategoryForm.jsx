@@ -1,7 +1,7 @@
-import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { AdminAxios } from '../../../../axios_instance/Axios_instance'
 
 const AddCategoryForm = () => {
   const navigate = useNavigate()  
@@ -29,7 +29,7 @@ const AddCategoryForm = () => {
     }
 
     try{
-      await axios.post('http://127.0.0.1:8000/api/v1/admin/categories/', categoryData)
+      await AdminAxios.post('api/v1/admin/categories/', categoryData)
       navigate('/admin/categories')
       toast.success('Category Added Successfully');
       setFormData({

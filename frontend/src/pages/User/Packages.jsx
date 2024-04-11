@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PackagePageTourCard from '../../shared/PackagePageTourCard';
 import { ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle, Col, Input, Row } from 'reactstrap';
 import banner from '../../assets/packagePageImage.jpeg';
+import { UserAxios } from '../../axios_instance/Axios_instance';
 
 const Packages = () => {
   const [packages, setPackages] = useState([]);
@@ -13,7 +14,7 @@ const Packages = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/user/packages/');
+        const response = await UserAxios.get('api/v1/user/packages/');
         setPackages(response.data);
       } catch (error) {
         console.error('Error fetching package details:', error);

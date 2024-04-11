@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from asgiref.sync import sync_to_async
 from datetime import datetime
 from channels.db import database_sync_to_async
+from django.utils import timezone
 
 
 User = get_user_model()
@@ -27,6 +28,7 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
             await self.send(text_data=json.dumps({
                 'message': message['message'],
                 'sender': message['sender'],
+                'time_stamp': timezone.now().isoformat(),
             }))
 
       
@@ -35,7 +37,7 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
   @database_sync_to_async
   def get_existing_messages(self):
       messages = ChatMessage.objects.filter(group=self.room_group_name)
-      return [{'message': message.message, 'sender': message.sender.id} for message in messages]
+      return [{'message': message.message, 'sender': message.sender.id, 'time_stamp': 'placeholder'} for message in messages]
     
   async def receive(self, text_data):
       print("Received message:", text_data)
@@ -44,6 +46,9 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
       message = nested_message['message']
       print(data)
       sender_id = nested_message['sender']
+
+      current_timestamp = timezone.now()
+
 
       print("======================================",text_data) 
       print("messageeeeeeeeeeeeeeeeee",data)
@@ -68,7 +73,8 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
               'type':'chat.message',
               'data':{
                   'message':message,
-                  'sender':sender_id
+                  'sender':sender_id,
+                  'time_stamp': current_timestamp.isoformat(),
               },
     })
 
@@ -82,9 +88,11 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
   async def chat_message(self, event):
         message = event['data']['message']
         sender = event['data']['sender']
+        time_stamp = event['data']['time_stamp']
         await self.send(text_data=json.dumps({
             "message":message,
             'sender':sender,
+            "time_stamp": time_stamp,
         }))
 
 

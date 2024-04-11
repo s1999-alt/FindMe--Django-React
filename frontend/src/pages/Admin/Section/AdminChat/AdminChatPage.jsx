@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react';
 import AdminChatArea from './AdminChatArea';
 import './admin-chat-page.css'; // Add your CSS file for styling
 import AdminChatSidebar from './AdminChatSidebar';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
+import { AdminAxios } from '../../../../axios_instance/Axios_instance';
 
 const AdminChatPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -17,7 +16,7 @@ const AdminChatPage = () => {
   useEffect( () => {
     const fetchChatUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/admin/chat-unique-users/')
+        const response = await AdminAxios.get('api/v1/admin/chat-unique-users/')
         setUsers(response.data)
       } catch (error) {
         console.error("Error fetching unique users:", error);

@@ -1,6 +1,6 @@
-import axios from 'axios'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
+import { AdminAxios } from '../../../../axios_instance/Axios_instance'
 
 const AddHotelForm = () => {
   const [formData,setFormData] = useState({
@@ -28,7 +28,7 @@ const AddHotelForm = () => {
     }
 
     try {
-      await axios.post('http://127.0.0.1:8000/api/v1/admin/hotels/create/', hotelData)
+      await AdminAxios.post('api/v1/admin/hotels/create/', hotelData)
       toast.success('Hotel Added Successfully')
       setFormData({
         hotel_name: '',

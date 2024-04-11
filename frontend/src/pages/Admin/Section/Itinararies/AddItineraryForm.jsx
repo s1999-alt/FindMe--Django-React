@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './add-itinerary.css';
+import { AdminAxios } from '../../../../axios_instance/Axios_instance';
 
 const AddItineraryForm = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const AddItineraryForm = () => {
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/admin/packages/');
+        const response = await AdminAxios.get('api/v1/admin/packages/');
         setPackages(response.data);
       } catch (error) {
         console.error('Error fetching packages:', error);
@@ -34,7 +34,7 @@ const AddItineraryForm = () => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:8000/api/v1/admin/itineraries/create/', formData);
+      await AdminAxios.post('api/v1/admin/itineraries/create/', formData);
       toast.success('Itinerary Added Successfully');
       setFormData({
         package: '', // Reset form fields

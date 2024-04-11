@@ -1,7 +1,7 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { AdminAxios } from '../../../../../axios_instance/Axios_instance'
 // import './edit-packageform.css'
 
 const EditPackageForm = () => {
@@ -26,7 +26,7 @@ const EditPackageForm = () => {
   useEffect(() =>{
     const fetchCategories = async () => {
       try{
-        const response = await axios.get('http://127.0.0.1:8000/api/v1/admin/categories/list/')
+        const response = await AdminAxios.get('api/v1/admin/categories/list/')
         setCategories(response.data);
       }catch(error){
         console.error('Error fetching categories:', error);
@@ -39,7 +39,7 @@ const EditPackageForm = () => {
   useEffect(() => {
     const fetchPackageDetails = async () => {
       try{
-        const response = await axios.get(`http://127.0.0.1:8000/api/v1/user/packages/${id}`)
+        const response = await AdminAxios.get(`api/v1/user/packages/${id}`)
         const { package_name, duration, price, sale_price, overview, category, image, city, rating, is_active } = response.data;
         setFormData({
           package_name,
@@ -89,7 +89,7 @@ const EditPackageForm = () => {
     }
 
     try{
-      const response = await axios.put(`http://127.0.0.1:8000/api/v1/admin/packages/update/${id}`, packageData)
+      const response = await AdminAxios.put(`api/v1/admin/packages/update/${id}`, packageData)
       console.log('Package updated:', response.data);
       navigate('/admin/AdminPackageList')
       toast.success('Package Updated Successfully')

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Spinner } from 'reactstrap';
+import { AdminAxios } from '../axios_instance/Axios_instance';
 
 
 function AdminRouter({children}) {
@@ -27,7 +28,7 @@ const fetchisAdmin = async () => {
   const token = localStorage.getItem('access');
   
   try {
-      await axios.get(`http://127.0.0.1:8000/api/v1/admin/user-details/${userInfo.id}`).then((res)=>{
+      await AdminAxios.get(`api/v1/admin/user-details/${userInfo.id}`).then((res)=>{
         if(!res.data.is_superuser){
           navigate('/')
         }

@@ -157,11 +157,11 @@ class Booking(models.Model):
 class ChatMessage(models.Model):
   sender = models.ForeignKey(User, on_delete=models.CASCADE,related_name='send_messages')
   message = models.TextField(null=True, blank=True)
-  time_stamp = models.DateTimeField(auto_now_add=True)
   user_id = models.IntegerField() 
   group = models.CharField(max_length=100)
   is_read = models.BooleanField(default=False)
   is_send = models.BooleanField(default=False)
+  time_stamp = models.DateTimeField(default=timezone.now)
 
 
 

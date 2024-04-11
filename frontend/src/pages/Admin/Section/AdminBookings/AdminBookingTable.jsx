@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './admin-booking-table.css'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { AdminAxios } from '../../../../axios_instance/Axios_instance'
 
 const AdminBookingTable = () => {
   const [bookings, setBookings] = useState([])
@@ -9,7 +10,7 @@ const AdminBookingTable = () => {
   useEffect( () =>{
     const fetchBooking = async() =>{
       try {
-        const response = await axios.get(`http://localhost:8000/api/v1/admin/bookings/`)
+        const response = await AdminAxios.get(`api/v1/admin/bookings/`)
         setBookings(response.data)
       } catch (error) {
         console.log('Error fetching bookings:', error);

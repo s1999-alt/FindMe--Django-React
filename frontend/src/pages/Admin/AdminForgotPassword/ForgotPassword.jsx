@@ -4,6 +4,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import './forgotPasswordStyles.css'
+import { AdminAxios } from '../../../axios_instance/Axios_instance';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -11,8 +12,10 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/admin/reset-password/', { email });
+      const response = await AdminAxios.post('api/v1/admin/reset-password/', { email });
+      // axios.post('http://localhost:8000/api/v1/admin/reset-password/', { email });
       toast.success(response.data.message);
+      
     } catch (error) {
       toast.error(`Error: ${error.message}`);
     }

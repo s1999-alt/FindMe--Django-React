@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { UserAxios } from '../../axios_instance/Axios_instance';
 
 const WalletTransactions = () => {
     const {id} = useParams()
     const [transactions, setTransactions] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [transactionsPerPage] = useState(10);
 
     useEffect(() => {
         const fetchTransactions = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/v1/user/wallet/${id}/transactions`);
+                const response = await UserAxios.get(`api/v1/user/wallet/${id}/transactions`);
                 setTransactions(response.data);
             } catch (error) {
                 console.error('Error fetching wallet transactions:', error);
@@ -17,6 +19,13 @@ const WalletTransactions = () => {
         };
         fetchTransactions();
     }, [id]);
+
+    const sortedTransactions = [...transactions].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    const indexOfLastTransaction = currentPage * transactionsPerPage;
+    const indexOfFirstTransaction = indexOfLastTransaction - transactionsPerPage;
+    const currentTransactions = sortedTransactions.slice(indexOfFirstTransaction, indexOfLastTransaction);
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
     return (
         <div>
@@ -30,7 +39,7 @@ const WalletTransactions = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {transactions.map(transaction => (
+                    {currentTransactions.map(transaction => (
                         <tr key={transaction.id}>
                             <td>{transaction.amount}</td>
                             <td>{transaction.transaction_type}</td>
@@ -39,6 +48,25 @@ const WalletTransactions = () => {
                     ))}
                 </tbody>
             </table>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                {Array.from({ length: Math.ceil(transactions.length / transactionsPerPage) }).map((_, index) => (
+                    <button
+                        key={index}
+                        onClick={() => paginate(index + 1)}
+                        style={{
+                            marginRight: '10px',
+                            padding: '5px 10px',
+                            border: '1px solid #ccc',
+                            background: currentPage === index + 1 ? '#007bff' : 'transparent',
+                            color: currentPage === index + 1 ? '#fff' : '#000',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+            </div>
+
         </div>
     );
 };

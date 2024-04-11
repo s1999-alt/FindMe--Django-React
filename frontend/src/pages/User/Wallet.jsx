@@ -3,6 +3,7 @@ import '../../Styles/walletpage.css';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import wallet from '../../assets/wallet.gif'
+import { UserAxios } from '../../axios_instance/Axios_instance';
 
 const Wallet = () => {
   const { id } = useParams();
@@ -13,7 +14,7 @@ const Wallet = () => {
     const fetchWalletAmount = async () => {
       try {
         if (id) {
-          const response = await axios.get(`http://localhost:8000/api/v1/user/wallet/${id}/`);
+          const response = await UserAxios.get(`api/v1/user/wallet/${id}/`);
           setWalletAmount(response.data.balance);
           setLoading(false);
         }

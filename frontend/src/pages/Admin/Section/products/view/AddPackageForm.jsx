@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 import './add-packageform.css'
 import { useNavigate } from 'react-router-dom'
+import { AdminAxios } from '../../../../../axios_instance/Axios_instance'
 
 
 
@@ -26,7 +26,7 @@ const AddPackageForm = () => {
   useEffect(() =>{
     const fetchCategories = async () => {
       try{
-        const response = await axios.get('http://127.0.0.1:8000/api/v1/admin/categories/list/')
+        const response = await AdminAxios.get('api/v1/admin/categories/list/')
         setCategories(response.data);
       }catch(error){
         console.error('Error fetching categories:', error);
@@ -58,7 +58,7 @@ const AddPackageForm = () => {
     }
 
     try{
-      const response = await axios.post('http://127.0.0.1:8000/api/v1/admin/packages/create/', packageData)
+      const response = await AdminAxios.post('api/v1/admin/packages/create/', packageData)
       console.log('Package added:', response.data);
       navigate('/admin/AdminPackageList')
       toast.success('Package Added Successfully')

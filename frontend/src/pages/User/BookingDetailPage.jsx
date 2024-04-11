@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import '../../Styles/booking-detail-page.css'
 import { useParams } from 'react-router-dom'
 import { FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt, FaCalendarAlt, FaRupeeSign, FaCreditCard } from 'react-icons/fa';
-import axios from 'axios'
 import { useSelector } from 'react-redux';
 import Modal from 'react-modal'
 import { toast } from 'react-toastify';
+import { UserAxios } from '../../axios_instance/Axios_instance';
 
 
 const BookingDetailPage = () => {
@@ -20,7 +20,7 @@ const BookingDetailPage = () => {
   useEffect( () => {
     const fetchBookingDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/v1/user/bookings/${id}`)
+        const response = await UserAxios.get(`api/v1/user/bookings/${id}`)
         setBookingDetails(response.data)
       } catch (error) {
         console.log('Error fetching booking details:', error);
@@ -32,7 +32,7 @@ const BookingDetailPage = () => {
   useEffect(() => {
     const fetchWalletBalance = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/v1/user/wallet/${userInfo.id}/`);
+        const response = await UserAxios.get(`api/v1/user/wallet/${userInfo.id}/`);
         setWalletAmount(response.data.balance);
       } catch (error) {
         console.log('Error fetching wallet balance:', error);
@@ -46,13 +46,13 @@ const BookingDetailPage = () => {
   const handleCancelBooking = async() => {
     setLoading(true)
     try {
-      await axios.put(`http://localhost:8000/api/v1/user/bookings/${id}`,{
+      await UserAxios.put(`api/v1/user/bookings/${id}`,{
         status:'Returned',
         booking_status:'Cancelled'
       })
       toast.success('Booking cancelled and the amount is refunded in your wallet');
       const newWalletBalance = parseFloat(walletAmount) + parseFloat(bookingDetails.total);
-      await axios.put(`http://localhost:8000/api/v1/user/wallet/${userInfo.id}/`,{
+      await UserAxios.put(`api/v1/user/wallet/${userInfo.id}/`,{
         balance: newWalletBalance
       })
       setWalletAmount(newWalletBalance);

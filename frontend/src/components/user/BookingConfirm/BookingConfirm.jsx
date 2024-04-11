@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
+import { UserAxios } from '../../../axios_instance/Axios_instance'
 
 
 const BookingConfirm = () => {
@@ -21,7 +22,8 @@ const BookingConfirm = () => {
   useEffect(() => {
     const fetchBookingDetails = async ()=> {
       try {
-        const response = await axios.get(`http://localhost:8000/api/v1/user/bookings/${bookingId}`)
+        const response = await UserAxios.get(`api/v1/user/bookings/${bookingId}`) 
+        // axios.get(`http://localhost:8000/api/v1/user/bookings/${bookingId}`)
         setBookingDetails(response.data)
 
         if (response.data.status === 'Payment Complete') {
@@ -42,7 +44,7 @@ const BookingConfirm = () => {
 
           if(userInfo && userInfo.id) {
             console.log(userInfo.id);
-            const response = await axios.get(`http://localhost:8000/api/v1/user/wallet/${userInfo.id}/`);
+            const response = await UserAxios.get(`api/v1/user/wallet/${userInfo.id}/`)
             console.log(response);
             setWalletAmount(response.data.balance);
           }

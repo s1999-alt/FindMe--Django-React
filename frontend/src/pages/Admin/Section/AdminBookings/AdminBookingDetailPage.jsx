@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useSelector } from 'react-redux';
 import Modal from 'react-modal'
 import { toast } from 'react-toastify';
+import { AdminAxios } from '../../../../axios_instance/Axios_instance';
 
 
 const AdminBookingDetailPage = () => {
@@ -21,7 +22,7 @@ const AdminBookingDetailPage = () => {
   useEffect( () => {
     const fetchBookingDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/v1/user/bookings/${id}`)
+        const response = await AdminAxios.get(`api/v1/user/bookings/${id}`)
         setBookingDetails(response.data)
       } catch (error) {
         console.log('Error fetching booking details:', error);
@@ -33,7 +34,7 @@ const AdminBookingDetailPage = () => {
   useEffect(() => {
     const fetchWalletBalance = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/v1/user/wallet/${userInfo.id}/`);
+        const response = await AdminAxios.get(`api/v1/user/wallet/${userInfo.id}/`);
         setWalletAmount(response.data.balance);
       } catch (error) {
         console.log('Error fetching wallet balance:', error);
@@ -47,14 +48,14 @@ const AdminBookingDetailPage = () => {
   const handleCancelBooking = async() => {
     setLoading(true)
     try {
-      await axios.put(`http://localhost:8000/api/v1/user/bookings/${id}`,{
+      await AdminAxios.put(`api/v1/user/bookings/${id}`,{
         status:'Returned',
         booking_status:'Cancelled by FindMe'
       })
       navigate('/admin/booking-table')
       toast.success('Booking cancelled and the amount is refunded into user wallet');
       const newWalletBalance = parseFloat(walletAmount) + parseFloat(bookingDetails.total);
-      await axios.put(`http://localhost:8000/api/v1/user/wallet/${userInfo.id}/`,{
+      await AdminAxios.put(`api/v1/user/wallet/${userInfo.id}/`,{
         balance: newWalletBalance
       })
       setWalletAmount(newWalletBalance);

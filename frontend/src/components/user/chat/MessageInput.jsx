@@ -11,8 +11,6 @@ const MessageInput = ({sendMessage}) => {
   };
 
   const handleSend = () => {
-   
-
       if (message.trim() !== '') {
         const messageData = {
           "message": message,

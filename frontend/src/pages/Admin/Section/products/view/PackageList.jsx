@@ -1,7 +1,7 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './package-list.css'
+import { AdminAxios } from '../../../../../axios_instance/Axios_instance'
 
 
 const PackageList = () => {
@@ -11,7 +11,7 @@ const PackageList = () => {
   useEffect(() => {
     const fetchPackages = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/v1/admin/packages')
+        const response = await AdminAxios.get('api/v1/admin/packages')
         setPackages(response.data)
       } catch (error) {
         console.log('Error Fetching packages', error)
@@ -26,8 +26,8 @@ const PackageList = () => {
 
   const handleDelete = async (packageId) => {
     try{
-      await axios.delete(`http://127.0.0.1:8000/api/v1/user/packages/${packageId}`)
-      const response = await axios.get('http://127.0.0.1:8000/api/v1/admin/packages')
+      await AdminAxios.delete(`api/v1/user/packages/${packageId}`)
+      const response = await AdminAxios.get('api/v1/admin/packages')
       setPackages(response.data)
     } catch(error){
       console.log('Error deleting package', error)
@@ -36,7 +36,7 @@ const PackageList = () => {
 
   const handleBlockUnblock = async (packageId, isActive) => {
     try {
-      await axios.patch(`http://127.0.0.1:8000/api/v1/admin/packages/block/${packageId}/`)
+      await AdminAxios.patch(`api/v1/admin/packages/block/${packageId}/`)
       setPackages(prevPackages =>
         prevPackages.map(pack =>
           pack.id === packageId ? {...pack, is_active: !isActive} : pack

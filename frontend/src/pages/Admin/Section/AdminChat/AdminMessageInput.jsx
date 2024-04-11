@@ -20,13 +20,12 @@ const AdminMessageInput = ({ sendMessage, socket }) => {
   }
 
   const handleSend = () => {
-    
     if (message.trim() !== '') {
       console.log(userInfo.id);
       console.log('----------------------------');
       const formattedMessage = {
           "message": message,
-          "sender": userInfo.id,
+          "sender": userInfo.id 
       };
       sendMessage(formattedMessage, socket); // Send message only if it's not empty
       setMessage('');

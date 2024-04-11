@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import {useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -59,7 +58,7 @@ const EditCategoryForm = () => {
     }
 
     try {
-      const response = await axios.put(`http://127.0.0.1:8000/api/v1/admin/categories/update/${id}`, categoryData)
+      const response = await AdminAxios.put(`api/v1/admin/categories/update/${id}`, categoryData)
       console.log('Category updated:', response.data);
       navigate('/admin/categories')
       toast.success('Category updated Successfully');

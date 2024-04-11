@@ -21,7 +21,7 @@ import UserTableHead from '../user-table-head';
 import TableEmptyRows from '../table-empty-rows';
 import UserTableToolbar from '../user-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
-import axios from 'axios';
+import { AdminAxios } from '../../../../../axios_instance/Axios_instance';
 
 // ----------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ export default function UserPage() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const responce = await axios.get('http://localhost:8000/api/v1/admin/users')
+        const responce = await AdminAxios.get('api/v1/admin/users')
         setUsers(responce.data.users)
       } catch (error) {
         console.error('Error fetching users:', error)
@@ -55,7 +55,7 @@ export default function UserPage() {
 
 
  const handleBlockUser = async (userId) => {
-    await axios.patch(`http://localhost:8000/api/v1/admin/block/${userId}`,{
+    await AdminAxios.patch(`api/v1/admin/block/${userId}`,{
       is_active:false,
     }).then((res)=>{
       console.log(res);
@@ -77,7 +77,7 @@ export default function UserPage() {
     const formData = {
       is_active:true
     }
-    await axios.patch(`http://localhost:8000/api/v1/admin/block/${userId}`,formData).then((res)=>{
+    await AdminAxios.patch(`api/v1/admin/block/${userId}`,formData).then((res)=>{
       console.log(res);
     }).catch((err)=>{
       console.log(err);

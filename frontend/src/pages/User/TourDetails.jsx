@@ -5,11 +5,11 @@ import "slick-carousel/slick/slick-theme.css";
 import { Container, Row, Col} from 'reactstrap'
 import { useParams } from 'react-router-dom'
 import '../../Styles/tour-details.css'
-import axios from 'axios'
 import Booking from '../../components/user/Bookings/Booking';
 
 import threestar from '../../assets/3-star.gif'
 import { HiOutlineArrowRight } from "react-icons/hi";
+import { UserAxios } from '../../axios_instance/Axios_instance';
 
 
 const TourDetails = () => {
@@ -29,11 +29,11 @@ const TourDetails = () => {
   useEffect( () => {
     const fetchData = async () => {
       try {
-        const responce = await axios.get(`http://localhost:8000/api/v1/user/packages/${id}`)
+        const responce = await UserAxios.get(`api/v1/user/packages/${id}`)
         setPackageDetails(responce.data)
 
         //fetch daywise itinararies
-        const itinararyResponse = await axios.get(`http://localhost:8000/api/v1/user/itinararies/?package=${id}`)
+        const itinararyResponse = await UserAxios.get(`api/v1/user/itinararies/?package=${id}`)
         console.log(itinararyResponse.data);
         setItinararies(itinararyResponse.data)
 

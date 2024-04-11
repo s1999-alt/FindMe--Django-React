@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { UserAxios } from '../../../axios_instance/Axios_instance';
 
 
 const Booking = ({packageDetails}) => {
@@ -70,7 +71,7 @@ const Booking = ({packageDetails}) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/user/bookings/',{
+      const response = await UserAxios.post('api/v1/user/bookings/',{
         ...formData,
         package: packageDetails.id,
         user:userInfo.id,

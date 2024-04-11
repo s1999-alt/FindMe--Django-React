@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from '../../../components/admin/hooks';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../../features/auth/authSlice';
+import { AdminAxios, UserAxios } from '../../../axios_instance/Axios_instance';
 
 
 // ----------------------------------------------------------------------
@@ -55,7 +56,7 @@ export default function AccountPopover() {
   const dispatch = useDispatch()
   const handlelogout = async () =>{
     try{
-      const responce = await axios.get('http://localhost:8000/api/v1/admin/logout/')
+      const responce = await AdminAxios.get('api/v1/admin/logout/')
       dispatch(logout())
       localStorage.setItem('user', null)
       if (responce.status === 200){

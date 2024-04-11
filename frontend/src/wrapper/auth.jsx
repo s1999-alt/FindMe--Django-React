@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState } from 'react';
 import axios from 'axios';
+import { UserAxios } from '../axios_instance/Axios_instance';
 
 const AuthContext = createContext();
 
@@ -12,7 +13,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/admin/login/', { email, password });
+      const response = await UserAxios.post('api/v1/admin/login/', { email, password });
       setAuthenticated(true);
       // You can store the token in localStorage or a cookie if needed
       localStorage.setItem('token', response.data.token);
@@ -25,7 +26,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post('http://localhost:8000/api/v1/admin/logout/');
+      await UserAxios.post('api/v1/admin/logout/');
       setAuthenticated(false);
       // Clear the token from localStorage or a cookie if needed
       localStorage.removeItem('token');
@@ -46,7 +47,7 @@ export const AuthProvider = ({ children }) => {
 
 export const checkAuthentication = async () => {
   try {
-    const response = await axios.get('http://localhost:8000/api/v1/admin/check-authentication/');
+    const response = await UserAxios.get('api/v1/admin/check-authentication/');
     return response.data.authenticated;
   } catch (error) {
     console.error('Error checking authentication:', error);
