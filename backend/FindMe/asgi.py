@@ -7,36 +7,19 @@ For more information on this file, see
 https://docs.djangoproject.com/en/5.0/howto/deployment/asgi/
 """
 
-"""
-ASGI config for FindMe project.
-
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/5.0/howto/deployment/asgi/
-"""
-
 import os
 
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
-from users.route import websocket_urlpattern  # Correct import name
+from users.route import websocket_urlpattern
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'FindMe.settings')
 
+application = get_asgi_application()
 
-django_asgi_app = get_asgi_application()
-
-
-websocket_routing = ProtocolTypeRouter({
-    "http": django_asgi_app,
-    "websocket": URLRouter(
-        websocket_urlpattern  
-    )
-})
-
-# Expose the application
-application = websocket_routing
-
+application = ProtocolTypeRouter({
+  "http":application,
+  "websocket":URLRouter(websocket_urlpattern) 
+}) 
 
 
