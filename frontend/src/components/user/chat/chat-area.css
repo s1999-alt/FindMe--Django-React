@@ -6,11 +6,14 @@
   flex: 3;
   display: flex;
   flex-direction: column;
+  background-image: url(../../../assets/chatpageimage.jpg);
+  background-size: 200px; /* Cover the entire container */
+  background-position: center;
 }
 
 .chat-header{
-  background-color: #3498db;
-  color: #ffffff;
+  background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);;
+  color: #000000;
   padding: 15px;
   text-align: center;
 }

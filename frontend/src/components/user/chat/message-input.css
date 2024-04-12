@@ -1,24 +1,29 @@
-.message-input{
-  background-color: #ffffff;
-  padding: 15px;
-  border-top: 1px solid #e0e0e0;
-  display: flex;
-  align-items: center;
+.message-input {
+  display: flex; /* Use flexbox for alignment */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  width: 70rem; /* Set the width of the message input */
+  margin: 20px auto; /* Center the message input horizontally */
 }
 
-.message-input textarea{
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  resize: none;
-  /* outline: none; */
+
+.message-input textarea {
+  width: 100%; /* Occupy full width of the container */
+  max-width: 100%; /* Set maximum width to prevent overflow */
+  resize: none; /* Disable resizing */
+  padding: 10px; /* Add padding for better appearance */
+  border: 1px solid #ccc; /* Add border for visual distinction */
+  border-radius: 5px; /* Add rounded corners */
+  box-sizing: border-box; /* Include padding and border in width calculation */
 }
 
-.message-input button{
-  background-color: #3498db;
-  border: none;
-  border-radius: 5px;
-  color: #ffffff;
-  padding: 10px 20px;
-  margin-top: 10px;
+
+.message-input button {
+  margin-left: 10px; /* Add space between textarea and button */
+  padding: 10px 20px; /* Add padding to button */
+  border: none; /* Remove button border */
+  border-radius: 5px; /* Add rounded corners */
+  background-color: #007bff; /* Set button background color */
+  color: #fff; /* Set button text color */
+  cursor: pointer; /* Change cursor to pointer on hover */
 }

@@ -8,7 +8,7 @@ const ChatArea = ({messages, user_id}) => {
   console.log('===============mesages timestamp===================', messages.timestamp);
   return (
     <div className='chat-area'>
-      <div className="chat-header"></div>
+      <div className="chat-header">How Can We Help You...Just Ask!</div>
       <div className="messages">
         {messages ? (
           messages.map((message, index) => (
