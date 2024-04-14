@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
+import django
 from pathlib import Path
 import environ
 from datetime import timedelta
@@ -17,9 +18,11 @@ from datetime import timedelta
 env = environ.Env(DEBUG=(bool, False))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+dotenv_path = BASE_DIR / '.env'
 environ.Env.read_env(BASE_DIR / ".env")
 
-
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'FindMe.settings')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -69,7 +72,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'FindMe.urls'
-import os
+
 
 TEMPLATES = [
     {
