@@ -84,6 +84,7 @@ const AddCategoryForm = () => {
             type="file"
             name="category_image"
             onChange={handleImageChange}
+            accept="image/*"
           />
         </label>
         <button className='button' type="submit">Add Category</button>

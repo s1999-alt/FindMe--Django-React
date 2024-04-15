@@ -23,7 +23,7 @@ class CategorySerializer(serializers.ModelSerializer):
     fields = '__all__'
 
   def validate_image(self, value):
-    allowed_content_types = ['image/jpeg', 'image/png', 'image/gif']
+    allowed_content_types = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg']
 
     if value.content_type not in allowed_content_types:
       raise serializers.ValidationError('Invalid Image File Type. Only JPEG, PNG, and GIF are allowed')  
