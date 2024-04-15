@@ -54,7 +54,7 @@ const AddCategoryForm = () => {
   return (
     <div className='addcategory-container'>
       <h2 className="heading">Add Category</h2>
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit} enctype="multipart/form-data">
         <label className='label'>
           Category Name:
           <input
