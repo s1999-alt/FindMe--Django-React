@@ -32,7 +32,7 @@ const AdminChatPage = () => {
   console.log("=========================selected user",selectedUser);
 
   useEffect( () => {
-    const newSocket = new WebSocket(`ws://localhost:8000/ws/chat/${selectedUser}/`)
+    const newSocket = new WebSocket(`wss://findme.siyadsavad.online/ws/chat/${selectedUser}/`)
     console.log('-------------------');
     console.log(newSocket);
     newSocket.onopen = () => {
