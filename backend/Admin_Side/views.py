@@ -137,10 +137,10 @@ class CategoryCreateView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
 
         # category_image = request.data.get('image')
-        category_image = request.FILES.get('category_image')
-        if category_image:
-            if not category_image.content_type.startswith('image'):
-                return Response({'category_image': ['Invalid image format. Only images are allowed.']}, status=status.HTTP_400_BAD_REQUEST)
+        # category_image = request.FILES.get('category_image')
+        # if category_image:
+        #     if not category_image.content_type.startswith('image'):
+        #         return Response({'category_image': ['Invalid image format. Only images are allowed.']}, status=status.HTTP_400_BAD_REQUEST)
             
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
