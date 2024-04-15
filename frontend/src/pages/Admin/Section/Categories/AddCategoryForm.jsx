@@ -54,7 +54,7 @@ const AddCategoryForm = () => {
   return (
     <div className='addcategory-container'>
       <h2 className="heading">Add Category</h2>
-      <form className="form" onSubmit={handleSubmit} enctype="multipart/form-data">
+      <form className="form" onSubmit={handleSubmit}>
         <label className='label'>
           Category Name:
           <input
@@ -84,7 +84,6 @@ const AddCategoryForm = () => {
             type="file"
             name="category_image"
             onChange={handleImageChange}
-            accept="image/jpeg,image/png,image/gif"
           />
         </label>
         <button className='button' type="submit">Add Category</button>

@@ -22,12 +22,12 @@ class CategorySerializer(serializers.ModelSerializer):
     model = Category
     fields = '__all__'
 
-  # def validate_image(self, value):
-  #   allowed_content_types = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg']
+  def validate_image(self, value):
+    allowed_content_types = ['image/jpeg', 'image/png', 'image/gif']
 
-  #   if value.content_type not in allowed_content_types:
-  #     raise serializers.ValidationError('Invalid Image File Type. Only JPEG, PNG, and GIF are allowed')  
-  #   return value  
+    if value.content_type not in allowed_content_types:
+      raise serializers.ValidationError('Invalid Image File Type. Only JPEG, PNG, and GIF are allowed')  
+    return value  
 
 
 class PackageImageSerializer(serializers.ModelSerializer):
