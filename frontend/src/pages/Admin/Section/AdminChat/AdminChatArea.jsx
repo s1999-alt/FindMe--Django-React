@@ -19,7 +19,7 @@ const AdminChatArea = ( { messages, selectedUser, socket} ) => {
       <div className="admin-chat-header">chat with {selectedUser} </div>
       <div className="admin-messages">
         {messages.map((message, index) => (
-          <div className={`admin-message ${message.sender === selectedUser ? 'recieved': 'sent'}`}>
+          <div className={`admin-message ${message.sender === selectedUser ? 'sent': 'recieved'}`}>
             <div className="admin-message-bubble">
               {message.message}
               <div>{new Date(message.time_stamp).toLocaleString()}</div>
