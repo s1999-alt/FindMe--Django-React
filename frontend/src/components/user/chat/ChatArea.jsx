@@ -5,7 +5,7 @@ import './chat-area.css'
 const ChatArea = ({messages, user_id}) => {
   console.log("javsdvajdvjavdjasdjdjdajdjasd",user_id);
   console.log('messages array', messages);
-  console.log('===============mesages timestamp===================', messages.timestamp);
+  console.log('===============messages timestamp===================', messages.timestamp);
   return (
     <div className='chat-area'>
       <div className="chat-header">How Can We Help You...Just Ask!</div>
