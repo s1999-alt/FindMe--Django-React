@@ -192,7 +192,7 @@ const BookingConfirm = () => {
                     </div>
                   </div>
                   <div className="contn-pay-rt-main">
-                    <form action='http://localhost:8000/api/v1/admin/create-checkout-session/' method='POST'>
+                    <form action='https://findme.siyadsavad.online/api/v1/admin/create-checkout-session/' method='POST'>
                       <input type="hidden" name="booking_id" value={bookingId} />
                       <input type="hidden" name="user_id" value={userInfo.id} />
                       <h2>Wallet Amount: ₹{walletAmount}</h2>

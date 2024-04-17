@@ -62,7 +62,7 @@ class ResetPasswordView(APIView):
         if user and user.is_staff:
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
-            reset_link = f'<a href="http://localhost:5173/admin/password-reset/{uid}/{token}/">Click here to reset your password</a>'
+            reset_link = f'<a href="https://findme.siyadsavad.online/admin/password-reset/{uid}/{token}/">Click here to reset your password</a>'
 
 
             send_mail(
@@ -289,7 +289,7 @@ class StripeCheckoutView(APIView):
                             transaction_type=transaction_type
                         )
                         
-                    return redirect('http://localhost:5173/success?success=true')    
+                    return redirect('https://findme.siyadsavad.online/success?success=true')    
                 else:
                     amount_used_from_wallet = wallet.balance
                     booking.wallet_paid = amount_used_from_wallet
@@ -314,7 +314,7 @@ class StripeCheckoutView(APIView):
                         ],
                         payment_method_types=['card'],
                         mode='payment',
-                        success_url='http://localhost:8000/api/v1/admin/stripe-success/?session_id={CHECKOUT_SESSION_ID}',
+                        success_url='https://findme.siyadsavad.online/api/v1/admin/stripe-success/?session_id={CHECKOUT_SESSION_ID}',
                         cancel_url=settings.SITE_URL + '/?canceled=True',
                         customer_email=booking.email,
                         billing_address_collection='required',
@@ -345,7 +345,7 @@ class StripeCheckoutView(APIView):
                         ],
                         payment_method_types=['card'],
                         mode='payment',
-                        success_url='http://localhost:8000/api/v1/admin/stripe-success/?session_id={CHECKOUT_SESSION_ID}',
+                        success_url='https://findme.siyadsavad.online/api/v1/admin/stripe-success/?session_id={CHECKOUT_SESSION_ID}',
                         cancel_url=settings.SITE_URL + '/?canceled=True',
                         customer_email=booking.email,
                         billing_address_collection='required',
@@ -388,7 +388,7 @@ class StripeSuccessView(APIView):
                 booking.payment_method = 'Stripe'
                 booking.save()    
 
-            return redirect('http://localhost:5173/success?success=true')
+            return redirect('https://findme.siyadsavad.online/success?success=true')
 
         except stripe.error.StripeError as e:
             return Response(

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AdminAxios } from '../../../../axios_instance/Axios_instance'
 
 const HotelList = () => {
   const [hotels,setHotels] = useState([])
@@ -9,7 +10,7 @@ const HotelList = () => {
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/v1/admin/hotels/list/')
+        const response = await AdminAxios.get('api/v1/admin/hotels/list/')
         setHotels(response.data)
       } catch (error) {
         console.error('Error fetching hotels:', error)
