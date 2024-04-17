@@ -155,7 +155,7 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / 'static'
 STATIC_URL = 'static/'
 
-CSRF_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = ['https://findme.siyadsavad.online','https://*.127.0.0.1']
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
