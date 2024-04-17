@@ -21,7 +21,7 @@ const HotelList = () => {
 
   const handleToggleAvailability = async (hotelId, isAvailable) => {
     try {
-      await axios.patch(`http://127.0.0.1:8000/api/v1/admin/hotels/list/${hotelId}/`,{
+      await AdminAxios.patch(`api/v1/admin/hotels/list/${hotelId}/`,{
         is_available: !isAvailable,
       })
 

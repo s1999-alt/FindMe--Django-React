@@ -388,7 +388,7 @@ class StripeSuccessView(APIView):
                 booking.payment_method = 'Stripe'
                 booking.save()    
 
-            return redirect('https://findme.siyadsavad.online/success?success=true')
+            return redirect('https://master.d1flc43qrqfub1.amplifyapp.com/success?success=true')
 
         except stripe.error.StripeError as e:
             return Response(
