@@ -163,7 +163,7 @@ REST_FRAMEWORK = {
 
 PUBLIC_KEY = 'pk_test_51Or2HPSDdBPTenO6Kbxnw5ZPMlXL025WsUoySyl9ZUUGL0JQD7lokolYzSLGkokDZIkmNYiQOU1r7XNrTHTg3ubI00w28eowml'
 STRIPE_SECRET_KEY = 'sk_test_51Or2HPSDdBPTenO66DJMmHH5aI7nUFdIguYQrxBDYYbvsEqutPQOP0rkht9sX10FQTKZ7MRqC1gRIzWAGQxivqjE00iiW4MOMX'
-SITE_URL = 'http://localhost:5173'
+SITE_URL = 'https://findme.siyadsavad.online'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

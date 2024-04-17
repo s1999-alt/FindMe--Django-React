@@ -25,7 +25,6 @@ export const AdminAxios = axios.create({
   headers: {
     'Authorization': accessToken ? `Bearer ${accessToken}` : null,
     Accept: 'application/json',
-    'Content-Type': 'application/json',
   },
 });
 
@@ -33,7 +32,7 @@ export const UserAxios = axios.create({
   baseURL: BASE_URL,
   headers: {
     Accept: 'application/json',
-    'Content-Type': 'application/json',
+    // 'Content-Type': 'application/json',
   },
 });
 
