@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { AdminAxios } from '../../../../axios_instance/Axios_instance'
 import { useNavigate } from 'react-router-dom'
-import './addhotel.css'
+import './edit-hotel-form.css'
 
 const AddHotelForm = () => {
   const navigate = useNavigate()
