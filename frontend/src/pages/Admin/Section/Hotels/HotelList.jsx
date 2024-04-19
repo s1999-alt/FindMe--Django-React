@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AdminAxios } from '../../../../axios_instance/Axios_instance'
 
 const HotelList = () => {
@@ -44,6 +44,9 @@ const HotelList = () => {
   return (
     <div className="hotel-list-container">
       <h2>Hotel List</h2>
+      <Link to="/admin/AddHotels">
+          <button className="add-packages-button">Add Hotel</button> 
+      </Link>
       <table>
         <thead>
           <tr>

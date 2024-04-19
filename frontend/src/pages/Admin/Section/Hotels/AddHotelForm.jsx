@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { AdminAxios } from '../../../../axios_instance/Axios_instance'
+import { useNavigate } from 'react-router-dom'
+import './addhotel.css'
 
 const AddHotelForm = () => {
+  const navigate = useNavigate()
   const [formData,setFormData] = useState({
     hotel_name: '',
     place: '',
@@ -29,6 +32,7 @@ const AddHotelForm = () => {
 
     try {
       await AdminAxios.post('api/v1/admin/hotels/create/', hotelData)
+      navigate('/admin/Hotels')
       toast.success('Hotel Added Successfully')
       setFormData({
         hotel_name: '',
