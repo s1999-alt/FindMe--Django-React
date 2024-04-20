@@ -23,8 +23,8 @@ const navConfig = [
     icon: icon('ic_cart'),
   },
   {
-    title: 'AddPackages',
-    path: '/admin/AddPackages',
+    title: 'AddPackageImage',
+    path: '/admin/AddPackageImages',
     icon: icon('ic_cart'),
   },
   {

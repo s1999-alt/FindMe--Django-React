@@ -25,6 +25,7 @@ import AdminChatPage from '../pages/Admin/Section/AdminChat/AdminChatPage';
 import AddItineraryForm from '../pages/Admin/Section/Itinararies/AddItineraryForm';
 import ItineraryListPage from '../pages/Admin/Section/Itinararies/ItineraryListPage';
 import AdminBookingDetailPage from '../pages/Admin/Section/AdminBookings/AdminBookingDetailPage';
+import AddPackageImage from '../pages/Admin/Section/PackageImages/AddPackageImage';
 
 
 
@@ -60,7 +61,8 @@ function AdminWrapper() {
         {path: 'add-itineraries', element: <AddItineraryForm/> },
         {path: 'Itineraries', element: <ItineraryListPage/> },
         {path: 'AdminBookingDetails/:id', element: <AdminBookingDetailPage/> },
-        {path: 'messages', element: <AdminChatPage/> }
+        {path: 'messages', element: <AdminChatPage/> },
+        {path: 'AddPackageImages', element: <AddPackageImage/> }
 
 
         // { path: 'blog', element: <BlogPage /> },

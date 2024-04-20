@@ -1,51 +1,54 @@
-import React, { useState } from 'react'
-import { toast } from 'react-toastify'
-import { AdminAxios } from '../../../../axios_instance/Axios_instance'
-import { useNavigate } from 'react-router-dom'
-import './edit-hotel-form.css'
+// AddHotelForm.js
+
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import { AdminAxios } from '../../../../axios_instance/Axios_instance';
+import { useNavigate } from 'react-router-dom';
+import './add-hotel-form.css'; // Import the CSS file
 
 const AddHotelForm = () => {
-  const navigate = useNavigate()
-  const [formData,setFormData] = useState({
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
     hotel_name: '',
     place: '',
     hotel_overview: '',
     hotel_image: null,
     is_available: true,
-  })
+  });
 
-  const handleInputChange = (e) =>{
-    setFormData({...formData,[e.target.name]:e.target.value})
-  }
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  const handleImageChange = (e) =>{
-    setFormData({...formData,hotel_image: e.target.files[0]})
-  }
+  const handleImageChange = (e) => {
+    setFormData({ ...formData, hotel_image: e.target.files[0] });
+  };
 
-  const handleSubmit = async (e) =>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const hotelData = new FormData()
-    for (const key in formData){
-      hotelData.append(key,formData[key])
+    const hotelData = new FormData();
+    for (const key in formData) {
+      hotelData.append(key, formData[key]);
     }
 
     try {
-      await AdminAxios.post('api/v1/admin/hotels/create/', hotelData)
-      navigate('/admin/Hotels')
-      toast.success('Hotel Added Successfully')
+      await AdminAxios.post('api/v1/admin/hotels/create/', hotelData);
+      navigate('/admin/Hotels');
+      toast.success('Hotel Added Successfully');
       setFormData({
         hotel_name: '',
         place: '',
         hotel_overview: '',
         hotel_image: null,
         is_available: true,
-      })
+      });
     } catch (error) {
       console.error('Error adding hotel:', error);
       toast.error('An error occurred while adding the hotel');
     }
-  }
+  };
+
   return (
     <div className='add-hotel-container'>
       <h2>Add Hotel</h2>
@@ -97,7 +100,8 @@ const AddHotelForm = () => {
         <button type='submit'>Add Hotel</button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default AddHotelForm
+export default AddHotelForm;
+

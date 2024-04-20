@@ -6,11 +6,11 @@ from django.contrib.auth import logout
 from rest_framework.authtoken.models import Token
 from rest_framework_simplejwt.tokens import RefreshToken
 from users.models import User
-from .models import Packages, Category, Hotels, Booking, Wallet,WalletTransaction,Itinarary,ChatMessage
+from .models import Packages, Category, Hotels, Booking, Wallet,WalletTransaction,Itinarary,ChatMessage,PackageImages
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from rest_framework import generics
-from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer,AdminUserSerializer,BookingSerializer,ItinararySerializer,UserSerializer
+from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer,AdminUserSerializer,BookingSerializer,ItinararySerializer,UserSerializer,PackageImageSerializer
 import stripe
 from django.conf import settings
 from django.db import transaction
@@ -201,7 +201,17 @@ class PackageBlockUnblockView(generics.RetrieveUpdateAPIView):
         instance.is_active = not instance.is_active
         instance.save()
         serializer = self.get_serializer(instance)
-        return Response(serializer.data, status=status.HTTP_200_OK)   
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class PackageImageCreateView(generics.CreateAPIView):
+    queryset = PackageImages.objects.all()
+    serializer_class = PackageImageSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)  
 
 
 

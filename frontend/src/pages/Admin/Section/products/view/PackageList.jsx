@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './package-list.css'
 import { AdminAxios } from '../../../../../axios_instance/Axios_instance'
 
@@ -50,6 +50,9 @@ const PackageList = () => {
   return (
     <div className='package-list-container'>
       <h2 className="package-list-heading">Package List</h2>
+      <Link to="/admin/AddPackages">
+          <button className="add-packages-button">Add Package</button> 
+      </Link>
       <table className="package-list-table">
         <thead>
           <tr>
