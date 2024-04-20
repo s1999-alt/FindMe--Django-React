@@ -112,7 +112,7 @@ DATABASES = {
         'USER':env("USER") ,
         'PASSWORD':env("PASSWORD"),
         'HOST': 'localhost',
-        'PORT': '5433',
+        'PORT': '',
     }
 }
 
