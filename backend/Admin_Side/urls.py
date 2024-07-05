@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import AdminLoginView,UserListView,UserActiveView,CategoryListView,AdminPackageListView,PackageCreateView,PackageUpdateView,PackageBlockUnblockView,CategoryUpdateView,CategoryCreateView,CategoryDetails,AdminHotelCreateView,AdminHotelListView,AdminHotelView,StripeCheckoutView,StripeSuccessView,ResetPasswordView,PasswordResetView,AdminUserDetailsView,BookingListView,ItineraryCreateView,ItineraryListView,UniqueUserListView,GoogleAuth,PackageImageCreateView
+from .views import AdminLoginView,UserListView,UserActiveView,CategoryListView,AdminPackageListView,PackageCreateView,PackageUpdateView,PackageBlockUnblockView,CategoryUpdateView,CategoryCreateView,CategoryDetails,AdminHotelCreateView,AdminHotelListView,AdminHotelView,StripeCheckoutView,StripeSuccessView,ResetPasswordView,PasswordResetView,AdminUserDetailsView,BookingListView,ItineraryCreateView,ItineraryListView,UniqueUserListView,GoogleAuth,PackageImageCreateView,InclusionListView,ExclusionListView
 
 urlpatterns = [
     path('login/', AdminLoginView.as_view(), name='admin-login'),
@@ -26,6 +26,8 @@ urlpatterns = [
     path('itineraries/create/', ItineraryCreateView.as_view(), name='itinerary-create'),
     path('itineraries/', ItineraryListView.as_view(), name='itinerary-list'),
 
+    path('inclusions/', InclusionListView.as_view(), name='inclusions-list'),
+    path('exclusions/', ExclusionListView.as_view(), name='exclusions-list'),
 
     path('categories/', CategoryCreateView.as_view(), name='category-create'),
     path('categories/list/', CategoryListView.as_view(), name='category-list'),

@@ -6,11 +6,11 @@ from django.contrib.auth import logout
 from rest_framework.authtoken.models import Token
 from rest_framework_simplejwt.tokens import RefreshToken
 from users.models import User
-from .models import Packages, Category, Hotels, Booking, Wallet,WalletTransaction,Itinarary,ChatMessage,PackageImages
+from .models import Packages, Category, Hotels, Booking, Wallet,WalletTransaction,Itinarary,ChatMessage,PackageImages,Inclusions,Exclusions
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from rest_framework import generics
-from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer,AdminUserSerializer,BookingSerializer,ItinararySerializer,UserSerializer,PackageImageSerializer
+from .serializers import UserDetailsSerializer,CategorySerializer,AdminPackageListSerializer,PackageSerializer,AdminHotelSerializer,AdminUserSerializer,BookingSerializer,ItinararySerializer,UserSerializer,PackageImageSerializer,InclusionsSerializer,ExclusionsSerializer
 import stripe
 from django.conf import settings
 from django.db import transaction
@@ -27,9 +27,6 @@ from google.auth.transport import requests
 from rest_framework.parsers import MultiPartParser, FormParser
 from decouple import config
 from rest_framework.exceptions import AuthenticationFailed, ParseError
-
-
-
 
 
 
@@ -232,6 +229,21 @@ class AdminHotelView(generics.RetrieveUpdateDestroyAPIView):
 
 
 
+class InclusionListView(generics.ListAPIView):
+    queryset = Inclusions.objects.all()
+    serializer_class = InclusionsSerializer  
+
+
+
+class ExclusionListView(generics.ListAPIView):
+    queryset = Exclusions.objects.all()
+    serializer_class = ExclusionsSerializer
+
+
+
+
+
+
 class ItineraryCreateView(generics.CreateAPIView):
     queryset = Itinarary.objects.all()
     serializer_class = ItinararySerializer
@@ -299,7 +311,7 @@ class StripeCheckoutView(APIView):
                             transaction_type=transaction_type
                         )
                         
-                    return redirect('https://findme.siyadsavad.online/success?success=true')    
+                    return redirect('https://master.d1flc43qrqfub1.amplifyapp.com/success?success=true')    
                 else:
                     amount_used_from_wallet = wallet.balance
                     booking.wallet_paid = amount_used_from_wallet
