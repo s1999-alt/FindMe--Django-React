@@ -36,7 +36,7 @@ ALLOWED_HOSTS = ['*']
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "https://findme.siyadsavad.online",
+    "https://find.siyadsavad.online",
     "https://master.d1flc43qrqfub1.amplifyapp.com",
 ]
 
@@ -155,7 +155,7 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / 'static'
 STATIC_URL = 'static/'
 
-CSRF_TRUSTED_ORIGINS = ['https://findme.siyadsavad.online','https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://find.siyadsavad.online','https://*.127.0.0.1']
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
