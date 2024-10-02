@@ -55,7 +55,8 @@ class ResetPasswordView(APIView):
     def post(self, request):
         email = request.data.get('email')
         user = User.objects.filter(email=email).first()
-
+        print('hey ----- hey this is ')
+        print(email)
         if user and user.is_staff:
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))

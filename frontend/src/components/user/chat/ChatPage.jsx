@@ -14,6 +14,7 @@ const ChatPage = () => {
   const [socket, setSocket] = useState(null)
 
   useEffect( () => {
+    // const newSocket = new WebSocket(`ws://localhost:8000/ws/chat/${userInfo.id}/`);
     const newSocket = new WebSocket(`wss://findme.siyadsavad.online/ws/chat/${userInfo.id}/`);
 
     newSocket.onopen = () => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../../Styles/booking-detail-page.css'
-import { useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt, FaCalendarAlt, FaRupeeSign, FaCreditCard } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import Modal from 'react-modal'
@@ -9,6 +9,7 @@ import { UserAxios } from '../../axios_instance/Axios_instance';
 
 
 const BookingDetailPage = () => {
+  const navigate = useNavigate()
   const {user, userInfo} = useSelector((state) => state.auth);
   const {id} = useParams()
   const [bookingDetails, setBookingDetails] = useState(null)

@@ -7,6 +7,7 @@ import { AdminAxios } from '../../../../../axios_instance/Axios_instance'
 
 
 const AddPackageForm = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     package_name: '',
     duration: '',
@@ -18,16 +19,28 @@ const AddPackageForm = () => {
     city: '',
     rating:'',
     is_active: false,
+    inclusions: [], 
+    exclusions: [], 
+    hotels: [],
   })
    
-  const navigate = useNavigate()
   const [categories, setCategories] = useState([])
+  const [inclusions, setInclusions] = useState([]);
+  const [exclusions, setExclusions] = useState([]);
+  const [hotels, setHotels] = useState([]);
 
   useEffect(() =>{
     const fetchCategories = async () => {
       try{
-        const response = await AdminAxios.get('api/v1/admin/categories/list/')
-        setCategories(response.data);
+        const categoryResponse = await AdminAxios.get('api/v1/admin/categories/list/')
+        const inclusionResponse = await AdminAxios.get('api/v1/admin/inclusions/');
+        const exclusionResponse = await AdminAxios.get('api/v1/admin/exclusions/');
+        const hotelResponse = await AdminAxios.get('api/v1/admin/hotels/list/');
+
+        setCategories(categoryResponse.data);
+        setInclusions(inclusionResponse.data);
+        setExclusions(exclusionResponse.data);
+        setHotels(hotelResponse.data);
       }catch(error){
         console.error('Error fetching categories:', error);
       }
@@ -48,6 +61,12 @@ const AddPackageForm = () => {
   const handleCheckboxChange = (e) => {
     setFormData({ ...formData, is_active: e.target.checked});
   }
+
+  const handleMultiSelectChange = (e) => {
+    const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
+    setFormData({ ...formData, [e.target.name]: selectedOptions });
+  };
+
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
@@ -181,6 +200,58 @@ const AddPackageForm = () => {
             />
           </div>  
         </label>
+
+        <label className="label">
+          Inclusions:
+          <select
+            className="select"
+            name="inclusions"
+            multiple
+            value={formData.inclusions}
+            onChange={handleMultiSelectChange}
+          >
+            {inclusions.map((inclusion) => (
+              <option key={inclusion.id} value={inclusion.id}>
+                {inclusion.inclusion}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="label">
+          Exclusions:
+          <select
+            className="select"
+            name="exclusions"
+            multiple
+            value={formData.exclusions}
+            onChange={handleMultiSelectChange}
+          >
+            {exclusions.map((exclusion) => (
+              <option key={exclusion.id} value={exclusion.id}>
+                {exclusion.exclusion}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="label">
+          Hotels:
+          <select
+            className="select"
+            name="hotels"
+            multiple
+            value={formData.hotels}
+            onChange={handleMultiSelectChange}
+          >
+            {hotels.map((hotel) => (
+              <option key={hotel.id} value={hotel.id}>
+                {hotel.hotel_name}
+              </option>
+            ))}
+          </select>
+        </label>
+
         <button className='button' type="submit">Add Package</button>
       </form>
     </div>
